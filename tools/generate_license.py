@@ -39,7 +39,7 @@ def activate_customer(customer_id: str, hardware_id: str):
         return
 
     secret = ""
-    with open(secret_file, "r") as f:
+    with open(secret_file) as f:
         for line in f:
             if line.startswith("License Secret:"):
                 secret = line.split(":", 1)[1].strip()
@@ -58,7 +58,7 @@ def activate_customer(customer_id: str, hardware_id: str):
         print(f"❌ Customer config not found: {config_path}")
         return
 
-    with open(config_path, "r", encoding="utf-8") as f:
+    with open(config_path, encoding="utf-8") as f:
         config = json.load(f)
 
     config["license_key"] = license_key
@@ -70,7 +70,7 @@ def activate_customer(customer_id: str, hardware_id: str):
     print(f"   Hardware ID: {hardware_id[:16]}...")
     print(f"   License Key: {license_key[:16]}...")
     print(f"   Saved to: {config_path}")
-    print(f"\n   Copy the updated config.json to the customer's device.")
+    print("\n   Copy the updated config.json to the customer's device.")
 
 
 if __name__ == "__main__":

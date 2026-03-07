@@ -10,7 +10,6 @@ Usage:
 
 import argparse
 import json
-import os
 import secrets
 import shutil
 from pathlib import Path
@@ -95,24 +94,28 @@ def install_customer(name: str, customer_id: str, model_hint: str = "7b"):
         f.write(f"Customer: {name}\n")
         f.write(f"ID: {customer_id}\n")
         f.write(f"License Secret: {license_secret}\n")
-        f.write(f"\nTo generate license on customer's device:\n")
-        f.write(f"  python backend/license_check.py  (prints hardware ID)\n")
-        f.write(f"  python tools/generate_license.py --hardware-id <ID> --secret {license_secret}\n")
+        f.write("\nTo generate license on customer's device:\n")
+        f.write("  python backend/license_check.py  (prints hardware ID)\n")
+        f.write(
+            f"  python tools/generate_license.py --hardware-id <ID> --secret {license_secret}\n"
+        )
 
-    print(f"\n✅ Customer installation created!")
+    print("\n✅ Customer installation created!")
     print(f"   Directory: {customer_dir}")
     print(f"   Config: {config_path}")
     print(f"   Secret: {secrets_file}")
-    print(f"\n📋 Next steps:")
+    print("\n📋 Next steps:")
     print(f"   1. Copy '{customer_dir}' to USB drive")
-    print(f"   2. On customer's device:")
-    print(f"      a. Install Python 3.11+")
-    print(f"      b. pip install -r requirements.txt")
-    print(f"      c. python run.py")
-    print(f"   3. Generate license:")
-    print(f"      a. python backend/license_check.py → get hardware ID")
-    print(f"      b. Send hardware ID to you")
-    print(f"      c. You run: python tools/generate_license.py --hardware-id <ID> --customer-id {customer_id}")
+    print("   2. On customer's device:")
+    print("      a. Install Python 3.11+")
+    print("      b. pip install -r requirements.txt")
+    print("      c. python run.py")
+    print("   3. Generate license:")
+    print("      a. python backend/license_check.py → get hardware ID")
+    print("      b. Send hardware ID to you")
+    print(
+        f"      c. You run: python tools/generate_license.py --hardware-id <ID> --customer-id {customer_id}"
+    )
 
 
 if __name__ == "__main__":

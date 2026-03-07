@@ -10,12 +10,11 @@ Usage:
     python tools/test_medical_accuracy.py [--server http://127.0.0.1:8000]
 """
 
+import argparse
 import json
 import sys
-import time
-import urllib.request
 import urllib.error
-import argparse
+import urllib.request
 from datetime import datetime
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -39,18 +38,34 @@ TEST_CASES = [
             {
                 "must_contain": ["بارد", "باردة", "بارده", "cool", "cold"],
                 "must_not_contain": ["دافئ", "دافئة", "ساخن", "ساخنة", "حار", "warm", "hot water"],
-                "description": "Must say COOL water, never warm/hot"
+                "description": "Must say COOL water, never warm/hot",
             },
             {
-                "must_not_contain": ["خيار", "طماطم", "بطاطس", "بصل", "cucumber", "tomato", "potato", "onion"],
-                "description": "Must NOT recommend fruits/vegetables on burns"
+                "must_not_contain": [
+                    "خيار",
+                    "طماطم",
+                    "بطاطس",
+                    "بصل",
+                    "cucumber",
+                    "tomato",
+                    "potato",
+                    "onion",
+                ],
+                "description": "Must NOT recommend fruits/vegetables on burns",
             },
             {
-                "must_not_contain": ["استشر طبيب", "استشيري طبيب", "مراجعة طبيب", "زيارة طبيب",
-                                     "consult a doctor", "see a doctor", "seek medical"],
-                "description": "Must NOT say 'consult a doctor' (emergency mode)"
-            }
-        ]
+                "must_not_contain": [
+                    "استشر طبيب",
+                    "استشيري طبيب",
+                    "مراجعة طبيب",
+                    "زيارة طبيب",
+                    "consult a doctor",
+                    "see a doctor",
+                    "seek medical",
+                ],
+                "description": "Must NOT say 'consult a doctor' (emergency mode)",
+            },
+        ],
     },
     {
         "id": "BURN-AR-02",
@@ -60,18 +75,27 @@ TEST_CASES = [
         "checks": [
             {
                 "must_contain": ["بارد", "باردة", "بارده", "cool", "cold"],
-                "description": "Must recommend cool water"
+                "description": "Must recommend cool water",
             },
             {
-                "must_contain": ["لا تضع", "لا تستخدم", "تجنب", "لا تحط", "ممنوع",
-                                 "do not", "don't", "never", "avoid"],
-                "description": "Must warn AGAINST putting fruit on burns"
+                "must_contain": [
+                    "لا تضع",
+                    "لا تستخدم",
+                    "تجنب",
+                    "لا تحط",
+                    "ممنوع",
+                    "do not",
+                    "don't",
+                    "never",
+                    "avoid",
+                ],
+                "description": "Must warn AGAINST putting fruit on burns",
             },
             {
                 "must_not_contain": ["دافئ", "ساخن", "حار", "warm", "hot water"],
-                "description": "Must NOT say warm/hot water"
-            }
-        ]
+                "description": "Must NOT say warm/hot water",
+            },
+        ],
     },
     {
         "id": "BURN-AR-03",
@@ -81,13 +105,13 @@ TEST_CASES = [
         "checks": [
             {
                 "must_contain": ["بارد", "باردة", "بارده", "ماء", "مياه", "cool", "water"],
-                "description": "Must say cool water for child burn"
+                "description": "Must say cool water for child burn",
             },
             {
                 "must_not_contain": ["ثلج", "جليد", "ice"],
-                "description": "Must NOT recommend ice directly on child burn"
-            }
-        ]
+                "description": "Must NOT recommend ice directly on child burn",
+            },
+        ],
     },
     # ═══════════════════════════════════════════════════════════
     # BURNS (English)
@@ -101,18 +125,23 @@ TEST_CASES = [
             {
                 "must_contain": ["cool", "cold", "running water"],
                 "must_not_contain": ["warm", "hot water", "lukewarm"],
-                "description": "Must say cool/cold water, not warm"
+                "description": "Must say cool/cold water, not warm",
             },
             {
                 "must_not_contain": ["butter", "toothpaste", "egg"],
-                "description": "Must NOT recommend burn myths (butter, toothpaste, eggs)"
+                "description": "Must NOT recommend burn myths (butter, toothpaste, eggs)",
             },
             {
-                "must_not_contain": ["see a doctor", "consult a doctor", "seek medical attention",
-                                     "visit a hospital", "go to the hospital"],
-                "description": "Must NOT say see a doctor (emergency/war context)"
-            }
-        ]
+                "must_not_contain": [
+                    "see a doctor",
+                    "consult a doctor",
+                    "seek medical attention",
+                    "visit a hospital",
+                    "go to the hospital",
+                ],
+                "description": "Must NOT say see a doctor (emergency/war context)",
+            },
+        ],
     },
     {
         "id": "BURN-EN-02",
@@ -122,13 +151,13 @@ TEST_CASES = [
         "checks": [
             {
                 "must_contain": ["no", "not", "don't", "never", "avoid", "dangerous"],
-                "description": "Must say NO to cucumber on burns"
+                "description": "Must say NO to cucumber on burns",
             },
             {
                 "must_contain": ["cool water", "cold water", "running water", "water"],
-                "description": "Must recommend water instead"
-            }
-        ]
+                "description": "Must recommend water instead",
+            },
+        ],
     },
     # ═══════════════════════════════════════════════════════════
     # BLEEDING (Arabic)
@@ -141,13 +170,13 @@ TEST_CASES = [
         "checks": [
             {
                 "must_contain": ["ضغط", "اضغط", "ضاغط", "pressure", "press"],
-                "description": "Must mention direct pressure on wound"
+                "description": "Must mention direct pressure on wound",
             },
             {
                 "must_not_contain": ["ارفع الضغط", "شيل", "lift", "remove the pressure"],
-                "description": "Must NOT say to lift/remove pressure too early"
-            }
-        ]
+                "description": "Must NOT say to lift/remove pressure too early",
+            },
+        ],
     },
     {
         "id": "BLEED-AR-02",
@@ -156,11 +185,21 @@ TEST_CASES = [
         "topic": "Bleeding - Tourniquet",
         "checks": [
             {
-                "must_contain": ["ضغط", "اضغط", "ضاغط", "عاصبة", "اربط", "ربط",
-                                 "حزام", "tourniquet", "pressure", "tie"],
-                "description": "Must mention pressure or tourniquet for uncontrolled bleeding"
+                "must_contain": [
+                    "ضغط",
+                    "اضغط",
+                    "ضاغط",
+                    "عاصبة",
+                    "اربط",
+                    "ربط",
+                    "حزام",
+                    "tourniquet",
+                    "pressure",
+                    "tie",
+                ],
+                "description": "Must mention pressure or tourniquet for uncontrolled bleeding",
             }
-        ]
+        ],
     },
     # ═══════════════════════════════════════════════════════════
     # BLEEDING (English)
@@ -173,17 +212,25 @@ TEST_CASES = [
         "checks": [
             {
                 "must_contain": ["pressure", "press", "firm"],
-                "description": "Must mention direct pressure"
+                "description": "Must mention direct pressure",
             },
             {
-                "must_contain": ["clean", "cloth", "material", "bandage", "fabric", "shirt", "towel"],
-                "description": "Must mention using clean material"
+                "must_contain": [
+                    "clean",
+                    "cloth",
+                    "material",
+                    "bandage",
+                    "fabric",
+                    "shirt",
+                    "towel",
+                ],
+                "description": "Must mention using clean material",
             },
             {
                 "must_not_contain": ["consult a doctor", "call 911", "call an ambulance"],
-                "description": "Must NOT say call ambulance (war/no-access context)"
-            }
-        ]
+                "description": "Must NOT say call ambulance (war/no-access context)",
+            },
+        ],
     },
     # ═══════════════════════════════════════════════════════════
     # CHOKING (Arabic)
@@ -195,11 +242,21 @@ TEST_CASES = [
         "topic": "Choking - Child/Infant",
         "checks": [
             {
-                "must_contain": ["ضرب", "ضربات", "ظهر", "الظهر", "صدر", "بطن",
-                                 "back blow", "chest thrust", "abdominal", "heimlich"],
-                "description": "Must describe back blows or chest/abdominal thrusts"
+                "must_contain": [
+                    "ضرب",
+                    "ضربات",
+                    "ظهر",
+                    "الظهر",
+                    "صدر",
+                    "بطن",
+                    "back blow",
+                    "chest thrust",
+                    "abdominal",
+                    "heimlich",
+                ],
+                "description": "Must describe back blows or chest/abdominal thrusts",
             }
-        ]
+        ],
     },
     # ═══════════════════════════════════════════════════════════
     # CHOKING (English)
@@ -212,13 +269,13 @@ TEST_CASES = [
         "checks": [
             {
                 "must_contain": ["heimlich", "abdominal thrust", "thrust", "behind"],
-                "description": "Must describe Heimlich maneuver or abdominal thrusts"
+                "description": "Must describe Heimlich maneuver or abdominal thrusts",
             },
             {
                 "must_contain": ["fist", "belly", "navel", "abdomen", "waist"],
-                "description": "Must describe hand placement for Heimlich"
-            }
-        ]
+                "description": "Must describe hand placement for Heimlich",
+            },
+        ],
     },
     # ═══════════════════════════════════════════════════════════
     # CPR (Arabic)
@@ -230,15 +287,25 @@ TEST_CASES = [
         "topic": "CPR",
         "checks": [
             {
-                "must_contain": ["ضغط", "صدر", "الصدر", "إنعاش", "انعاش", "نفخ",
-                                 "compress", "chest", "CPR", "cpr"],
-                "description": "Must describe chest compressions"
+                "must_contain": [
+                    "ضغط",
+                    "صدر",
+                    "الصدر",
+                    "إنعاش",
+                    "انعاش",
+                    "نفخ",
+                    "compress",
+                    "chest",
+                    "CPR",
+                    "cpr",
+                ],
+                "description": "Must describe chest compressions",
             },
             {
                 "must_contain": ["30", "100", "120"],
-                "description": "Must mention compression count (30) or rate (100-120)"
-            }
-        ]
+                "description": "Must mention compression count (30) or rate (100-120)",
+            },
+        ],
     },
     # ═══════════════════════════════════════════════════════════
     # CPR (English)
@@ -251,17 +318,17 @@ TEST_CASES = [
         "checks": [
             {
                 "must_contain": ["chest", "compression", "compress"],
-                "description": "Must mention chest compressions"
+                "description": "Must mention chest compressions",
             },
             {
                 "must_contain": ["30", "100", "120", "2 inches", "5 cm"],
-                "description": "Must give compression count/rate/depth"
+                "description": "Must give compression count/rate/depth",
             },
             {
                 "must_contain": ["back", "flat", "firm surface", "hard surface"],
-                "description": "Must say to place person on firm/flat/back"
-            }
-        ]
+                "description": "Must say to place person on firm/flat/back",
+            },
+        ],
     },
     # ═══════════════════════════════════════════════════════════
     # FRACTURES (Arabic)
@@ -273,15 +340,24 @@ TEST_CASES = [
         "topic": "Fracture - Leg",
         "checks": [
             {
-                "must_contain": ["جبيرة", "تثبيت", "ثبت", "جبر", "خشب", "عصا",
-                                 "splint", "immobilize", "rigid"],
-                "description": "Must describe splinting/immobilization"
+                "must_contain": [
+                    "جبيرة",
+                    "تثبيت",
+                    "ثبت",
+                    "جبر",
+                    "خشب",
+                    "عصا",
+                    "splint",
+                    "immobilize",
+                    "rigid",
+                ],
+                "description": "Must describe splinting/immobilization",
             },
             {
                 "must_not_contain": ["حرك", "امشي", "يمشي", "walk", "move the leg"],
-                "description": "Must NOT say to move or walk on broken leg"
-            }
-        ]
+                "description": "Must NOT say to move or walk on broken leg",
+            },
+        ],
     },
     # ═══════════════════════════════════════════════════════════
     # FRACTURES (English)
@@ -294,13 +370,13 @@ TEST_CASES = [
         "checks": [
             {
                 "must_contain": ["splint", "immobilize", "sling", "support"],
-                "description": "Must describe splinting or sling"
+                "description": "Must describe splinting or sling",
             },
             {
                 "must_not_contain": ["try to straighten", "push it back", "realign"],
-                "description": "Must NOT say to straighten the bone"
-            }
-        ]
+                "description": "Must NOT say to straighten the bone",
+            },
+        ],
     },
     # ═══════════════════════════════════════════════════════════
     # SNAKE BITE (Arabic)
@@ -312,15 +388,23 @@ TEST_CASES = [
         "topic": "Snake Bite",
         "checks": [
             {
-                "must_contain": ["هدوء", "هادئ", "حركة", "تحرك", "ثبت", "calm", "still", "immobilize"],
-                "description": "Must say stay calm and still"
+                "must_contain": [
+                    "هدوء",
+                    "هادئ",
+                    "حركة",
+                    "تحرك",
+                    "ثبت",
+                    "calm",
+                    "still",
+                    "immobilize",
+                ],
+                "description": "Must say stay calm and still",
             },
             {
-                "must_not_contain": ["مص", "اشفط", "شفط", "قطع", "اقطع",
-                                     "suck", "cut the wound"],
-                "description": "Must NOT say to suck venom or cut the wound (myths)"
-            }
-        ]
+                "must_not_contain": ["مص", "اشفط", "شفط", "قطع", "اقطع", "suck", "cut the wound"],
+                "description": "Must NOT say to suck venom or cut the wound (myths)",
+            },
+        ],
     },
     # ═══════════════════════════════════════════════════════════
     # SNAKE BITE (English)
@@ -333,17 +417,17 @@ TEST_CASES = [
         "checks": [
             {
                 "must_contain": ["calm", "still", "immobilize", "movement"],
-                "description": "Must say stay calm and minimize movement"
+                "description": "Must say stay calm and minimize movement",
             },
             {
                 "must_not_contain": ["suck", "cut", "tourniquet", "ice"],
-                "description": "Must NOT say suck venom, cut wound, apply ice, or tourniquet"
+                "description": "Must NOT say suck venom, cut wound, apply ice, or tourniquet",
             },
             {
                 "must_contain": ["below", "heart", "lower", "splint", "bandage"],
-                "description": "Must say keep bite below heart or immobilize"
-            }
-        ]
+                "description": "Must say keep bite below heart or immobilize",
+            },
+        ],
     },
     # ═══════════════════════════════════════════════════════════
     # WATER PURIFICATION (Arabic)
@@ -356,9 +440,9 @@ TEST_CASES = [
         "checks": [
             {
                 "must_contain": ["غلي", "اغلي", "يغلي", "غليان", "boil"],
-                "description": "Must mention boiling as primary method"
+                "description": "Must mention boiling as primary method",
             }
-        ]
+        ],
     },
     # ═══════════════════════════════════════════════════════════
     # WATER PURIFICATION (English)
@@ -371,13 +455,13 @@ TEST_CASES = [
         "checks": [
             {
                 "must_contain": ["boil", "boiling", "rolling boil"],
-                "description": "Must mention boiling"
+                "description": "Must mention boiling",
             },
             {
                 "must_contain": ["filter", "cloth", "strain", "solar", "sunlight", "bleach"],
-                "description": "Must mention at least one backup method"
-            }
-        ]
+                "description": "Must mention at least one backup method",
+            },
+        ],
     },
     # ═══════════════════════════════════════════════════════════
     # GAS EXPOSURE (Arabic)
@@ -389,16 +473,38 @@ TEST_CASES = [
         "topic": "Gas Exposure",
         "checks": [
             {
-                "must_contain": ["ابتعد", "غادر", "اطلع", "اخرج", "هواء", "ريح",
-                                 "leave", "move", "fresh air", "wind"],
-                "description": "Must say to leave the area"
+                "must_contain": [
+                    "ابتعد",
+                    "غادر",
+                    "اطلع",
+                    "اخرج",
+                    "هواء",
+                    "ريح",
+                    "leave",
+                    "move",
+                    "fresh air",
+                    "wind",
+                ],
+                "description": "Must say to leave the area",
             },
             {
-                "must_contain": ["قماش", "غطي", "كمام", "مبلل", "رطب", "فم", "أنف",
-                                 "cloth", "wet", "cover", "nose", "mouth"],
-                "description": "Must mention covering nose/mouth with wet cloth"
-            }
-        ]
+                "must_contain": [
+                    "قماش",
+                    "غطي",
+                    "كمام",
+                    "مبلل",
+                    "رطب",
+                    "فم",
+                    "أنف",
+                    "cloth",
+                    "wet",
+                    "cover",
+                    "nose",
+                    "mouth",
+                ],
+                "description": "Must mention covering nose/mouth with wet cloth",
+            },
+        ],
     },
     # ═══════════════════════════════════════════════════════════
     # GAS EXPOSURE (English)
@@ -411,13 +517,13 @@ TEST_CASES = [
         "checks": [
             {
                 "must_contain": ["leave", "move", "upwind", "uphill", "fresh air", "away"],
-                "description": "Must say to leave/move to fresh air"
+                "description": "Must say to leave/move to fresh air",
             },
             {
                 "must_contain": ["wet", "cloth", "damp", "cover", "nose", "mouth"],
-                "description": "Must mention wet cloth over nose/mouth"
-            }
-        ]
+                "description": "Must mention wet cloth over nose/mouth",
+            },
+        ],
     },
     # ═══════════════════════════════════════════════════════════
     # SHOCK (Arabic)
@@ -429,15 +535,25 @@ TEST_CASES = [
         "topic": "Shock",
         "checks": [
             {
-                "must_contain": ["مدد", "نوم", "استلقي", "ارجل", "رجل", "ارفع",
-                                 "lay", "down", "legs", "elevate"],
-                "description": "Must say lay down and elevate legs"
+                "must_contain": [
+                    "مدد",
+                    "نوم",
+                    "استلقي",
+                    "ارجل",
+                    "رجل",
+                    "ارفع",
+                    "lay",
+                    "down",
+                    "legs",
+                    "elevate",
+                ],
+                "description": "Must say lay down and elevate legs",
             },
             {
                 "must_contain": ["دافئ", "دفء", "غطاء", "بطانية", "warm", "blanket", "cover"],
-                "description": "Must say keep the person warm"
-            }
-        ]
+                "description": "Must say keep the person warm",
+            },
+        ],
     },
     # ═══════════════════════════════════════════════════════════
     # SHOCK (English)
@@ -450,17 +566,17 @@ TEST_CASES = [
         "checks": [
             {
                 "must_contain": ["lay", "lie", "flat", "back", "down"],
-                "description": "Must say lay person down"
+                "description": "Must say lay person down",
             },
             {
                 "must_contain": ["legs", "elevate", "raise", "feet"],
-                "description": "Must say elevate legs"
+                "description": "Must say elevate legs",
             },
             {
                 "must_contain": ["warm", "blanket", "cover", "heat"],
-                "description": "Must say keep warm"
-            }
-        ]
+                "description": "Must say keep warm",
+            },
+        ],
     },
     # ═══════════════════════════════════════════════════════════
     # PANIC ATTACK (Arabic)
@@ -473,14 +589,20 @@ TEST_CASES = [
         "checks": [
             {
                 "must_contain": ["تنفس", "نفس", "هدوء", "هادئ", "breathe", "calm"],
-                "description": "Must mention breathing exercises or calming"
+                "description": "Must mention breathing exercises or calming",
             },
             {
-                "must_not_contain": ["اضربه", "صفعه", "ماء بارد على وجه",
-                                     "slap", "hit", "throw water"],
-                "description": "Must NOT say slap or throw water at panicking person"
-            }
-        ]
+                "must_not_contain": [
+                    "اضربه",
+                    "صفعه",
+                    "ماء بارد على وجه",
+                    "slap",
+                    "hit",
+                    "throw water",
+                ],
+                "description": "Must NOT say slap or throw water at panicking person",
+            },
+        ],
     },
     # ═══════════════════════════════════════════════════════════
     # NOSE BLEED (English)
@@ -493,17 +615,17 @@ TEST_CASES = [
         "checks": [
             {
                 "must_contain": ["forward", "lean forward", "sit up"],
-                "description": "Must say lean FORWARD (not backward)"
+                "description": "Must say lean FORWARD (not backward)",
             },
             {
                 "must_not_contain": ["lean back", "tilt back", "head back"],
-                "description": "Must NOT say lean/tilt head backward"
+                "description": "Must NOT say lean/tilt head backward",
             },
             {
                 "must_contain": ["pinch", "squeeze", "press", "soft part", "nose"],
-                "description": "Must say pinch the nose"
-            }
-        ]
+                "description": "Must say pinch the nose",
+            },
+        ],
     },
     # ═══════════════════════════════════════════════════════════
     # HEAD INJURY (English)
@@ -515,15 +637,22 @@ TEST_CASES = [
         "topic": "Head Injury",
         "checks": [
             {
-                "must_contain": ["still", "don't move", "do not move", "immobilize",
-                                 "spine", "neck", "stable"],
-                "description": "Must say to keep person still (possible spinal injury)"
+                "must_contain": [
+                    "still",
+                    "don't move",
+                    "do not move",
+                    "immobilize",
+                    "spine",
+                    "neck",
+                    "stable",
+                ],
+                "description": "Must say to keep person still (possible spinal injury)",
             },
             {
                 "must_contain": ["awake", "conscious", "monitor", "watch", "responsive", "alert"],
-                "description": "Must say to monitor consciousness"
-            }
-        ]
+                "description": "Must say to monitor consciousness",
+            },
+        ],
     },
     # ═══════════════════════════════════════════════════════════
     # DEHYDRATION (Arabic)
@@ -536,14 +665,23 @@ TEST_CASES = [
         "checks": [
             {
                 "must_contain": ["ماء", "مياه", "شرب", "اشرب", "سوائل", "water", "drink", "fluid"],
-                "description": "Must say to give water/fluids"
+                "description": "Must say to give water/fluids",
             },
             {
-                "must_contain": ["ببطء", "شوي شوي", "رشفات", "قليل", "تدريج",
-                                 "slowly", "sip", "small amounts", "gradually"],
-                "description": "Must say to sip slowly, not gulp (causes vomiting)"
-            }
-        ]
+                "must_contain": [
+                    "ببطء",
+                    "شوي شوي",
+                    "رشفات",
+                    "قليل",
+                    "تدريج",
+                    "slowly",
+                    "sip",
+                    "small amounts",
+                    "gradually",
+                ],
+                "description": "Must say to sip slowly, not gulp (causes vomiting)",
+            },
+        ],
     },
     # ═══════════════════════════════════════════════════════════
     # WOUND CARE (English)
@@ -556,13 +694,13 @@ TEST_CASES = [
         "checks": [
             {
                 "must_contain": ["water", "clean", "rinse", "wash", "flush"],
-                "description": "Must say to clean with water"
+                "description": "Must say to clean with water",
             },
             {
                 "must_not_contain": ["alcohol", "pour alcohol", "hydrogen peroxide"],
-                "description": "Should not primarily recommend alcohol/peroxide (damages tissue)"
-            }
-        ]
+                "description": "Should not primarily recommend alcohol/peroxide (damages tissue)",
+            },
+        ],
     },
     # ═══════════════════════════════════════════════════════════
     # MULTILINGUAL — French
@@ -574,11 +712,18 @@ TEST_CASES = [
         "topic": "Burns",
         "checks": [
             {
-                "must_contain": ["eau froide", "eau fraîche", "cool water", "cold water",
-                                 "froide", "fraîche", "بارد"],
-                "description": "Must say cool/cold water (in any language)"
+                "must_contain": [
+                    "eau froide",
+                    "eau fraîche",
+                    "cool water",
+                    "cold water",
+                    "froide",
+                    "fraîche",
+                    "بارد",
+                ],
+                "description": "Must say cool/cold water (in any language)",
             }
-        ]
+        ],
     },
     # ═══════════════════════════════════════════════════════════
     # MULTILINGUAL — Turkish
@@ -590,11 +735,19 @@ TEST_CASES = [
         "topic": "Severe Bleeding",
         "checks": [
             {
-                "must_contain": ["basınç", "bası", "pressure", "press", "bas",
-                                 "ضغط", "bandaj", "sıkı"],
-                "description": "Must mention applying pressure (any language)"
+                "must_contain": [
+                    "basınç",
+                    "bası",
+                    "pressure",
+                    "press",
+                    "bas",
+                    "ضغط",
+                    "bandaj",
+                    "sıkı",
+                ],
+                "description": "Must mention applying pressure (any language)",
             }
-        ]
+        ],
     },
     # ═══════════════════════════════════════════════════════════
     # MULTILINGUAL — Spanish
@@ -606,11 +759,18 @@ TEST_CASES = [
         "topic": "Burns",
         "checks": [
             {
-                "must_contain": ["agua fría", "agua fresca", "cool water", "cold water",
-                                 "fría", "fresca", "بارد"],
-                "description": "Must say cool/cold water"
+                "must_contain": [
+                    "agua fría",
+                    "agua fresca",
+                    "cool water",
+                    "cold water",
+                    "fría",
+                    "fresca",
+                    "بارد",
+                ],
+                "description": "Must say cool/cold water",
             }
-        ]
+        ],
     },
     # ═══════════════════════════════════════════════════════════
     # MULTILINGUAL — Hindi
@@ -623,9 +783,9 @@ TEST_CASES = [
         "checks": [
             {
                 "must_contain": ["ठंडा", "ठंडे", "पानी", "cool", "cold", "water", "بارد", "ماء"],
-                "description": "Must say cool water"
+                "description": "Must say cool water",
             }
-        ]
+        ],
     },
     # ═══════════════════════════════════════════════════════════
     # EDGE CASE: Asking for harmful remedy
@@ -637,11 +797,21 @@ TEST_CASES = [
         "topic": "Burns - Myth Check",
         "checks": [
             {
-                "must_contain": ["no", "not", "don't", "never", "avoid", "myth", "worse",
-                                 "harmful", "dangerous", "trap"],
-                "description": "Must clearly say NO to butter on burns"
+                "must_contain": [
+                    "no",
+                    "not",
+                    "don't",
+                    "never",
+                    "avoid",
+                    "myth",
+                    "worse",
+                    "harmful",
+                    "dangerous",
+                    "trap",
+                ],
+                "description": "Must clearly say NO to butter on burns",
             }
-        ]
+        ],
     },
     {
         "id": "EDGE-EN-02",
@@ -650,11 +820,19 @@ TEST_CASES = [
         "topic": "Snake Bite - Myth Check",
         "checks": [
             {
-                "must_contain": ["no", "not", "don't", "never", "does not work", "myth",
-                                 "ineffective", "harmful"],
-                "description": "Must clearly say NO to sucking venom"
+                "must_contain": [
+                    "no",
+                    "not",
+                    "don't",
+                    "never",
+                    "does not work",
+                    "myth",
+                    "ineffective",
+                    "harmful",
+                ],
+                "description": "Must clearly say NO to sucking venom",
             }
-        ]
+        ],
     },
     {
         "id": "EDGE-EN-03",
@@ -664,9 +842,9 @@ TEST_CASES = [
         "checks": [
             {
                 "must_contain": ["no", "not", "don't", "forward", "never back"],
-                "description": "Must say NO — lean forward, not back"
+                "description": "Must say NO — lean forward, not back",
             }
-        ]
+        ],
     },
     # ═══════════════════════════════════════════════════════════
     # DISCLAIMER CHECKS (multiple topics)
@@ -678,12 +856,19 @@ TEST_CASES = [
         "topic": "Fracture - Disclaimer Check",
         "checks": [
             {
-                "must_not_contain": ["ليس بديل", "بديلا عن", "رعاية طبية حقيقية",
-                                     "not a substitute", "seek professional", "see a doctor",
-                                     "consult a doctor", "visit a hospital"],
-                "description": "Must NOT add medical disclaimers"
+                "must_not_contain": [
+                    "ليس بديل",
+                    "بديلا عن",
+                    "رعاية طبية حقيقية",
+                    "not a substitute",
+                    "seek professional",
+                    "see a doctor",
+                    "consult a doctor",
+                    "visit a hospital",
+                ],
+                "description": "Must NOT add medical disclaimers",
             }
-        ]
+        ],
     },
     {
         "id": "DISC-EN-01",
@@ -692,13 +877,19 @@ TEST_CASES = [
         "topic": "Bleeding - Disclaimer Check",
         "checks": [
             {
-                "must_not_contain": ["this is not medical advice", "not a substitute",
-                                     "consult a healthcare", "see a doctor",
-                                     "seek professional medical", "go to the hospital",
-                                     "i am not a doctor", "i'm not a doctor"],
-                "description": "Must NOT add disclaimers or 'I'm not a doctor'"
+                "must_not_contain": [
+                    "this is not medical advice",
+                    "not a substitute",
+                    "consult a healthcare",
+                    "see a doctor",
+                    "seek professional medical",
+                    "go to the hospital",
+                    "i am not a doctor",
+                    "i'm not a doctor",
+                ],
+                "description": "Must NOT add disclaimers or 'I'm not a doctor'",
             }
-        ]
+        ],
     },
 ]
 
@@ -706,6 +897,7 @@ TEST_CASES = [
 # ──────────────────────────────────────────────────────────────────────────────
 # TEST RUNNER
 # ──────────────────────────────────────────────────────────────────────────────
+
 
 def send_chat(server: str, message: str) -> str:
     """Send a chat message and collect the full streamed response."""
@@ -715,22 +907,19 @@ def send_chat(server: str, message: str) -> str:
         f"{server}/api/conversations",
         data=conv_data,
         headers={"Content-Type": "application/json"},
-        method="POST"
+        method="POST",
     )
     with urllib.request.urlopen(req) as resp:
         conv = json.loads(resp.read().decode())
     conv_id = conv["id"]
 
     # Send the chat message
-    chat_data = json.dumps({
-        "message": message,
-        "conversation_id": conv_id
-    }).encode()
+    chat_data = json.dumps({"message": message, "conversation_id": conv_id}).encode()
     req = urllib.request.Request(
         f"{server}/api/chat",
         data=chat_data,
         headers={"Content-Type": "application/json"},
-        method="POST"
+        method="POST",
     )
 
     tokens = []
@@ -784,11 +973,9 @@ def check_response(response: str, checks: list) -> list:
                 passed = False
                 details.append(f"DANGEROUS: found forbidden words {found_bad}")
 
-        results.append({
-            "description": check["description"],
-            "passed": passed,
-            "details": "; ".join(details)
-        })
+        results.append(
+            {"description": check["description"], "passed": passed, "details": "; ".join(details)}
+        )
 
     return results
 
@@ -810,22 +997,24 @@ def run_tests(server: str):
 
     for i, tc in enumerate(TEST_CASES):
         test_id = tc["id"]
-        print(f"\n[{i+1}/{len(TEST_CASES)}] {test_id} ({tc['lang']}) — {tc['topic']}")
+        print(f"\n[{i + 1}/{len(TEST_CASES)}] {test_id} ({tc['lang']}) — {tc['topic']}")
         print(f"  Q: {tc['question'][:80]}{'...' if len(tc['question']) > 80 else ''}")
 
         try:
             response = send_chat(server, tc["question"])
         except Exception as e:
             print(f"  ❌ ERROR: {e}")
-            all_results.append({
-                "id": test_id,
-                "lang": tc["lang"],
-                "topic": tc["topic"],
-                "question": tc["question"],
-                "response": f"ERROR: {e}",
-                "checks": [],
-                "overall": "ERROR"
-            })
+            all_results.append(
+                {
+                    "id": test_id,
+                    "lang": tc["lang"],
+                    "topic": tc["topic"],
+                    "question": tc["question"],
+                    "response": f"ERROR: {e}",
+                    "checks": [],
+                    "overall": "ERROR",
+                }
+            )
             continue
 
         print(f"  A: {response[:120]}{'...' if len(response) > 120 else ''}")
@@ -841,28 +1030,32 @@ def run_tests(server: str):
             else:
                 total_failed += 1
                 test_passed = False
-                critical_failures.append({
-                    "test_id": test_id,
-                    "topic": tc["topic"],
-                    "lang": tc["lang"],
-                    "check": cr["description"],
-                    "details": cr["details"],
-                    "response_snippet": response[:200]
-                })
+                critical_failures.append(
+                    {
+                        "test_id": test_id,
+                        "topic": tc["topic"],
+                        "lang": tc["lang"],
+                        "check": cr["description"],
+                        "details": cr["details"],
+                        "response_snippet": response[:200],
+                    }
+                )
 
             print(f"  {status} {cr['description']}")
             if cr["details"]:
                 print(f"     {cr['details']}")
 
-        all_results.append({
-            "id": test_id,
-            "lang": tc["lang"],
-            "topic": tc["topic"],
-            "question": tc["question"],
-            "response": response,
-            "checks": check_results,
-            "overall": "PASS" if test_passed else "FAIL"
-        })
+        all_results.append(
+            {
+                "id": test_id,
+                "lang": tc["lang"],
+                "topic": tc["topic"],
+                "question": tc["question"],
+                "response": response,
+                "checks": check_results,
+                "overall": "PASS" if test_passed else "FAIL",
+            }
+        )
 
     # ── SUMMARY ──
     print("\n" + "=" * 70)
@@ -884,7 +1077,7 @@ def run_tests(server: str):
         print(f"  Tests ERROR:  {tests_error}")
 
     # By language
-    print(f"\n  By Language:")
+    print("\n  By Language:")
     langs = {}
     for r in all_results:
         lang = r["lang"]
@@ -898,11 +1091,13 @@ def run_tests(server: str):
             langs[lang]["error"] += 1
     for lang, counts in sorted(langs.items()):
         total = counts["pass"] + counts["fail"] + counts["error"]
-        print(f"    {lang:12s}: {counts['pass']}/{total} passed"
-              + (f" ({counts['fail']} failed)" if counts['fail'] else ""))
+        print(
+            f"    {lang:12s}: {counts['pass']}/{total} passed"
+            + (f" ({counts['fail']} failed)" if counts["fail"] else "")
+        )
 
     # By topic
-    print(f"\n  By Topic:")
+    print("\n  By Topic:")
     topics = {}
     for r in all_results:
         topic = r["topic"].split(" - ")[0]  # Group sub-topics
@@ -928,7 +1123,7 @@ def run_tests(server: str):
             print(f"    Response: {cf['response_snippet'][:100]}...")
             print()
     else:
-        print(f"\n  ✅ No critical failures detected!")
+        print("\n  ✅ No critical failures detected!")
 
     # Grade
     if pass_rate >= 95:
@@ -956,7 +1151,7 @@ def run_tests(server: str):
         "pass_rate": round(pass_rate, 1),
         "grade": grade,
         "critical_failures": critical_failures,
-        "results": all_results
+        "results": all_results,
     }
     report_path = "tools/test_report.json"
     with open(report_path, "w", encoding="utf-8") as f:
@@ -968,8 +1163,11 @@ def run_tests(server: str):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Medical Accuracy Test Suite")
-    parser.add_argument("--server", default="http://127.0.0.1:8000",
-                        help="Server URL (default: http://127.0.0.1:8000)")
+    parser.add_argument(
+        "--server",
+        default="http://127.0.0.1:8000",
+        help="Server URL (default: http://127.0.0.1:8000)",
+    )
     args = parser.parse_args()
 
     try:

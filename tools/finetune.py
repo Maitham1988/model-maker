@@ -38,9 +38,7 @@ Usage:
 
 import argparse
 import json
-import os
 import random
-import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -62,16 +60,16 @@ FINETUNE_CONFIG = {
     "data": str(TRAIN_DIR),
     "seed": 42,
     "lora_layers": 16,
-    "lora_rank": 16,            # Higher rank = more capacity, more memory
-    "batch_size": 1,             # 1 for 7B on most Macs; increase if you have 64GB+
-    "iters": 1000,               # Number of training iterations
+    "lora_rank": 16,  # Higher rank = more capacity, more memory
+    "batch_size": 1,  # 1 for 7B on most Macs; increase if you have 64GB+
+    "iters": 1000,  # Number of training iterations
     "val_batches": 5,
     "learning_rate": 1e-5,
     "steps_per_report": 10,
     "steps_per_eval": 100,
     "adapter_path": str(ADAPTER_DIR),
     "max_seq_length": 2048,
-    "grad_checkpoint": True,     # Saves memory at cost of speed
+    "grad_checkpoint": True,  # Saves memory at cost of speed
 }
 
 
@@ -79,6 +77,7 @@ def check_mlx():
     """Ensure mlx-lm is installed."""
     try:
         import mlx_lm  # noqa: F401
+
         print("✓ mlx-lm is installed")
         return True
     except ImportError:
@@ -141,7 +140,9 @@ def cmd_prepare():
         print(f"✓ {name}.jsonl: {len(items)} examples")
 
     print(f"\n✓ Dataset split saved to {TRAIN_DIR}")
-    print(f"  Total: {n} | Train: {len(splits['train'])} | Valid: {len(splits['valid'])} | Test: {len(splits['test'])}")
+    print(
+        f"  Total: {n} | Train: {len(splits['train'])} | Valid: {len(splits['valid'])} | Test: {len(splits['test'])}"
+    )
 
 
 def cmd_train():
@@ -178,20 +179,34 @@ def cmd_train():
 
     # Run fine-tuning via mlx_lm CLI
     cmd = [
-        sys.executable, "-m", "mlx_lm.lora",
-        "--model", str(BASE_MODEL_DIR),
-        "--data", str(TRAIN_DIR),
+        sys.executable,
+        "-m",
+        "mlx_lm.lora",
+        "--model",
+        str(BASE_MODEL_DIR),
+        "--data",
+        str(TRAIN_DIR),
         "--train",
-        "--iters", str(FINETUNE_CONFIG["iters"]),
-        "--batch-size", str(FINETUNE_CONFIG["batch_size"]),
-        "--lora-layers", str(FINETUNE_CONFIG["lora_layers"]),
-        "--learning-rate", str(FINETUNE_CONFIG["learning_rate"]),
-        "--steps-per-report", str(FINETUNE_CONFIG["steps_per_report"]),
-        "--steps-per-eval", str(FINETUNE_CONFIG["steps_per_eval"]),
-        "--val-batches", str(FINETUNE_CONFIG["val_batches"]),
-        "--adapter-path", str(ADAPTER_DIR),
-        "--max-seq-length", str(FINETUNE_CONFIG["max_seq_length"]),
-        "--seed", str(FINETUNE_CONFIG["seed"]),
+        "--iters",
+        str(FINETUNE_CONFIG["iters"]),
+        "--batch-size",
+        str(FINETUNE_CONFIG["batch_size"]),
+        "--lora-layers",
+        str(FINETUNE_CONFIG["lora_layers"]),
+        "--learning-rate",
+        str(FINETUNE_CONFIG["learning_rate"]),
+        "--steps-per-report",
+        str(FINETUNE_CONFIG["steps_per_report"]),
+        "--steps-per-eval",
+        str(FINETUNE_CONFIG["steps_per_eval"]),
+        "--val-batches",
+        str(FINETUNE_CONFIG["val_batches"]),
+        "--adapter-path",
+        str(ADAPTER_DIR),
+        "--max-seq-length",
+        str(FINETUNE_CONFIG["max_seq_length"]),
+        "--seed",
+        str(FINETUNE_CONFIG["seed"]),
         "--grad-checkpoint",
     ]
 
@@ -208,7 +223,7 @@ def cmd_test():
         print("✗ No adapters found. Run fine-tuning first.")
         sys.exit(1)
 
-    from mlx_lm import load, generate
+    from mlx_lm import generate, load
 
     print("Loading model with LoRA adapters...")
     model, tokenizer = load(
@@ -226,7 +241,7 @@ def cmd_test():
 
     system_msg = {
         "role": "system",
-        "content": "You are an emergency medical and survival assistant. You give direct, actionable instructions. You ARE the user's doctor. Never say 'consult a doctor' or add disclaimers."
+        "content": "You are an emergency medical and survival assistant. You give direct, actionable instructions. You ARE the user's doctor. Never say 'consult a doctor' or add disclaimers.",
     }
 
     print("\n" + "=" * 60)
@@ -256,10 +271,15 @@ def cmd_fuse():
     print("Fusing LoRA adapters into base model...")
 
     cmd = [
-        sys.executable, "-m", "mlx_lm.fuse",
-        "--model", str(BASE_MODEL_DIR),
-        "--adapter-path", str(ADAPTER_DIR),
-        "--save-path", str(FUSED_DIR),
+        sys.executable,
+        "-m",
+        "mlx_lm.fuse",
+        "--model",
+        str(BASE_MODEL_DIR),
+        "--adapter-path",
+        str(ADAPTER_DIR),
+        "--save-path",
+        str(FUSED_DIR),
     ]
 
     subprocess.run(cmd, check=True)
@@ -277,11 +297,17 @@ def cmd_convert():
 
     if not llama_cpp_dir.exists():
         print("Cloning llama.cpp for GGUF conversion...")
-        subprocess.run([
-            "git", "clone", "--depth", "1",
-            "https://github.com/ggerganov/llama.cpp.git",
-            str(llama_cpp_dir)
-        ], check=True)
+        subprocess.run(
+            [
+                "git",
+                "clone",
+                "--depth",
+                "1",
+                "https://github.com/ggerganov/llama.cpp.git",
+                str(llama_cpp_dir),
+            ],
+            check=True,
+        )
 
     convert_script = llama_cpp_dir / "convert_hf_to_gguf.py"
     if not convert_script.exists():
@@ -289,19 +315,33 @@ def cmd_convert():
         sys.exit(1)
 
     # Install requirements for conversion
-    subprocess.run([
-        sys.executable, "-m", "pip", "install", "gguf", "sentencepiece",
-    ], check=True)
+    subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "pip",
+            "install",
+            "gguf",
+            "sentencepiece",
+        ],
+        check=True,
+    )
 
     # Step 1: Convert to GGUF (F16)
     gguf_f16 = ROOT / "models" / "Qwen2.5-7B-Medical-v1-F16.gguf"
-    print(f"\nConverting to GGUF F16...")
-    subprocess.run([
-        sys.executable, str(convert_script),
-        str(FUSED_DIR),
-        "--outfile", str(gguf_f16),
-        "--outtype", "f16",
-    ], check=True)
+    print("\nConverting to GGUF F16...")
+    subprocess.run(
+        [
+            sys.executable,
+            str(convert_script),
+            str(FUSED_DIR),
+            "--outfile",
+            str(gguf_f16),
+            "--outtype",
+            "f16",
+        ],
+        check=True,
+    )
 
     # Step 2: Quantize to Q4_K_M
     quantize_bin = llama_cpp_dir / "build" / "bin" / "llama-quantize"
@@ -310,22 +350,27 @@ def cmd_convert():
         build_dir = llama_cpp_dir / "build"
         build_dir.mkdir(exist_ok=True)
         subprocess.run(["cmake", "..", "-DLLAMA_METAL=ON"], cwd=str(build_dir), check=True)
-        subprocess.run(["cmake", "--build", ".", "--config", "Release", "-j"], cwd=str(build_dir), check=True)
+        subprocess.run(
+            ["cmake", "--build", ".", "--config", "Release", "-j"], cwd=str(build_dir), check=True
+        )
 
-    print(f"\nQuantizing to Q4_K_M...")
-    subprocess.run([
-        str(quantize_bin),
-        str(gguf_f16),
-        str(GGUF_OUTPUT),
-        "Q4_K_M",
-    ], check=True)
+    print("\nQuantizing to Q4_K_M...")
+    subprocess.run(
+        [
+            str(quantize_bin),
+            str(gguf_f16),
+            str(GGUF_OUTPUT),
+            "Q4_K_M",
+        ],
+        check=True,
+    )
 
     # Clean up F16
     gguf_f16.unlink(missing_ok=True)
 
     print(f"\n✓ GGUF model saved to {GGUF_OUTPUT}")
     print(f"  Size: {GGUF_OUTPUT.stat().st_size / (1024**3):.1f} GB")
-    print(f"\n  To use: update config.json model_path to point to this file")
+    print("\n  To use: update config.json model_path to point to this file")
 
 
 def cmd_all():
@@ -354,25 +399,18 @@ Steps:
   fuse       Fuse LoRA adapters into base model
   convert    Convert to GGUF (Q4_K_M) for deployment
   all        Run full pipeline (download → convert)
-        """
+        """,
     )
     parser.add_argument(
         "command",
         choices=["download", "prepare", "train", "test", "fuse", "convert", "all"],
-        help="Pipeline step to run"
+        help="Pipeline step to run",
     )
     parser.add_argument(
-        "--iters", type=int, default=None,
-        help="Override number of training iterations"
+        "--iters", type=int, default=None, help="Override number of training iterations"
     )
-    parser.add_argument(
-        "--lr", type=float, default=None,
-        help="Override learning rate"
-    )
-    parser.add_argument(
-        "--lora-rank", type=int, default=None,
-        help="Override LoRA rank"
-    )
+    parser.add_argument("--lr", type=float, default=None, help="Override learning rate")
+    parser.add_argument("--lora-rank", type=int, default=None, help="Override LoRA rank")
 
     args = parser.parse_args()
 

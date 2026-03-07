@@ -5,10 +5,10 @@ Handles model loading, chat completion with streaming, and context management.
 
 from __future__ import annotations
 
-import os
 import json
+import os
+from collections.abc import Generator
 from pathlib import Path
-from typing import Generator
 
 from llama_cpp import Llama
 
@@ -27,7 +27,7 @@ class LLMEngine:
             raise FileNotFoundError(
                 f"Config file not found: {config_path}. Run setup wizard first."
             )
-        with open(path, "r", encoding="utf-8") as f:
+        with open(path, encoding="utf-8") as f:
             return json.load(f)
 
     def _load_model(self) -> None:
@@ -43,6 +43,7 @@ class LLMEngine:
         # Auto-detect Apple Silicon for GPU acceleration
         try:
             import platform
+
             if platform.machine() == "arm64" and platform.system() == "Darwin":
                 n_gpu_layers = -1  # Use all layers on Metal
         except Exception:
@@ -71,11 +72,13 @@ class LLMEngine:
         if not text:
             return False
         arabic_chars = sum(
-            1 for c in text if '\u0600' <= c <= '\u06FF'
-            or '\u0750' <= c <= '\u077F'
-            or '\u08A0' <= c <= '\u08FF'
-            or '\uFB50' <= c <= '\uFDFF'
-            or '\uFE70' <= c <= '\uFEFF'
+            1
+            for c in text
+            if "\u0600" <= c <= "\u06ff"
+            or "\u0750" <= c <= "\u077f"
+            or "\u08a0" <= c <= "\u08ff"
+            or "\ufb50" <= c <= "\ufdff"
+            or "\ufe70" <= c <= "\ufeff"
         )
         alpha_chars = sum(1 for c in text if c.isalpha())
         return alpha_chars > 0 and arabic_chars / alpha_chars > 0.3
@@ -143,14 +146,16 @@ class LLMEngine:
                 break
         is_arabic_context = last_user_msg and self._is_arabic(last_user_msg)
         if is_arabic_context:
-            full_messages.append({
-                "role": "system",
-                "content": (
-                    "تنبيه مهم: المستخدم يكتب بالعربية. يجب أن تكون إجابتك بالكامل باللغة العربية فقط. "
-                    "لا تستخدم الإنجليزية أو الصينية أو أي لغة أخرى على الإطلاق. "
-                    "كل كلمة يجب أن تكون بالعربية."
-                )
-            })
+            full_messages.append(
+                {
+                    "role": "system",
+                    "content": (
+                        "تنبيه مهم: المستخدم يكتب بالعربية. يجب أن تكون إجابتك بالكامل باللغة العربية فقط. "
+                        "لا تستخدم الإنجليزية أو الصينية أو أي لغة أخرى على الإطلاق. "
+                        "كل كلمة يجب أن تكون بالعربية."
+                    ),
+                }
+            )
 
         # Use lower temperature for Arabic to reduce code-switching
         temperature = self.config.get("temperature", 0.7)
@@ -178,7 +183,9 @@ class LLMEngine:
         except Exception as e:
             yield f"\n\n❌ Error generating response: {str(e)}"
 
-    def chat(self, messages: list[dict], memory_context: str = "", knowledge_context: str = "") -> str:
+    def chat(
+        self, messages: list[dict], memory_context: str = "", knowledge_context: str = ""
+    ) -> str:
         """Non-streaming chat completion. Returns full response."""
         parts = list(self.chat_stream(messages, memory_context, knowledge_context))
         return "".join(parts)

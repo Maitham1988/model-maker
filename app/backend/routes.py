@@ -5,15 +5,15 @@ API Routes — All endpoints for chat, conversations, memory, setup, and config.
 from __future__ import annotations
 
 import json
+from collections.abc import AsyncGenerator
 from pathlib import Path
-from typing import AsyncGenerator
 
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import StreamingResponse
 
 from .database import Database
-from .llm_engine import LLMEngine
 from .knowledge_rag import KnowledgeRAG
+from .llm_engine import LLMEngine
 from .models import (
     ChatRequest,
     ConfigUpdate,
@@ -47,6 +47,7 @@ def init(
 
 
 # ─── Chat (SSE Streaming) ────────────────────────────────────────
+
 
 @router.post("/chat")
 async def chat(request: ChatRequest):
@@ -106,6 +107,7 @@ async def chat(request: ChatRequest):
 
 # ─── Conversations ────────────────────────────────────────────────
 
+
 @router.get("/conversations")
 async def list_conversations():
     if not db:
@@ -152,6 +154,7 @@ async def delete_conversation(conv_id: str):
 
 # ─── Memory ───────────────────────────────────────────────────────
 
+
 @router.get("/memory")
 async def get_memory():
     if not db:
@@ -192,11 +195,19 @@ SETUP_QUESTIONS = [
         "question_ar": "ما هو مجال عملك؟",
         "type": "select",
         "options": [
-            {"value": "medical", "label_en": "Medical / Healthcare", "label_ar": "طبي / رعاية صحية"},
+            {
+                "value": "medical",
+                "label_en": "Medical / Healthcare",
+                "label_ar": "طبي / رعاية صحية",
+            },
             {"value": "legal", "label_en": "Legal / Law", "label_ar": "قانوني / محاماة"},
             {"value": "education", "label_en": "Education / Teaching", "label_ar": "تعليم / تدريس"},
             {"value": "business", "label_en": "Business / Commerce", "label_ar": "أعمال / تجارة"},
-            {"value": "engineering", "label_en": "Engineering / Technical", "label_ar": "هندسة / تقني"},
+            {
+                "value": "engineering",
+                "label_en": "Engineering / Technical",
+                "label_ar": "هندسة / تقني",
+            },
             {"value": "personal", "label_en": "Personal Use", "label_ar": "استخدام شخصي"},
             {"value": "other", "label_en": "Other", "label_ar": "أخرى"},
         ],
@@ -207,7 +218,11 @@ SETUP_QUESTIONS = [
         "question_ar": "ما هو الاستخدام الرئيسي للذكاء الاصطناعي؟",
         "type": "select",
         "options": [
-            {"value": "chat", "label_en": "General Chat & Questions", "label_ar": "محادثة عامة وأسئلة"},
+            {
+                "value": "chat",
+                "label_en": "General Chat & Questions",
+                "label_ar": "محادثة عامة وأسئلة",
+            },
             {"value": "writing", "label_en": "Writing & Editing", "label_ar": "كتابة وتحرير"},
             {"value": "research", "label_en": "Research & Analysis", "label_ar": "بحث وتحليل"},
             {"value": "learning", "label_en": "Learning & Studying", "label_ar": "تعلم ودراسة"},
@@ -221,7 +236,11 @@ SETUP_QUESTIONS = [
         "question_ar": "اللغة المفضلة؟",
         "type": "select",
         "options": [
-            {"value": "both", "label_en": "Arabic & English (auto-detect)", "label_ar": "عربي وإنجليزي (تلقائي)"},
+            {
+                "value": "both",
+                "label_en": "Arabic & English (auto-detect)",
+                "label_ar": "عربي وإنجليزي (تلقائي)",
+            },
             {"value": "arabic", "label_en": "Arabic only", "label_ar": "عربي فقط"},
             {"value": "english", "label_en": "English only", "label_ar": "إنجليزي فقط"},
         ],
@@ -284,7 +303,9 @@ def _generate_system_prompt(field: str = "medical") -> str:
     )
 
     # Universal formatting
-    parts.append("Format responses with clear structure: numbered steps for instructions, bullet points for lists. Be thorough but get to the point fast.")
+    parts.append(
+        "Format responses with clear structure: numbered steps for instructions, bullet points for lists. Be thorough but get to the point fast."
+    )
 
     return " ".join(parts)
 
@@ -301,7 +322,7 @@ async def save_setup(answers: SetupAnswer = SetupAnswer()):
     cfg = {}
     cfg_file = Path(config_path)
     if cfg_file.exists():
-        with open(cfg_file, "r", encoding="utf-8") as f:
+        with open(cfg_file, encoding="utf-8") as f:
             cfg = json.load(f)
 
     field = cfg.get("customer_field", "medical")
@@ -322,12 +343,13 @@ async def save_setup(answers: SetupAnswer = SetupAnswer()):
 
 # ─── Config ───────────────────────────────────────────────────────
 
+
 @router.get("/config")
 async def get_config():
     cfg_file = Path(config_path)
     if not cfg_file.exists():
         return {"setup_completed": False}
-    with open(cfg_file, "r", encoding="utf-8") as f:
+    with open(cfg_file, encoding="utf-8") as f:
         cfg = json.load(f)
     # Don't expose license secret
     cfg.pop("license_secret", None)
@@ -339,7 +361,7 @@ async def update_config(data: ConfigUpdate):
     cfg_file = Path(config_path)
     cfg = {}
     if cfg_file.exists():
-        with open(cfg_file, "r", encoding="utf-8") as f:
+        with open(cfg_file, encoding="utf-8") as f:
             cfg = json.load(f)
 
     # Update only provided fields
@@ -361,6 +383,7 @@ async def update_config(data: ConfigUpdate):
 
 
 # ─── Stats ────────────────────────────────────────────────────────
+
 
 @router.get("/stats")
 async def get_stats():

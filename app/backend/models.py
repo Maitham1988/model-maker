@@ -6,8 +6,8 @@ from __future__ import annotations
 
 from pydantic import BaseModel, Field
 
-
 # ─── Chat ─────────────────────────────────────────────────────────
+
 
 class ChatMessage(BaseModel):
     role: str = Field(..., pattern="^(user|assistant|system)$")
@@ -20,6 +20,7 @@ class ChatRequest(BaseModel):
 
 
 # ─── Conversations ────────────────────────────────────────────────
+
 
 class ConversationCreate(BaseModel):
     title: str = Field("New Chat", max_length=200)
@@ -46,6 +47,7 @@ class MessageResponse(BaseModel):
 
 # ─── Memory ───────────────────────────────────────────────────────
 
+
 class MemoryCreate(BaseModel):
     key: str = Field(..., min_length=1, max_length=200)
     value: str = Field(..., min_length=1, max_length=10_000)
@@ -62,11 +64,22 @@ class MemoryResponse(BaseModel):
 
 # ─── Setup Wizard ─────────────────────────────────────────────────
 
+
 class SetupAnswer(BaseModel):
     name: str = Field("", max_length=200, description="User or business name")
-    field: str = Field("general", max_length=50, description="Field: medical, legal, education, business, personal, other")
-    tasks: str = Field("general", max_length=100, description="Main tasks: chat, writing, research, learning, support")
-    language: str = Field("both", max_length=20, description="Preferred language: arabic, english, both")
+    field: str = Field(
+        "general",
+        max_length=50,
+        description="Field: medical, legal, education, business, personal, other",
+    )
+    tasks: str = Field(
+        "general",
+        max_length=100,
+        description="Main tasks: chat, writing, research, learning, support",
+    )
+    language: str = Field(
+        "both", max_length=20, description="Preferred language: arabic, english, both"
+    )
     special_instructions: str = Field("", max_length=5_000, description="Any special instructions")
 
 
@@ -79,6 +92,7 @@ class SetupQuestion(BaseModel):
 
 
 # ─── Config ───────────────────────────────────────────────────────
+
 
 class ConfigUpdate(BaseModel):
     system_prompt: str | None = Field(None, max_length=10_000)

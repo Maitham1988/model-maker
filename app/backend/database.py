@@ -7,13 +7,12 @@ from __future__ import annotations
 
 import sqlite3
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Optional
 
 
 def _now() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 class Database:
@@ -84,17 +83,13 @@ class Database:
 
     def list_conversations(self) -> list[dict]:
         conn = self._get_conn()
-        rows = conn.execute(
-            "SELECT * FROM conversations ORDER BY updated_at DESC"
-        ).fetchall()
+        rows = conn.execute("SELECT * FROM conversations ORDER BY updated_at DESC").fetchall()
         conn.close()
         return [dict(r) for r in rows]
 
-    def get_conversation(self, conv_id: str) -> Optional[dict]:
+    def get_conversation(self, conv_id: str) -> dict | None:
         conn = self._get_conn()
-        row = conn.execute(
-            "SELECT * FROM conversations WHERE id = ?", (conv_id,)
-        ).fetchone()
+        row = conn.execute("SELECT * FROM conversations WHERE id = ?", (conv_id,)).fetchone()
         conn.close()
         return dict(row) if row else None
 
@@ -110,9 +105,7 @@ class Database:
 
     def delete_conversation(self, conv_id: str) -> bool:
         conn = self._get_conn()
-        result = conn.execute(
-            "DELETE FROM conversations WHERE id = ?", (conv_id,)
-        )
+        result = conn.execute("DELETE FROM conversations WHERE id = ?", (conv_id,))
         conn.commit()
         conn.close()
         return result.rowcount > 0
@@ -201,9 +194,7 @@ class Database:
 
     def get_all_memory(self) -> list[dict]:
         conn = self._get_conn()
-        rows = conn.execute(
-            "SELECT * FROM memory ORDER BY created_at DESC"
-        ).fetchall()
+        rows = conn.execute("SELECT * FROM memory ORDER BY created_at DESC").fetchall()
         conn.close()
         return [dict(r) for r in rows]
 

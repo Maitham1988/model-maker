@@ -54,7 +54,7 @@ def verify_license(config_path: str = "config.json") -> tuple[bool, str]:
     if not cfg_file.exists():
         return False, "Config file not found"
 
-    with open(cfg_file, "r", encoding="utf-8") as f:
+    with open(cfg_file, encoding="utf-8") as f:
         cfg = json.load(f)
 
     license_key = cfg.get("license_key", "")

@@ -11,11 +11,11 @@ from pathlib import Path
 
 from fastapi import FastAPI, Request, Response
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
-from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
 
 # ── Paths ───────────────────────────────────────────────────────────
-BASE_DIR = Path(__file__).parent.parent          # app/
+BASE_DIR = Path(__file__).parent.parent  # app/
 CONFIG_PATH = BASE_DIR / "config.json"
 FRONTEND_DIR = BASE_DIR / "frontend"
 DATA_DIR = BASE_DIR / "data"
@@ -26,6 +26,7 @@ if not CONFIG_PATH.exists():
     template = BASE_DIR / "config_template.json"
     if template.exists():
         import shutil
+
         shutil.copy(template, CONFIG_PATH)
         print("📋 Created config.json from template")
     else:
@@ -41,6 +42,7 @@ with open(CONFIG_PATH) as f:
 if config.get("license_key"):
     try:
         from backend.license_check import verify_license  # noqa: E402
+
         ok, msg = verify_license(str(CONFIG_PATH))
         if not ok:
             print(f"⚠️  License: {msg}")
@@ -54,6 +56,7 @@ DATA_DIR.mkdir(parents=True, exist_ok=True)
 db_path = DATA_DIR / "chat.db"
 
 from backend.database import Database  # noqa: E402
+
 db = Database(str(db_path))
 
 # ── LLM Engine ──────────────────────────────────────────────────────
@@ -70,6 +73,7 @@ if not model_path or not Path(model_path).exists():
 
 if model_path and Path(model_path).exists():
     from backend.llm_engine import LLMEngine  # noqa: E402
+
     engine = LLMEngine(config_path=str(CONFIG_PATH))
     print(f"✅ Model loaded: {Path(model_path).name}")
 else:
@@ -82,6 +86,7 @@ EMBEDDING_MODEL_DIR = BASE_DIR.parent / "models" / "embedding" / "all-MiniLM-L6-
 rag = None
 try:
     from backend.knowledge_rag import KnowledgeRAG  # noqa: E402
+
     rag = KnowledgeRAG(
         knowledge_dir=str(KNOWLEDGE_DIR),
         embedding_model_dir=str(EMBEDDING_MODEL_DIR),
@@ -97,9 +102,9 @@ except Exception as e:
 app = FastAPI(
     title="Model Maker — Local AI",
     version="1.0.0",
-    docs_url=None,       # Disable Swagger in production
+    docs_url=None,  # Disable Swagger in production
     redoc_url=None,
-    openapi_url=None,     # Disable OpenAPI schema endpoint
+    openapi_url=None,  # Disable OpenAPI schema endpoint
 )
 
 # ── Security Middleware ─────────────────────────────────────────────
@@ -108,8 +113,8 @@ app.add_middleware(TrustedHostMiddleware, allowed_hosts=["localhost", "127.0.0.1
 
 # Rate limiting (per-IP, in-memory — prevents abuse from local malware)
 _rate_limit: dict[str, list[float]] = defaultdict(list)
-RATE_LIMIT_MAX = 60          # max requests
-RATE_LIMIT_WINDOW = 60       # per window (seconds)
+RATE_LIMIT_MAX = 60  # max requests
+RATE_LIMIT_WINDOW = 60  # per window (seconds)
 
 
 @app.middleware("http")
@@ -135,9 +140,7 @@ async def security_middleware(request: Request, call_next):
     response.headers["X-Frame-Options"] = "DENY"
     response.headers["X-XSS-Protection"] = "1; mode=block"
     response.headers["Referrer-Policy"] = "no-referrer"
-    response.headers["Permissions-Policy"] = (
-        "camera=(), microphone=(), geolocation=(), payment=()"
-    )
+    response.headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=(), payment=()"
     response.headers["Content-Security-Policy"] = (
         "default-src 'self'; "
         "script-src 'self' 'unsafe-inline'; "
@@ -154,8 +157,11 @@ async def security_middleware(request: Request, call_next):
 
     return response
 
+
 # ── API Router ──────────────────────────────────────────────────────
-from backend.routes import router, init as routes_init  # noqa: E402
+from backend.routes import init as routes_init  # noqa: E402
+from backend.routes import router  # noqa: E402
+
 routes_init(database=db, llm_engine=engine, cfg_path=str(CONFIG_PATH), knowledge_rag=rag)
 app.include_router(router)
 

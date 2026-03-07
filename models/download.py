@@ -417,10 +417,10 @@ def interactive_mode():
 
     # Ask user
     print(f"{C.BOLD}Choose a model to download:{C.RESET}")
-    print(f"  1) Lite     (2.0 GB) — Basic devices, fast")
+    print("  1) Lite     (2.0 GB) — Basic devices, fast")
     print(f"  2) Standard (4.4 GB) — Most users {C.GREEN}★ Recommended{C.RESET}")
-    print(f"  3) Premium  (8.5 GB) — Best quality, powerful devices")
-    print(f"  q) Quit")
+    print("  3) Premium  (8.5 GB) — Best quality, powerful devices")
+    print("  q) Quit")
     print()
 
     tier_map = {"1": "lite", "2": "standard", "3": "premium"}
@@ -451,7 +451,7 @@ def interactive_mode():
         print(f"\n{C.YELLOW}⚠ Warning: Your device has {ram:.0f}GB RAM but this model needs {min_ram}GB minimum.{C.RESET}")
         print(f"{C.YELLOW}  It may run slowly or crash. Consider a smaller model.{C.RESET}")
         try:
-            cont = input(f"  Continue anyway? [y/N]: ").strip().lower()
+            cont = input("  Continue anyway? [y/N]: ").strip().lower()
             if cont != "y":
                 return
         except (KeyboardInterrupt, EOFError):
@@ -462,7 +462,7 @@ def interactive_mode():
     required_gb = model["size_bytes"] / (1024 ** 3) * 1.1  # 10% buffer
     if storage > 0 and storage < required_gb:
         print(f"\n{C.RED}✗ Not enough storage. Need {required_gb:.1f}GB free, have {storage:.1f}GB.{C.RESET}")
-        print(f"  Free up some space and try again.")
+        print("  Free up some space and try again.")
         return
 
     # Check if already downloaded
@@ -471,7 +471,7 @@ def interactive_mode():
         print(f"\n{C.GREEN}✓ {model['name']} already downloaded!{C.RESET}")
         print(f"  Path: {dest}")
         try:
-            redownload = input(f"  Re-download? [y/N]: ").strip().lower()
+            redownload = input("  Re-download? [y/N]: ").strip().lower()
             if redownload != "y":
                 update_config(model)
                 return

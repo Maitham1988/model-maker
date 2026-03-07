@@ -10,21 +10,31 @@ find the correct English knowledge chunks.
 
 from __future__ import annotations
 
-import re
 import time
-import numpy as np
 from pathlib import Path
-from typing import Optional
 
+import numpy as np
 
 # ── Arabic → English Medical Keyword Map ────────────────────────────
 # Maps Arabic medical/emergency terms to English search queries.
 # This bridges the gap between Arabic user input and English knowledge base.
 ARABIC_MEDICAL_MAP: dict[str, list[str]] = {
     # Burns
-    "حرق": ["burn treatment first aid cool water", "do not apply on burns", "burn care without supplies"],
-    "احترق": ["burn treatment first aid cool water", "do not apply on burns", "burn care without supplies"],
-    "حروق": ["burn treatment first aid cool water", "do not apply on burns", "burn care without supplies"],
+    "حرق": [
+        "burn treatment first aid cool water",
+        "do not apply on burns",
+        "burn care without supplies",
+    ],
+    "احترق": [
+        "burn treatment first aid cool water",
+        "do not apply on burns",
+        "burn care without supplies",
+    ],
+    "حروق": [
+        "burn treatment first aid cool water",
+        "do not apply on burns",
+        "burn care without supplies",
+    ],
     "نار": ["burn treatment first aid", "fire burn treatment"],
     "لهب": ["burn treatment first aid", "flame burn treatment"],
     "حريق": ["burn treatment first aid", "fire burn care"],
@@ -126,11 +136,13 @@ def _is_arabic(text: str) -> bool:
     if not text:
         return False
     arabic_chars = sum(
-        1 for c in text if '\u0600' <= c <= '\u06FF'
-        or '\u0750' <= c <= '\u077F'
-        or '\u08A0' <= c <= '\u08FF'
-        or '\uFB50' <= c <= '\uFDFF'
-        or '\uFE70' <= c <= '\uFEFF'
+        1
+        for c in text
+        if "\u0600" <= c <= "\u06ff"
+        or "\u0750" <= c <= "\u077f"
+        or "\u08a0" <= c <= "\u08ff"
+        or "\ufb50" <= c <= "\ufdff"
+        or "\ufe70" <= c <= "\ufeff"
     )
     return arabic_chars > 3
 
@@ -150,16 +162,14 @@ class EmbeddingModel:
             onnx_path = model_dir / "model.onnx"
         if not onnx_path.exists():
             raise FileNotFoundError(
-                f"ONNX model not found in {model_dir}. "
-                "Run: python tools/download_embedding.py"
+                f"ONNX model not found in {model_dir}. Run: python tools/download_embedding.py"
             )
 
         # Locate the tokenizer
         tok_path = model_dir / "tokenizer.json"
         if not tok_path.exists():
             raise FileNotFoundError(
-                f"tokenizer.json not found in {model_dir}. "
-                "Run: python tools/download_embedding.py"
+                f"tokenizer.json not found in {model_dir}. Run: python tools/download_embedding.py"
             )
 
         self.tokenizer = Tokenizer.from_file(str(tok_path))
@@ -170,7 +180,9 @@ class EmbeddingModel:
         opts = ort.SessionOptions()
         opts.inter_op_num_threads = 2
         opts.intra_op_num_threads = 4
-        self.session = ort.InferenceSession(str(onnx_path), opts, providers=["CPUExecutionProvider"])
+        self.session = ort.InferenceSession(
+            str(onnx_path), opts, providers=["CPUExecutionProvider"]
+        )
 
         # Detect which inputs the model accepts
         self._input_names = [inp.name for inp in self.session.get_inputs()]
@@ -214,9 +226,9 @@ class KnowledgeRAG:
         knowledge_dir: str,
         embedding_model_dir: str,
     ):
-        self.chunks: list[dict] = []           # {"text", "source", "section", "search_text"}
-        self.embeddings: Optional[np.ndarray] = None
-        self.model: Optional[EmbeddingModel] = None
+        self.chunks: list[dict] = []  # {"text", "source", "section", "search_text"}
+        self.embeddings: np.ndarray | None = None
+        self.model: EmbeddingModel | None = None
 
         # Try loading the embedding model
         try:
@@ -268,12 +280,14 @@ class KnowledgeRAG:
             section = " > ".join(filter(None, [doc_title, current_h2, current_h3]))
             # Build search_text: section headers + content (for embedding)
             search_text = f"{section}\n{content}"
-            chunks.append({
-                "text": content,
-                "source": source,
-                "section": section,
-                "search_text": search_text,
-            })
+            chunks.append(
+                {
+                    "text": content,
+                    "source": source,
+                    "section": section,
+                    "search_text": search_text,
+                }
+            )
 
         for line in text.split("\n"):
             stripped = line.strip()

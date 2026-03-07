@@ -79,7 +79,7 @@ def download_model(model_name: str):
     print(f"   From: {info['repo']}")
     print(f"   Size: {info['size']}")
     print(f"   To: {target}")
-    print(f"   This may take a while...\n")
+    print("   This may take a while...\n")
 
     downloaded = hf_hub_download(
         repo_id=info["repo"],

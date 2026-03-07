@@ -70,9 +70,7 @@ def main():
             all_ok = False
 
     if all_ok:
-        total_mb = sum(
-            (MODEL_DIR / f).stat().st_size for f in FILES_TO_DOWNLOAD
-        ) / (1024 * 1024)
+        total_mb = sum((MODEL_DIR / f).stat().st_size for f in FILES_TO_DOWNLOAD) / (1024 * 1024)
         print(f"\n✅ Embedding model ready! Total size: {total_mb:.1f} MB")
         print(f"   Path: {MODEL_DIR}")
     else:

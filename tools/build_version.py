@@ -16,10 +16,10 @@ Usage:
 """
 
 import argparse
-import json
-import shutil
 import hashlib
 import hmac
+import json
+import shutil
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -92,9 +92,11 @@ def cmd_build(args):
     # Step 1: Copy base application
     print("1. Copying base application...")
     app_dir = build_dir / "app"
-    shutil.copytree(BASE_DIR, app_dir, ignore=shutil.ignore_patterns(
-        "__pycache__", "*.pyc", "data", ".DS_Store"
-    ))
+    shutil.copytree(
+        BASE_DIR,
+        app_dir,
+        ignore=shutil.ignore_patterns("__pycache__", "*.pyc", "data", ".DS_Store"),
+    )
     print(f"   ✓ Copied to {app_dir}")
 
     # Step 2: Create data directory
@@ -129,11 +131,11 @@ def cmd_build(args):
     }
     with open(config_path, "w") as f:
         json.dump(config, f, indent=2, ensure_ascii=False)
-    print(f"   ✓ Config created")
+    print("   ✓ Config created")
 
     # Step 5: Create README for customer
     readme = f"""# Model Maker — {version}
-# Built: {datetime.now().strftime('%Y-%m-%d %H:%M')}
+# Built: {datetime.now().strftime("%Y-%m-%d %H:%M")}
 
 ## Setup Instructions
 
@@ -217,20 +219,22 @@ if __name__ == "__main__":
 """
     with open(build_dir / "install.py", "w") as f:
         f.write(install_script)
-    print(f"   ✓ Install script created")
+    print("   ✓ Install script created")
 
     # Step 7: Update version registry
     registry = load_versions()
-    registry["versions"].append({
-        "version": version,
-        "model": model_path.name,
-        "field": field,
-        "build_date": datetime.now().isoformat(),
-        "model_size_gb": model_manifest["model_size_gb"],
-        "path": str(build_dir),
-    })
+    registry["versions"].append(
+        {
+            "version": version,
+            "model": model_path.name,
+            "field": field,
+            "build_date": datetime.now().isoformat(),
+            "model_size_gb": model_manifest["model_size_gb"],
+            "path": str(build_dir),
+        }
+    )
     save_versions(registry)
-    print(f"   ✓ Version registered")
+    print("   ✓ Version registered")
 
     # Summary
     total_size = sum(f.stat().st_size for f in build_dir.rglob("*") if f.is_file())
@@ -239,10 +243,10 @@ if __name__ == "__main__":
     print(f"  Location: {build_dir}")
     print(f"  App size: {total_size / (1024**2):.1f} MB (without model)")
     print(f"  Model: {model_path.name} ({model_manifest['model_size_gb']} GB)")
-    print(f"\n  To ship:")
+    print("\n  To ship:")
     print(f"  1. Copy {build_dir}/ to USB drive")
     print(f"  2. Copy {model_path} to USB drive model/ folder")
-    print(f"  3. On customer device: python install.py")
+    print("  3. On customer device: python install.py")
     print(f"{'=' * 60}")
 
 
@@ -290,7 +294,9 @@ def cmd_list(args):
     print(f"\n{'Version':<25} {'Model':<40} {'Field':<10} {'Date':<20} {'Size'}")
     print("─" * 110)
     for v in registry["versions"]:
-        print(f"{v['version']:<25} {v['model']:<40} {v['field']:<10} {v['build_date'][:19]:<20} {v.get('model_size_gb', '?')} GB")
+        print(
+            f"{v['version']:<25} {v['model']:<40} {v['field']:<10} {v['build_date'][:19]:<20} {v.get('model_size_gb', '?')} GB"
+        )
 
 
 def main():
