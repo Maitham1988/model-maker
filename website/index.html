@@ -192,11 +192,22 @@
 
         <!-- Main Download -->
         <div class="download-main">
-            <a href="https://dve5g1pvspmqt.cloudfront.net/downloads/Install%20Model%20Maker.command" class="download-btn-hero" download>
-                <span class="download-btn-icon">&#63743;</span>
-                <span data-i18n="download_btn_mac">Download for Mac</span>
-            </a>
-            <p class="download-steps-text" data-i18n="download_mac_steps">Download &rarr; Double-click &rarr; Installs automatically (~5 GB)</p>
+            <div class="download-mac-box">
+                <div class="download-mac-header">
+                    <span class="download-mac-icon">&#63743;</span>
+                    <span data-i18n="download_mac_label">Install on Mac</span>
+                </div>
+                <p class="download-mac-instruction" data-i18n="download_mac_howto">Open <strong>Terminal</strong> and paste this command:</p>
+                <div class="download-cmd-box" onclick="copyInstallCmd(this)">
+                    <code>curl -fsSL https://raw.githubusercontent.com/Maitham1988/model-maker/main/scripts/install-mac.sh | bash</code>
+                    <button class="download-copy-btn" aria-label="Copy">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                        <span data-i18n="download_copy">Copy</span>
+                    </button>
+                </div>
+                <p class="download-mac-steps" data-i18n="download_mac_steps_v2">Installs the app + AI model (~5 GB). Creates a Desktop launcher. Done.</p>
+                <p class="download-mac-hint" data-i18n="download_mac_hint">Don't know how to open Terminal? Press <kbd>&#8984;</kbd> + <kbd>Space</kbd>, type "Terminal", press Enter.</p>
+            </div>
             <p class="download-windows-note" data-i18n="download_win_desc">Windows &mdash; coming soon</p>
         </div>
 

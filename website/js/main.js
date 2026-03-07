@@ -93,4 +93,32 @@ function detectPlatform() {
   });
 }
 
+// ── Copy install command ─────────────────────────────────────
+
+function copyInstallCmd(el) {
+  const code = el.querySelector("code");
+  if (!code) return;
+
+  const text = code.textContent.trim();
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = el.querySelector(".download-copy-btn span");
+    if (btn) {
+      const orig = btn.textContent;
+      btn.textContent = "Copied!";
+      el.style.boxShadow = "0 0 0 2px #34c759";
+      setTimeout(() => {
+        btn.textContent = orig;
+        el.style.boxShadow = "";
+      }, 2000);
+    }
+  }).catch(() => {
+    // Fallback: select the text
+    const range = document.createRange();
+    range.selectNodeContents(code);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  });
+}
+
 
