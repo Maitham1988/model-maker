@@ -21,8 +21,8 @@
     --border-light: #eeeeee;
     --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
     --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
-    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-    --font-heading: 'Georgia', 'Times New Roman', serif;
+    --font-body: 'Noto Sans', 'Noto Sans Arabic', 'Noto Sans Devanagari', 'Noto Sans Bengali', 'Noto Sans Thai', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    --font-heading: 'Noto Sans', 'Noto Sans Arabic', 'Noto Sans Devanagari', 'Noto Sans Bengali', 'Noto Sans Thai', -apple-system, system-ui, sans-serif;
     --font-mono: 'SF Mono', 'Fira Code', 'Consolas', monospace;
     --container-max: 1080px;
     --nav-height: 60px;
@@ -274,45 +274,6 @@ a:hover { color: var(--text-primary); }
 }
 .model-specs li::before { content: "— "; color: var(--text-muted); }
 .model-best { color: var(--text-muted); font-size: 0.78rem; font-style: italic; }
-
-/* ── Checker ───────────────────────────────────────────────── */
-.checker-card {
-    max-width: 520px; margin: 0 auto; background: var(--off-white);
-    border: 1px solid var(--border); border-radius: 6px; padding: 36px;
-}
-.checker-step { margin-bottom: 16px; }
-.checker-step label { display: block; font-size: 0.9rem; font-weight: 600; margin-bottom: 12px; }
-.checker-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
-.checker-option {
-    display: flex; flex-direction: column; align-items: center; gap: 4px;
-    padding: 16px; background: var(--white); border: 1px solid var(--border);
-    border-radius: 5px; cursor: pointer; color: var(--text-primary);
-    font-size: 0.85rem; font-weight: 600; transition: border-color 0.2s;
-}
-.checker-option:hover { border-color: var(--text-primary); }
-.checker-option.selected { border-color: var(--emergency-red); background: var(--emergency-red-bg); }
-.option-icon { font-size: 1.3rem; }
-.checker-select {
-    width: 100%; padding: 9px 12px; background: var(--white);
-    border: 1px solid var(--border); border-radius: 5px;
-    font-size: 0.85rem; cursor: pointer; outline: none; margin-bottom: 10px;
-}
-.checker-select:focus { border-color: var(--emergency-red); }
-.checker-manual { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
-.checker-manual p { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 8px; }
-.checker-tip { font-size: 0.78rem; color: var(--text-muted); margin-top: 4px; }
-.checker-result-card { padding: 24px; border-radius: 6px; margin-bottom: 14px; text-align: center; }
-.checker-result-card.compatible { background: rgba(46,125,50,0.06); border: 1px solid var(--success-green); }
-.checker-result-card.limited { background: rgba(255,160,0,0.06); border: 1px solid #ff8f00; }
-.checker-result-card.incompatible { background: var(--emergency-red-bg); border: 1px solid var(--emergency-red); }
-.checker-result-icon { font-size: 2rem; margin-bottom: 8px; }
-.checker-result-title { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
-.checker-result-desc { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 10px; }
-.checker-result-model {
-    display: inline-block; padding: 5px 16px; background: var(--white);
-    border: 1px solid var(--border); border-radius: 3px;
-    font-weight: 700; font-size: 0.85rem;
-}
 
 /* ── Download ──────────────────────────────────────────────── */
 .download-section {

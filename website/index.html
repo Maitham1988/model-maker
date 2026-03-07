@@ -11,6 +11,9 @@
     <meta property="og:type" content="website">
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
     <title>Model Maker — Offline AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;1,400&family=Noto+Sans+Arabic:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Sans+Bengali:wght@400;600;700&family=Noto+Sans+Thai:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -71,7 +74,7 @@
 <section class="hero" id="hero">
     <div class="container hero-content">
         <h1 class="hero-title" style="margin-bottom:40px">
-            <span>Offline AI</span>
+            <span data-i18n="hero_title">Offline AI</span>
         </h1>
         <div class="hero-stats">
             <div class="stat">
@@ -94,58 +97,7 @@
     </div>
 </section>
 
-<!-- ─── Hardware Checker ───────────────────────────────────── -->
-<section class="section checker-section" id="checker">
-    <div class="container">
-        <div class="section-header">
-            <h2 data-i18n="checker_title">Check Your Device</h2>
-            <p data-i18n="checker_subtitle">Not sure which version fits? Select your device below.</p>
-        </div>
-        <div class="checker-card">
-            <div class="checker-form">
-                <div class="checker-step" id="checkerStep1">
-                    <label data-i18n="checker_device_type">Device type</label>
-                    <div class="checker-options">
-                        <button class="checker-option" data-type="computer" onclick="checkerSelectType('computer')">
-                            <span class="option-icon">&#128187;</span>
-                            <span data-i18n="checker_computer">Computer / Laptop</span>
-                        </button>
-                        <button class="checker-option" data-type="phone" onclick="checkerSelectType('phone')">
-                            <span class="option-icon">&#128241;</span>
-                            <span data-i18n="checker_phone">Phone / Tablet</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="checker-step hidden" id="checkerStep2">
-                    <label data-i18n="checker_select_device">Select your device:</label>
-                    <select class="checker-select" id="checkerDevice">
-                        <option value="" data-i18n="checker_choose">-- Select --</option>
-                    </select>
-                    <div class="checker-manual">
-                        <p data-i18n="checker_dont_know">Don't know your model?</p>
-                        <label data-i18n="checker_how_much_ram">How much RAM?</label>
-                        <select class="checker-select" id="checkerRam">
-                            <option value="" data-i18n="checker_select_ram">-- RAM --</option>
-                            <option value="4">4 GB</option>
-                            <option value="6">6 GB</option>
-                            <option value="8">8 GB</option>
-                            <option value="12">12 GB</option>
-                            <option value="16">16 GB</option>
-                            <option value="32">32 GB+</option>
-                        </select>
-                    </div>
-                    <button class="btn btn-primary" onclick="checkerAnalyze()" data-i18n="checker_analyze">Check</button>
-                </div>
-                <div class="checker-step hidden" id="checkerResult">
-                    <div class="checker-result-card" id="checkerResultCard"></div>
-                    <button class="btn btn-secondary" onclick="checkerReset()" data-i18n="checker_try_again">Try Again</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ─── Models (Ecosystem Showcase) ────────────────────────── -->
+<!-- ─── Models ──────────────────────────────────────────────── -->
 <section class="section models-section" id="models">
     <div class="container">
         <div class="section-header">
@@ -158,7 +110,7 @@
                 <h3>Qwen2.5-3B</h3>
                 <div class="model-size">2.0 GB</div>
                 <div class="model-stars">&#9733;&#9733;&#9733;</div>
-                <ul class="model-specs"><li data-i18n="model_ram_4">4 GB RAM minimum</li><li>29 languages</li></ul>
+                <ul class="model-specs"><li data-i18n="model_ram_4">4 GB RAM minimum</li><li data-i18n="model_languages">29 languages</li></ul>
                 <div class="model-best" data-i18n="model_lite_best">Older phones &amp; basic laptops</div>
             </div>
             <div class="model-card model-card-featured">
@@ -167,7 +119,7 @@
                 <h3>Qwen2.5-7B</h3>
                 <div class="model-size">4.4 GB</div>
                 <div class="model-stars">&#9733;&#9733;&#9733;&#9733;</div>
-                <ul class="model-specs"><li data-i18n="model_ram_8">8 GB RAM minimum</li><li>29 languages</li></ul>
+                <ul class="model-specs"><li data-i18n="model_ram_8">8 GB RAM minimum</li><li data-i18n="model_languages">29 languages</li></ul>
                 <div class="model-best" data-i18n="model_standard_best">Most modern devices</div>
             </div>
             <div class="model-card">
@@ -175,7 +127,7 @@
                 <h3>Qwen2.5-14B</h3>
                 <div class="model-size">8.5 GB</div>
                 <div class="model-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                <ul class="model-specs"><li data-i18n="model_ram_16">16 GB RAM minimum</li><li>29 languages</li></ul>
+                <ul class="model-specs"><li data-i18n="model_ram_16">16 GB RAM minimum</li><li data-i18n="model_languages">29 languages</li></ul>
                 <div class="model-best" data-i18n="model_premium_best">Powerful laptops &amp; desktops</div>
             </div>
         </div>
@@ -197,7 +149,7 @@
                     <span class="download-mac-icon">&#63743;</span>
                     <span data-i18n="download_mac_label">Install on Mac</span>
                 </div>
-                <p class="download-mac-instruction" data-i18n="download_mac_howto">Open <strong>Terminal</strong> and paste this command:</p>
+                <p class="download-mac-instruction"><span data-i18n="download_mac_howto">Open Terminal and paste:</span></p>
                 <div class="download-cmd-box" onclick="copyInstallCmd(this)">
                     <code>curl -fsSL https://raw.githubusercontent.com/Maitham1988/model-maker/main/scripts/install-mac.sh | bash</code>
                     <button class="download-copy-btn" aria-label="Copy">
@@ -206,7 +158,7 @@
                     </button>
                 </div>
                 <p class="download-mac-steps" data-i18n="download_mac_steps_v2">Installs the app + AI model (~5 GB). Creates a Desktop launcher. Done.</p>
-                <p class="download-mac-hint" data-i18n="download_mac_hint">Don't know how to open Terminal? Press <kbd>&#8984;</kbd> + <kbd>Space</kbd>, type "Terminal", press Enter.</p>
+                <p class="download-mac-hint" data-i18n="download_mac_hint">Terminal: press &#8984;+Space, type Terminal, press Enter</p>
             </div>
             <p class="download-windows-note" data-i18n="download_win_desc">Windows &mdash; coming soon</p>
         </div>
@@ -265,7 +217,6 @@
 </footer>
 
 <script src="js/i18n.js"></script>
-<script src="js/hardware-checker.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
