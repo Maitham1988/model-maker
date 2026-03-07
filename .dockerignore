@@ -1,0 +1,49 @@
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Git
+.git
+.github
+.gitignore
+
+# Development
+.venv
+venv
+__pycache__
+*.pyc
+.pytest_cache
+.mypy_cache
+.ruff_cache
+
+# Large files
+models/*.gguf
+models/embedding/
+models/mlx/
+models/adapters/
+
+# Build
+dist/
+build/
+builds/
+*.egg-info/
+
+# IDE
+.vscode
+.idea
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docs (not needed in container)
+docs/
+training/
+website/
+brain/
+tools/
+tests/
+
+# Logs
+*.log

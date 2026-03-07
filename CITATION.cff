@@ -1,0 +1,31 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://citation-file-format.github.io for more info.
+
+cff-version: 1.2.0
+title: "Model Maker"
+message: "If you use this software in your research, please cite it as below."
+type: software
+authors:
+  - given-names: Maitham
+    affiliation: "FlexSell International W.L.L"
+repository-code: "https://github.com/Maitham1988/model-maker"
+url: "https://github.com/Maitham1988/model-maker"
+abstract: >-
+  Model Maker is a free, open-source offline AI assistant for emergency,
+  medical, and survival situations. It runs 100% on the user's device with
+  no internet required, supporting 29 languages with Arabic and English
+  as primary languages. Powered by Qwen2.5 GGUF models with ONNX-based
+  RAG for medical knowledge retrieval.
+keywords:
+  - offline-ai
+  - medical-ai
+  - emergency-assistant
+  - multilingual
+  - arabic-nlp
+  - survival
+  - llm
+  - gguf
+  - rag
+license: Apache-2.0
+version: "1.0.0"
+date-released: "2026-03-07"

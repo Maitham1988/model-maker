@@ -10,8 +10,11 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/Maitham1988/model-maker/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/Maitham1988/model-maker/ci.yml?style=flat-square&label=CI" alt="CI" /></a>
   <a href="https://github.com/Maitham1988/model-maker/releases"><img src="https://img.shields.io/github/v/release/Maitham1988/model-maker?style=flat-square" alt="Release" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache%202.0-blue?style=flat-square" alt="License" /></a>
+  <img src="https://img.shields.io/badge/python-3.11%2B-blue?style=flat-square" alt="Python" />
+  <img src="https://img.shields.io/badge/platforms-macOS%20|%20Windows%20|%20Linux-lightgrey?style=flat-square" alt="Platforms" />
   <a href="https://github.com/Maitham1988/model-maker/stargazers"><img src="https://img.shields.io/github/stars/Maitham1988/model-maker?style=flat-square" alt="Stars" /></a>
   <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square" alt="PRs Welcome" /></a>
 </p>
@@ -48,6 +51,12 @@ Model Maker puts a trained AI doctor and survival expert directly on your device
 - **Open Source** — Free to use, inspect, modify, and share.
 
 ## Quick Start
+
+### One-Line Install (macOS / Linux)
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Maitham1988/model-maker/main/scripts/install.sh | bash
+```
 
 ### Option 1: Download (Recommended)
 
@@ -86,6 +95,21 @@ cd app && python run.py
 ```
 
 Open **http://127.0.0.1:8000** in your browser.
+
+### Option 3: Docker
+
+```bash
+git clone https://github.com/Maitham1988/model-maker.git
+cd model-maker
+
+# Download a model first
+python models/download.py --tier standard
+
+# Run with Docker Compose
+docker compose up -d
+
+# Open http://localhost:8000
+```
 
 ## Supported Platforms
 
