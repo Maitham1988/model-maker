@@ -145,12 +145,12 @@
     </div>
 </section>
 
-<!-- ─── Models ─────────────────────────────────────────────── -->
+<!-- ─── Models (Ecosystem Showcase) ────────────────────────── -->
 <section class="section models-section" id="models">
     <div class="container">
         <div class="section-header">
-            <h2 data-i18n="models_title">Choose Your Version</h2>
-            <p data-i18n="models_subtitle">Three sizes. Pick the one that fits your device.</p>
+            <h2 data-i18n="models_title_v2">AI Models</h2>
+            <p data-i18n="models_subtitle_v2">The installer auto-detects your device and picks the best model. Here's what powers Model Maker.</p>
         </div>
         <div class="models-grid">
             <div class="model-card">
@@ -158,9 +158,8 @@
                 <h3>Qwen2.5-3B</h3>
                 <div class="model-size">2.0 GB</div>
                 <div class="model-stars">&#9733;&#9733;&#9733;</div>
-                <ul class="model-specs"><li>4 GB RAM</li><li>4 GB storage</li></ul>
+                <ul class="model-specs"><li data-i18n="model_ram_4">4 GB RAM minimum</li><li>29 languages</li></ul>
                 <div class="model-best" data-i18n="model_lite_best">Older phones &amp; basic laptops</div>
-                <a href="https://huggingface.co/Qwen/Qwen2.5-3B-Instruct-GGUF" class="btn btn-secondary" style="margin-top:12px;width:100%" target="_blank" rel="noopener" data-i18n="model_download">Download</a>
             </div>
             <div class="model-card model-card-featured">
                 <div class="model-badge" data-i18n="model_recommended">&#9733; Recommended</div>
@@ -168,56 +167,48 @@
                 <h3>Qwen2.5-7B</h3>
                 <div class="model-size">4.4 GB</div>
                 <div class="model-stars">&#9733;&#9733;&#9733;&#9733;</div>
-                <ul class="model-specs"><li>8 GB RAM</li><li>6 GB storage</li></ul>
+                <ul class="model-specs"><li data-i18n="model_ram_8">8 GB RAM minimum</li><li>29 languages</li></ul>
                 <div class="model-best" data-i18n="model_standard_best">Most modern devices</div>
-                <a href="https://huggingface.co/Qwen/Qwen2.5-7B-Instruct-GGUF" class="btn btn-primary" style="margin-top:12px;width:100%" target="_blank" rel="noopener" data-i18n="model_download">Download</a>
             </div>
             <div class="model-card">
                 <div class="model-tier premium"><span data-i18n="model_premium">Premium</span></div>
                 <h3>Qwen2.5-14B</h3>
                 <div class="model-size">8.5 GB</div>
                 <div class="model-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                <ul class="model-specs"><li>16 GB RAM</li><li>12 GB storage</li></ul>
+                <ul class="model-specs"><li data-i18n="model_ram_16">16 GB RAM minimum</li><li>29 languages</li></ul>
                 <div class="model-best" data-i18n="model_premium_best">Powerful laptops &amp; desktops</div>
-                <a href="https://huggingface.co/Qwen/Qwen2.5-14B-Instruct-GGUF" class="btn btn-secondary" style="margin-top:12px;width:100%" target="_blank" rel="noopener" data-i18n="model_download">Download</a>
             </div>
         </div>
+        <p class="models-auto-note" data-i18n="models_auto_note">You don't need to choose — the installer picks the right model for your device automatically.</p>
     </div>
 </section>
 
-<!-- ─── Download / Install ─────────────────────────────────── -->
+<!-- ─── Download ───────────────────────────────────────────── -->
 <section class="section download-section" id="download">
     <div class="container">
         <div class="section-header">
             <h2 data-i18n="download_title">Download</h2>
         </div>
 
-        <!-- One-Click Installers -->
-        <div class="download-platforms">
-            <div class="download-platform-card">
-                <div class="platform-icon">&#63743;</div>
-                <h3>macOS</h3>
-                <p data-i18n="download_mac_desc">One command. Installs everything. Auto-detects your Mac and picks the best model.</p>
-                <p class="download-step-label" data-i18n="download_step_open">Open <strong>Terminal</strong> and paste:</p>
-                <pre class="download-oneliner"><code>curl -fsSL https://raw.githubusercontent.com/Maitham1988/model-maker/main/scripts/install-mac.sh | bash</code></pre>
-                <p class="download-step-note" data-i18n="download_mac_note">Downloads the app + AI model (~5 GB). Creates a launcher on your Desktop.</p>
-            </div>
-            <div class="download-platform-card download-platform-soon">
-                <div class="platform-icon">&#128187;</div>
-                <h3>Windows</h3>
-                <p data-i18n="download_win_desc">Coming soon. One-click installer for Windows 10/11.</p>
-            </div>
+        <!-- Main Download -->
+        <div class="download-main">
+            <a href="https://dve5g1pvspmqt.cloudfront.net/downloads/Install%20Model%20Maker.command" class="download-btn-hero" download>
+                <span class="download-btn-icon">&#63743;</span>
+                <span data-i18n="download_btn_mac">Download for Mac</span>
+            </a>
+            <p class="download-steps-text" data-i18n="download_mac_steps">Download &rarr; Double-click &rarr; Installs automatically (~5 GB)</p>
+            <p class="download-windows-note" data-i18n="download_win_desc">Windows &mdash; coming soon</p>
         </div>
 
-        <!-- Advanced / Source -->
-        <details class="download-advanced">
-            <summary data-i18n="download_advanced_title">Advanced: Install from source</summary>
-            <pre class="download-source-code"><code>git clone https://github.com/Maitham1988/model-maker.git
-cd model-maker
-pip install -r requirements.txt
-python tools/download_model.py
-python app/run.py</code></pre>
-        </details>
+        <!-- Developer / Open Source -->
+        <div class="download-developer">
+            <p data-i18n="download_dev_tip">Are you a developer?</p>
+            <a href="https://github.com/Maitham1988/model-maker" class="download-github-link" target="_blank" rel="noopener">
+                <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                <span data-i18n="download_dev_github">Contribute on GitHub</span>
+            </a>
+            <span class="download-dev-badge">Apache 2.0 &mdash; Open Source</span>
+        </div>
     </div>
 </section>
 
