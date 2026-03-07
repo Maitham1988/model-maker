@@ -114,10 +114,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Validate HTML
-        uses: nicerapp/validateHTML@v1
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          files: website/index.html
+          python-version: "3.11"
+
+      - name: Install HTML validator
+        run: pip install html5lib
+
+      - name: Validate HTML
+        run: |
+          python -m html5lib website/index.html
         continue-on-error: true
 
       - name: Check for broken links

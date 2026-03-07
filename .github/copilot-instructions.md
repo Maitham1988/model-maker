@@ -6,7 +6,7 @@
 survival situations. It runs 100% offline on the user’s device — no internet required.
 
 **License**: Apache 2.0
-**Price**: $1 (pre-built download)
+**Price**: Free (open source)
 **Created**: March 2026
 **Owner**: Maitham (FlexSell International W.L.L)
 **Language**: Python 3.11+

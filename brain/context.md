@@ -48,7 +48,7 @@ make website
 | 2026-03-06 | SSE over WebSocket             | Simpler, works everywhere         |
 | 2026-03-06 | No framework (vanilla JS)      | Zero dependencies, fast loading   |
 | 2026-03-06 | Setup wizard for system prompt | Easy customization for users      |
-| 2026-03    | Apache 2.0 open source         | Community-driven, $1 download     |
+| 2026-03    | Apache 2.0 open source         | Community-driven, free download   |
 | 2026-03    | 3-tier model system            | Lite/Standard/Premium for all HW  |
 | 2026-03    | ONNX RAG + Arabic bridge       | Offline cross-lingual search      |
 

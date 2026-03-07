@@ -181,7 +181,6 @@ a:hover { color: var(--text-primary); }
 .btn-secondary { background: var(--white); color: var(--text-primary); border: 1px solid var(--border); }
 .btn-secondary:hover { border-color: var(--text-primary); color: var(--text-primary); }
 .btn-lg { padding: 13px 30px; font-size: 0.92rem; }
-.btn-price { font-size: 0.78rem; font-weight: 400; opacity: 0.85; margin-left: 4px; }
 
 /* ── Sections ──────────────────────────────────────────────── */
 .section { padding: 72px 0; }
