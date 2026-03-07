@@ -1,6 +1,6 @@
 # Getting Started
 
-Welcome to **Model Maker** — a free, offline AI assistant for emergency, medical, and survival situations.
+Welcome to **Model Maker** — an offline AI assistant for emergency, medical, and survival situations.
 
 ## Quick Start (3 Steps)
 

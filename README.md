@@ -48,7 +48,7 @@ Model Maker puts a trained AI doctor and survival expert directly on your device
 - **Privacy First** — Zero telemetry. Zero tracking. Your conversations stay on your device.
 - **Myth Protection** — Actively warns against dangerous medical myths (butter on burns, sucking snake venom, etc.)
 - **Smart Hardware Detection** — Recommends the right model for your device's RAM and storage.
-- **Open Source** — Free to use, inspect, modify, and share.
+- **Open Source** — Apache 2.0 licensed. Inspect, modify, and share the code.
 
 ## Quick Start
 
@@ -225,7 +225,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 Apache License 2.0 — see [LICENSE](LICENSE) for details.
 
-Free to use, modify, and distribute. Commercial use allowed.
+Open source. Modify, distribute, and use commercially under Apache 2.0.
 
 ## Acknowledgments
 

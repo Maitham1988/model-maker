@@ -5,11 +5,14 @@ Mounts static frontend, includes API router, initializes engine + database.
 
 import json
 import sys
+import time
+from collections import defaultdict
 from pathlib import Path
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request, Response
+from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, JSONResponse
 
 # ── Paths ───────────────────────────────────────────────────────────
 BASE_DIR = Path(__file__).parent.parent          # app/
@@ -92,11 +95,64 @@ except Exception as e:
 
 # ── FastAPI App ─────────────────────────────────────────────────────
 app = FastAPI(
-    title="Local AI Chat",
+    title="Model Maker — Local AI",
     version="1.0.0",
     docs_url=None,       # Disable Swagger in production
     redoc_url=None,
+    openapi_url=None,     # Disable OpenAPI schema endpoint
 )
+
+# ── Security Middleware ─────────────────────────────────────────────
+# Only accept connections from localhost (this is an offline app)
+app.add_middleware(TrustedHostMiddleware, allowed_hosts=["localhost", "127.0.0.1"])
+
+# Rate limiting (per-IP, in-memory — prevents abuse from local malware)
+_rate_limit: dict[str, list[float]] = defaultdict(list)
+RATE_LIMIT_MAX = 60          # max requests
+RATE_LIMIT_WINDOW = 60       # per window (seconds)
+
+
+@app.middleware("http")
+async def security_middleware(request: Request, call_next):
+    """Add security headers and rate limiting to all responses."""
+    # Rate limit (skip static files)
+    if request.url.path.startswith("/api"):
+        client_ip = request.client.host if request.client else "unknown"
+        now = time.time()
+        window = [t for t in _rate_limit[client_ip] if now - t < RATE_LIMIT_WINDOW]
+        _rate_limit[client_ip] = window
+        if len(window) >= RATE_LIMIT_MAX:
+            return JSONResponse(
+                status_code=429,
+                content={"detail": "Too many requests. Try again later."},
+            )
+        _rate_limit[client_ip].append(now)
+
+    response: Response = await call_next(request)
+
+    # Security headers
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["X-XSS-Protection"] = "1; mode=block"
+    response.headers["Referrer-Policy"] = "no-referrer"
+    response.headers["Permissions-Policy"] = (
+        "camera=(), microphone=(), geolocation=(), payment=()"
+    )
+    response.headers["Content-Security-Policy"] = (
+        "default-src 'self'; "
+        "script-src 'self' 'unsafe-inline'; "
+        "style-src 'self' 'unsafe-inline'; "
+        "img-src 'self' data:; "
+        "connect-src 'self'; "
+        "font-src 'self'; "
+        "frame-ancestors 'none'"
+    )
+    # Prevent caching of API responses
+    if request.url.path.startswith("/api"):
+        response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate"
+        response.headers["Pragma"] = "no-cache"
+
+    return response
 
 # ── API Router ──────────────────────────────────────────────────────
 from backend.routes import router, init as routes_init  # noqa: E402

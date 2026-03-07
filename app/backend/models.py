@@ -15,18 +15,18 @@ class ChatMessage(BaseModel):
 
 
 class ChatRequest(BaseModel):
-    conversation_id: str
-    message: str
+    conversation_id: str = Field(..., min_length=1, max_length=64)
+    message: str = Field(..., min_length=1, max_length=32_000)
 
 
 # ─── Conversations ────────────────────────────────────────────────
 
 class ConversationCreate(BaseModel):
-    title: str = "New Chat"
+    title: str = Field("New Chat", max_length=200)
 
 
 class ConversationRename(BaseModel):
-    title: str
+    title: str = Field(..., min_length=1, max_length=200)
 
 
 class ConversationResponse(BaseModel):
@@ -47,9 +47,9 @@ class MessageResponse(BaseModel):
 # ─── Memory ───────────────────────────────────────────────────────
 
 class MemoryCreate(BaseModel):
-    key: str
-    value: str
-    category: str = "general"
+    key: str = Field(..., min_length=1, max_length=200)
+    value: str = Field(..., min_length=1, max_length=10_000)
+    category: str = Field("general", max_length=50)
 
 
 class MemoryResponse(BaseModel):
@@ -63,11 +63,11 @@ class MemoryResponse(BaseModel):
 # ─── Setup Wizard ─────────────────────────────────────────────────
 
 class SetupAnswer(BaseModel):
-    name: str = Field("", description="User or business name")
-    field: str = Field("general", description="Field: medical, legal, education, business, personal, other")
-    tasks: str = Field("general", description="Main tasks: chat, writing, research, learning, support")
-    language: str = Field("both", description="Preferred language: arabic, english, both")
-    special_instructions: str = Field("", description="Any special instructions")
+    name: str = Field("", max_length=200, description="User or business name")
+    field: str = Field("general", max_length=50, description="Field: medical, legal, education, business, personal, other")
+    tasks: str = Field("general", max_length=100, description="Main tasks: chat, writing, research, learning, support")
+    language: str = Field("both", max_length=20, description="Preferred language: arabic, english, both")
+    special_instructions: str = Field("", max_length=5_000, description="Any special instructions")
 
 
 class SetupQuestion(BaseModel):
@@ -81,8 +81,8 @@ class SetupQuestion(BaseModel):
 # ─── Config ───────────────────────────────────────────────────────
 
 class ConfigUpdate(BaseModel):
-    system_prompt: str | None = None
-    temperature: float | None = None
-    max_tokens: int | None = None
-    max_history_messages: int | None = None
-    language: str | None = None
+    system_prompt: str | None = Field(None, max_length=10_000)
+    temperature: float | None = Field(None, ge=0.0, le=2.0)
+    max_tokens: int | None = Field(None, ge=64, le=32_768)
+    max_history_messages: int | None = Field(None, ge=1, le=100)
+    language: str | None = Field(None, max_length=20)

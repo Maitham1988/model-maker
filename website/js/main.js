@@ -6,7 +6,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   initNavbar();
   initSmoothScroll();
-  initScrollAnimations();
   initMobileNav();
   detectPlatform();
 });
@@ -47,32 +46,6 @@ function initSmoothScroll() {
         document.getElementById("navLinks")?.classList.remove("active");
       }
     });
-  });
-}
-
-// ── Scroll animations (fade in on scroll) ────────────────────
-
-function initScrollAnimations() {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("animate-in");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
-  );
-
-  // Observe cards and sections
-  document.querySelectorAll(
-    ".why-card, .feature-card, .model-card, .community-card, .download-step"
-  ).forEach((el) => {
-    el.style.opacity = "0";
-    el.style.transform = "translateY(30px)";
-    el.style.transition = "opacity 0.6s ease, transform 0.6s ease";
-    observer.observe(el);
   });
 }
 
@@ -120,25 +93,4 @@ function detectPlatform() {
   });
 }
 
-// ── Animate numbers on scroll ────────────────────────────────
 
-function animateNumber(element, target, suffix = "") {
-  const duration = 1500;
-  const start = 0;
-  const startTime = performance.now();
-
-  function update(currentTime) {
-    const elapsed = currentTime - startTime;
-    const progress = Math.min(elapsed / duration, 1);
-    const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
-    const current = Math.round(start + (target - start) * eased);
-
-    element.textContent = current + suffix;
-
-    if (progress < 1) {
-      requestAnimationFrame(update);
-    }
-  }
-
-  requestAnimationFrame(update);
-}

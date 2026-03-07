@@ -2,10 +2,11 @@
 
 ## Project Overview
 
-**Model Maker** is a free, open-source offline AI assistant for emergency, medical, and
-survival situations. It runs 100% offline on the user's device — no internet required.
+**Model Maker** is an open-source offline AI assistant for emergency, medical, and
+survival situations. It runs 100% offline on the user’s device — no internet required.
 
-**License**: Apache 2.0 — Free forever
+**License**: Apache 2.0
+**Price**: $1 (pre-built download)
 **Created**: March 2026
 **Owner**: Maitham (FlexSell International W.L.L)
 **Language**: Python 3.11+
