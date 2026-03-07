@@ -4,10 +4,9 @@
 
 - Created: March 6, 2026
 - Owner: Maitham (FlexSell International W.L.L)
-- Purpose: Commercial offline AI chat system for Bahrain/GCC market
+- Purpose: Free open-source offline AI for emergency medical & survival situations
 - Emergency use case: Works without internet during wartime/outages
-- Business model: Install on customer devices, charge per installation
-- Anti-piracy: Device-locked license (hardware ID based)
+- License: Apache 2.0
 
 ## Technical Decisions
 
@@ -23,8 +22,7 @@
 
 - System prompt generated from wizard questions (name, field, language, tasks)
 - User can also directly edit system prompt in settings
-- Each customer gets unique folder in projects/
-- License locked to hardware ID
+- Setup wizard customizes the AI for each user's situation
 
 ## Model Information
 

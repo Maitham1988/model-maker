@@ -58,11 +58,7 @@ Model Maker puts a trained AI doctor and survival expert directly on your device
 curl -fsSL https://raw.githubusercontent.com/Maitham1988/model-maker/main/scripts/install.sh | bash
 ```
 
-### Option 1: Download (Recommended)
-
-Go to [**modelmaker.app**](#) and download for your platform. The app will guide you through setup.
-
-### Option 2: Run from Source
+### Run from Source
 
 ```bash
 # Clone the repository
@@ -96,7 +92,7 @@ cd app && python run.py
 
 Open **http://127.0.0.1:8000** in your browser.
 
-### Option 3: Docker
+### Docker
 
 ```bash
 git clone https://github.com/Maitham1988/model-maker.git
@@ -239,7 +235,7 @@ Open source. Modify, distribute, and use commercially under Apache 2.0.
 
 <p align="center">
   <strong>Built with urgency. Built to save lives.</strong><br>
-  <em>FlexSell International W.L.L — Bahrain</em><br><br>
+  <em>Apache 2.0 — Open Source</em><br><br>
   <a href="https://github.com/Maitham1988/model-maker">⭐ Star this repo</a> •
   <a href="https://github.com/Maitham1988/model-maker/issues">Report Issue</a> •
   <a href="https://github.com/Maitham1988/model-maker/discussions">Discuss</a>

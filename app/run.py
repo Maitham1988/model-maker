@@ -16,13 +16,13 @@ import threading
 import webbrowser
 from pathlib import Path
 
-# Ensure we're running from base/ directory
+# Ensure we're running from app/ directory
 BASE_DIR = Path(__file__).parent
-if BASE_DIR.name != "base":
-    print("❌ run.py must be in the base/ directory")
+if BASE_DIR.name != "app":
+    print("❌ run.py must be in the app/ directory")
     sys.exit(1)
 
-# Add base/ to sys.path so imports work
+# Add app/ to sys.path so imports work
 sys.path.insert(0, str(BASE_DIR))
 
 
@@ -88,7 +88,7 @@ def main():
     print(f"🚀 Server: http://{args.host}:{args.port}")
     print(f"   Press Ctrl+C to stop\n")
 
-    # Must run from base/ directory for imports to work
+    # Must run from app/ directory for imports to work
     import os
     os.chdir(str(BASE_DIR))
 
