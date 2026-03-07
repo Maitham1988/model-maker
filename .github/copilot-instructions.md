@@ -2,8 +2,9 @@
 
 ## Project Overview
 
-**Model Maker** is an open-source offline AI assistant for emergency, medical, and
-survival situations. It runs 100% offline on the user’s device — no internet required.
+**Model Maker** is an open-source offline AI assistant for emergency, survival,
+engineering, and general-purpose use. It runs 100% offline on the user's device —
+no internet required. Supports multiple model families (Qwen, Llama, Mistral, Phi, Gemma).
 
 **License**: Apache 2.0
 **Price**: Free (open source)
@@ -24,8 +25,8 @@ model-maker/
 ├── app/                        ← Main application
 │   ├── backend/                ← FastAPI + llama-cpp-python
 │   │   ├── main.py             ← Entry point, mounts static + API
-│   │   ├── llm_engine.py       ← LLM wrapper (streaming, context)
-│   │   ├── knowledge_rag.py    ← ONNX RAG + Arabic bridge
+│   │   ├── llm_engine.py       ← LLM wrapper (multi-model, streaming)
+│   │   ├── knowledge_rag.py    ← ONNX RAG + multilingual bridge
 │   │   ├── database.py         ← SQLite (conversations, messages, memory)
 │   │   ├── routes.py           ← API endpoints
 │   │   ├── models.py           ← Pydantic schemas
@@ -35,7 +36,7 @@ model-maker/
 │   │   ├── style.css           ← Dark theme
 │   │   ├── app.js              ← Chat client + SSE streaming + share
 │   │   └── translations.js     ← 28 language translations
-│   ├── knowledge/              ← Medical/survival markdown files (RAG)
+│   ├── knowledge/              ← Emergency/survival/engineering knowledge (RAG)
 │   ├── run.py                  ← One-click launcher
 │   └── config.json             ← Runtime config (model path, settings)
 ├── models/                     ← Model management
@@ -47,7 +48,7 @@ model-maker/
 │   ├── css/style.css           ← Dark theme
 │   └── js/                     ← i18n, hardware checker, main
 ├── training/                   ← Fine-tuning pipeline
-├── tools/                      ← Developer utilities
+├── tools/                      ← Developer utilities + research pipeline
 ├── tests/                      ← Test suite
 ├── docs/                       ← Documentation
 ├── scripts/                    ← Build & setup scripts
@@ -81,8 +82,12 @@ model-maker/
 | Qwen2.5-3B-Instruct (Q4_K_M) | Lite | 2.0 GB | 4 GB | 29 | Basic devices |
 | Qwen2.5-7B-Instruct (Q4_K_M) | Standard | 4.4 GB | 8 GB | 29 | Most users ★ |
 | Qwen2.5-14B-Instruct (Q4_K_M) | Premium | 8.5 GB | 16 GB | 29 | Best quality |
+| Llama 3.1 8B Instruct | Community | 4.9 GB | 8 GB | 8 | Strong English |
+| Mistral 7B Instruct v0.3 | Community | 4.1 GB | 8 GB | 5 | European languages |
+| Phi-3.5 Mini Instruct | Community | 2.2 GB | 4 GB | 3 | Compact reasoning |
+| Gemma 2 9B Instruct | Community | 5.4 GB | 8 GB | 7 | General knowledge |
 
-All models use GGUF format from Hugging Face.
+All models use GGUF format. Chat format is auto-detected from filename.
 
 ---
 
@@ -117,16 +122,7 @@ All models use GGUF format from Hugging Face.
 
 ---
 
-## License System
-
-- Hardware ID = SHA256(MAC address + hostname + disk serial)
-- License key = HMAC-SHA256(hardware_id, secret_key)
-- Checked on every app launch
-- Customer cannot copy to another device
-
----
-
-## Customer Installation Flow
+## Installation Flow
 
 1. User downloads from website or GitHub
 2. Runs `scripts/setup.sh` (or `make setup`)

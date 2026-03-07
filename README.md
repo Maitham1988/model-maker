@@ -6,7 +6,7 @@
 
 <p align="center">
   <strong>Offline AI for everyone. No internet. No cloud. No tracking.</strong><br>
-  Emergency medical &amp; survival assistant that runs 100% on your device.
+  Emergency, survival &amp; general-purpose AI assistant that runs 100% on your device.
 </p>
 
 <p align="center">
@@ -34,7 +34,9 @@
 
 **When disaster strikes, the internet goes down first.** In war zones, natural disasters, and remote areas, people lose access to search engines, hospitals, and emergency services — exactly when they need help the most.
 
-Model Maker puts a trained AI doctor and survival expert directly on your device. It works without internet, without cloud servers, without any external connection. Your data never leaves your device.
+Model Maker puts a trained AI assistant directly on your device. It works without internet, without cloud servers, without any external connection. Your data never leaves your device.
+
+Medical emergencies, mechanical repair, engineering, agriculture, education, survival — whatever you need help with, the AI is there. Offline. Always.
 
 > *"This started on day 3 of a war. The question was simple: if we lose internet, if we lose access to hospitals — what do we do?"*
 > — Maitham, Founder
@@ -42,9 +44,12 @@ Model Maker puts a trained AI doctor and survival expert directly on your device
 ## Features
 
 - **100% Offline** — No internet required. Ever. Works in airplane mode, in a bunker, in a blackout.
-- **Emergency Medical AI** — Trained on verified medical knowledge: burns, bleeding, CPR, fractures, poisoning, shock, and more.
+- **Emergency Medical AI** — Burns, bleeding, CPR, fractures, poisoning, shock, childbirth, and more.
 - **Survival Knowledge** — Water purification, shelter building, fire starting, navigation, rescue signals.
+- **Engineering & Repair** — Mechanical repair, electrical wiring, welding, engine maintenance, construction.
+- **General Purpose** — Education, agriculture, communication, legal guidance, business — adapts to your needs via setup wizard.
 - **28 Languages** — Arabic, English, Chinese, Japanese, Korean, French, Spanish, Portuguese, German, Italian, Russian, Dutch, Polish, Czech, Turkish, Vietnamese, Thai, Indonesian, Swedish, Danish, Norwegian, Finnish, Hungarian, Greek, Romanian, Ukrainian, Hebrew, Hindi.
+- **Multilingual RAG** — Knowledge retrieval works in Arabic, French, Spanish, Turkish, and Hindi — not just English.
 - **Privacy First** — Zero telemetry. Zero tracking. Your conversations stay on your device.
 - **Myth Protection** — Actively warns against dangerous medical myths (butter on burns, sucking snake venom, etc.)
 - **Smart Hardware Detection** — Recommends the right model for your device's RAM and storage.

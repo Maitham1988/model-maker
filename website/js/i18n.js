@@ -9,8 +9,8 @@ const TRANSLATIONS = {
 /* ═══════════════════════════ ENGLISH ═══════════════════════════ */
 en: {
     nav_download: "Download",
-    hero_badge: "Open Source — Emergency Medical AI",
-    hero_title_1: "Medical Guidance",
+    hero_badge: "Open Source — Offline AI Assistant",
+    hero_title_1: "AI Guidance",
     hero_title_2: "When the Internet Fails",
     hero_subtitle: "Offline AI for emergencies, disasters, and war zones. Runs entirely on your device. No data collection. 29 languages. Open source.",
     hero_cta_download: "Download",
@@ -58,7 +58,7 @@ en: {
     checker_result_recommend: "Recommended version:",
     download_title: "Download",
     download_source_title: "Install from source (Apache 2.0):",
-    footer_desc: "Open source offline AI for emergency medical guidance.",
+    footer_desc: "Open source offline AI for emergency and survival guidance.",
     footer_project: "Project",
     footer_source: "Source Code",
     footer_docs: "Documentation",
@@ -69,8 +69,8 @@ en: {
 /* ═══════════════════════════ ARABIC ═══════════════════════════ */
 ar: {
     nav_download: "تحميل",
-    hero_badge: "مفتوح المصدر — ذكاء اصطناعي طبي للطوارئ",
-    hero_title_1: "إرشادات طبية",
+    hero_badge: "مفتوح المصدر — مساعد ذكاء اصطناعي يعمل بدون إنترنت",
+    hero_title_1: "مساعدك الذكي",
     hero_title_2: "عندما ينقطع الإنترنت",
     hero_subtitle: "ذكاء اصطناعي يعمل بدون إنترنت للطوارئ والكوارث ومناطق الحروب. يعمل بالكامل على جهازك. بدون جمع بيانات. ٢٩ لغة. مفتوح المصدر.",
     hero_cta_download: "تحميل",
@@ -118,7 +118,7 @@ ar: {
     checker_result_recommend: "الإصدار المُوصى به:",
     download_title: "تحميل",
     download_source_title: "التثبيت من المصدر (Apache 2.0):",
-    footer_desc: "ذكاء اصطناعي مفتوح المصدر يعمل بدون إنترنت للإرشادات الطبية الطارئة.",
+    footer_desc: "ذكاء اصطناعي مفتوح المصدر يعمل بدون إنترنت للطوارئ والبقاء.",
     footer_project: "المشروع",
     footer_source: "الكود المصدري",
     footer_docs: "التوثيق",
@@ -129,8 +129,8 @@ ar: {
 /* ═══════════════════════════ FRENCH ═══════════════════════════ */
 fr: {
     nav_download: "Télécharger",
-    hero_badge: "Open Source — IA Médicale d'Urgence",
-    hero_title_1: "Assistance Médicale",
+    hero_badge: "Open Source — Assistant IA Hors Ligne",
+    hero_title_1: "Assistant IA",
     hero_title_2: "Quand Internet Tombe en Panne",
     hero_subtitle: "IA hors ligne pour les urgences, catastrophes et zones de guerre. Fonctionne entièrement sur votre appareil. Aucune collecte de données. 29 langues. Open source.",
     hero_cta_download: "Télécharger",
@@ -178,7 +178,7 @@ fr: {
     checker_result_recommend: "Version recommandée :",
     download_title: "Télécharger",
     download_source_title: "Installer depuis le source (Apache 2.0) :",
-    footer_desc: "IA open source hors ligne pour l'assistance médicale d'urgence.",
+    footer_desc: "IA open source hors ligne pour les urgences et la survie.",
     footer_project: "Projet",
     footer_source: "Code Source",
     footer_docs: "Documentation",
@@ -189,8 +189,8 @@ fr: {
 /* ═══════════════════════════ SPANISH ═══════════════════════════ */
 es: {
     nav_download: "Descargar",
-    hero_badge: "Código Abierto — IA Médica de Emergencia",
-    hero_title_1: "Guía Médica",
+    hero_badge: "Código Abierto — Asistente IA Sin Conexión",
+    hero_title_1: "Asistente IA",
     hero_title_2: "Cuando Falla el Internet",
     hero_subtitle: "IA sin conexión para emergencias, desastres y zonas de guerra. Funciona completamente en tu dispositivo. Sin recopilación de datos. 29 idiomas. Código abierto.",
     hero_cta_download: "Descargar",
@@ -238,7 +238,7 @@ es: {
     checker_result_recommend: "Versión recomendada:",
     download_title: "Descargar",
     download_source_title: "Instalar desde el código fuente (Apache 2.0):",
-    footer_desc: "IA de código abierto sin conexión para asistencia médica de emergencia.",
+    footer_desc: "IA de código abierto sin conexión para emergencias y supervivencia.",
     footer_project: "Proyecto",
     footer_source: "Código Fuente",
     footer_docs: "Documentación",
@@ -249,8 +249,8 @@ es: {
 /* ═══════════════════════════ GERMAN ═══════════════════════════ */
 de: {
     nav_download: "Herunterladen",
-    hero_badge: "Open Source — Medizinische Notfall-KI",
-    hero_title_1: "Medizinische Hilfe",
+    hero_badge: "Open Source — Offline-KI-Assistent",
+    hero_title_1: "KI-Assistent",
     hero_title_2: "Wenn das Internet Ausfällt",
     hero_subtitle: "Offline-KI für Notfälle, Katastrophen und Kriegsgebiete. Läuft vollständig auf Ihrem Gerät. Keine Datenerfassung. 29 Sprachen. Open Source.",
     hero_cta_download: "Herunterladen",
@@ -298,7 +298,7 @@ de: {
     checker_result_recommend: "Empfohlene Version:",
     download_title: "Herunterladen",
     download_source_title: "Aus Quellcode installieren (Apache 2.0):",
-    footer_desc: "Open-Source-Offline-KI für medizinische Notfallhilfe.",
+    footer_desc: "Open-Source-Offline-KI für Notfall- und Überlebenshilfe.",
     footer_project: "Projekt",
     footer_source: "Quellcode",
     footer_docs: "Dokumentation",
@@ -309,8 +309,8 @@ de: {
 /* ═══════════════════════════ CHINESE ═══════════════════════════ */
 zh: {
     nav_download: "下载",
-    hero_badge: "开源 — 紧急医疗AI",
-    hero_title_1: "医疗指导",
+    hero_badge: "开源 — 离线AI助手",
+    hero_title_1: "AI助手",
     hero_title_2: "当网络中断时",
     hero_subtitle: "离线AI，适用于紧急情况、灾难和战区。完全在您的设备上运行。不收集数据。支持29种语言。开源。",
     hero_cta_download: "下载",
@@ -358,7 +358,7 @@ zh: {
     checker_result_recommend: "推荐版本：",
     download_title: "下载",
     download_source_title: "从源代码安装 (Apache 2.0)：",
-    footer_desc: "开源离线AI，用于紧急医疗指导。",
+    footer_desc: "开源离线AI，用于紧急和生存指导。",
     footer_project: "项目",
     footer_source: "源代码",
     footer_docs: "文档",
@@ -369,8 +369,8 @@ zh: {
 /* ═══════════════════════════ JAPANESE ═══════════════════════════ */
 ja: {
     nav_download: "ダウンロード",
-    hero_badge: "オープンソース — 緊急医療AI",
-    hero_title_1: "医療ガイダンス",
+    hero_badge: "オープンソース — オフラインAIアシスタント",
+    hero_title_1: "AIアシスタント",
     hero_title_2: "インターネットが使えない時に",
     hero_subtitle: "緊急事態、災害、紛争地帯向けのオフラインAI。デバイス上で完全に動作。データ収集なし。29言語対応。オープンソース。",
     hero_cta_download: "ダウンロード",
@@ -418,7 +418,7 @@ ja: {
     checker_result_recommend: "推奨バージョン：",
     download_title: "ダウンロード",
     download_source_title: "ソースからインストール (Apache 2.0)：",
-    footer_desc: "緊急医療ガイダンスのためのオープンソース・オフラインAI。",
+    footer_desc: "緊急・サバイバルのためのオープンソース・オフラインAI。",
     footer_project: "プロジェクト",
     footer_source: "ソースコード",
     footer_docs: "ドキュメント",
@@ -429,8 +429,8 @@ ja: {
 /* ═══════════════════════════ KOREAN ═══════════════════════════ */
 ko: {
     nav_download: "다운로드",
-    hero_badge: "오픈소스 — 긴급 의료 AI",
-    hero_title_1: "의료 안내",
+    hero_badge: "오픈소스 — 오프라인 AI 어시스턴트",
+    hero_title_1: "AI 어시스턴트",
     hero_title_2: "인터넷이 끊겼을 때",
     hero_subtitle: "긴급 상황, 재난, 전쟁 지역을 위한 오프라인 AI. 기기에서 완전히 작동. 데이터 수집 없음. 29개 언어. 오픈소스.",
     hero_cta_download: "다운로드",
@@ -478,7 +478,7 @@ ko: {
     checker_result_recommend: "추천 버전:",
     download_title: "다운로드",
     download_source_title: "소스에서 설치 (Apache 2.0):",
-    footer_desc: "긴급 의료 안내를 위한 오픈소스 오프라인 AI.",
+    footer_desc: "긴급 및 생존을 위한 오픈소스 오프라인 AI.",
     footer_project: "프로젝트",
     footer_source: "소스 코드",
     footer_docs: "문서",
@@ -489,8 +489,8 @@ ko: {
 /* ═══════════════════════════ HINDI ═══════════════════════════ */
 hi: {
     nav_download: "डाउनलोड",
-    hero_badge: "ओपन सोर्स — आपातकालीन चिकित्सा AI",
-    hero_title_1: "चिकित्सा मार्गदर्शन",
+    hero_badge: "ओपन सोर्स — ऑफ़लाइन AI सहायक",
+    hero_title_1: "AI सहायक",
     hero_title_2: "जब इंटरनेट बंद हो जाए",
     hero_subtitle: "आपातकाल, आपदाओं और युद्ध क्षेत्रों के लिए ऑफ़लाइन AI। पूरी तरह आपके डिवाइस पर चलता है। कोई डेटा संग्रह नहीं। 29 भाषाएँ। ओपन सोर्स।",
     hero_cta_download: "डाउनलोड",
@@ -538,7 +538,7 @@ hi: {
     checker_result_recommend: "अनुशंसित संस्करण:",
     download_title: "डाउनलोड",
     download_source_title: "स्रोत से इंस्टॉल करें (Apache 2.0):",
-    footer_desc: "आपातकालीन चिकित्सा मार्गदर्शन के लिए ओपन सोर्स ऑफ़लाइन AI।",
+    footer_desc: "आपातकालीन और उत्तरजीविता के लिए ओपन सोर्स ऑफ़लाइन AI।",
     footer_project: "प्रोजेक्ट",
     footer_source: "सोर्स कोड",
     footer_docs: "दस्तावेज़",
@@ -549,8 +549,8 @@ hi: {
 /* ═══════════════════════════ URDU ═══════════════════════════ */
 ur: {
     nav_download: "ڈاؤن لوڈ",
-    hero_badge: "اوپن سورس — ایمرجنسی میڈیکل AI",
-    hero_title_1: "طبی رہنمائی",
+    hero_badge: "اوپن سورس — آف لائن AI معاون",
+    hero_title_1: "AI معاون",
     hero_title_2: "جب انٹرنیٹ بند ہو جائے",
     hero_subtitle: "ایمرجنسی، آفات اور جنگی علاقوں کے لیے آف لائن AI۔ مکمل طور پر آپ کے آلے پر چلتا ہے۔ کوئی ڈیٹا جمع نہیں۔ 29 زبانیں۔ اوپن سورس۔",
     hero_cta_download: "ڈاؤن لوڈ",
@@ -598,7 +598,7 @@ ur: {
     checker_result_recommend: "تجویز کردہ ورژن:",
     download_title: "ڈاؤن لوڈ",
     download_source_title: "سورس سے انسٹال کریں (Apache 2.0):",
-    footer_desc: "ایمرجنسی طبی رہنمائی کے لیے اوپن سورس آف لائن AI۔",
+    footer_desc: "ایمرجنسی اور بقا کے لیے اوپن سورس آف لائن AI۔",
     footer_project: "پروجیکٹ",
     footer_source: "سورس کوڈ",
     footer_docs: "دستاویزات",
@@ -609,8 +609,8 @@ ur: {
 /* ═══════════════════════════ PERSIAN (FARSI) ═══════════════════════════ */
 fa: {
     nav_download: "دانلود",
-    hero_badge: "متن‌باز — هوش مصنوعی پزشکی اورژانس",
-    hero_title_1: "راهنمای پزشکی",
+    hero_badge: "متن‌باز — دستیار هوش مصنوعی آفلاین",
+    hero_title_1: "دستیار هوش مصنوعی",
     hero_title_2: "وقتی اینترنت قطع می‌شود",
     hero_subtitle: "هوش مصنوعی آفلاین برای شرایط اضطراری، بلایا و مناطق جنگی. کاملاً روی دستگاه شما اجرا می‌شود. بدون جمع‌آوری داده. ۲۹ زبان. متن‌باز.",
     hero_cta_download: "دانلود",
@@ -658,7 +658,7 @@ fa: {
     checker_result_recommend: "نسخه پیشنهادی:",
     download_title: "دانلود",
     download_source_title: "نصب از سورس (Apache 2.0):",
-    footer_desc: "هوش مصنوعی آفلاین متن‌باز برای راهنمای پزشکی اورژانسی.",
+    footer_desc: "هوش مصنوعی آفلاین متن‌باز برای شرایط اضطراری و بقا.",
     footer_project: "پروژه",
     footer_source: "کد منبع",
     footer_docs: "مستندات",
@@ -669,8 +669,8 @@ fa: {
 /* ═══════════════════════════ TURKISH ═══════════════════════════ */
 tr: {
     nav_download: "İndir",
-    hero_badge: "Açık Kaynak — Acil Tıbbi Yapay Zeka",
-    hero_title_1: "Tıbbi Rehberlik",
+    hero_badge: "Açık Kaynak — Çevrimdışı Yapay Zeka Asistanı",
+    hero_title_1: "Yapay Zeka Asistanı",
     hero_title_2: "İnternet Kesildiğinde",
     hero_subtitle: "Acil durumlar, afetler ve savaş bölgeleri için çevrimdışı yapay zeka. Tamamen cihazınızda çalışır. Veri toplama yok. 29 dil. Açık kaynak.",
     hero_cta_download: "İndir",
@@ -718,7 +718,7 @@ tr: {
     checker_result_recommend: "Önerilen sürüm:",
     download_title: "İndir",
     download_source_title: "Kaynaktan yükle (Apache 2.0):",
-    footer_desc: "Acil tıbbi rehberlik için açık kaynaklı çevrimdışı yapay zeka.",
+    footer_desc: "Acil durum ve hayatta kalma için açık kaynaklı çevrimdışı yapay zeka.",
     footer_project: "Proje",
     footer_source: "Kaynak Kod",
     footer_docs: "Belgeler",
@@ -729,8 +729,8 @@ tr: {
 /* ═══════════════════════════ RUSSIAN ═══════════════════════════ */
 ru: {
     nav_download: "Скачать",
-    hero_badge: "Открытый код — Экстренный медицинский ИИ",
-    hero_title_1: "Медицинская помощь",
+    hero_badge: "Открытый код — Офлайн ИИ-ассистент",
+    hero_title_1: "ИИ-ассистент",
     hero_title_2: "Когда интернет недоступен",
     hero_subtitle: "Офлайн ИИ для экстренных ситуаций, катастроф и зон боевых действий. Полностью работает на вашем устройстве. Без сбора данных. 29 языков. Открытый код.",
     hero_cta_download: "Скачать",
@@ -778,7 +778,7 @@ ru: {
     checker_result_recommend: "Рекомендуемая версия:",
     download_title: "Скачать",
     download_source_title: "Установить из исходного кода (Apache 2.0):",
-    footer_desc: "Офлайн ИИ с открытым кодом для экстренной медицинской помощи.",
+    footer_desc: "Офлайн ИИ с открытым кодом для экстренных ситуаций и выживания.",
     footer_project: "Проект",
     footer_source: "Исходный код",
     footer_docs: "Документация",
@@ -789,8 +789,8 @@ ru: {
 /* ═══════════════════════════ PORTUGUESE ═══════════════════════════ */
 pt: {
     nav_download: "Baixar",
-    hero_badge: "Código Aberto — IA Médica de Emergência",
-    hero_title_1: "Orientação Médica",
+    hero_badge: "Código Aberto — Assistente IA Offline",
+    hero_title_1: "Assistente IA",
     hero_title_2: "Quando a Internet Falha",
     hero_subtitle: "IA offline para emergências, desastres e zonas de guerra. Funciona inteiramente no seu dispositivo. Sem coleta de dados. 29 idiomas. Código aberto.",
     hero_cta_download: "Baixar",
@@ -838,7 +838,7 @@ pt: {
     checker_result_recommend: "Versão recomendada:",
     download_title: "Baixar",
     download_source_title: "Instalar a partir do código fonte (Apache 2.0):",
-    footer_desc: "IA offline de código aberto para orientação médica de emergência.",
+    footer_desc: "IA offline de código aberto para emergências e sobrevivência.",
     footer_project: "Projeto",
     footer_source: "Código Fonte",
     footer_docs: "Documentação",
@@ -849,8 +849,8 @@ pt: {
 /* ═══════════════════════════ ITALIAN ═══════════════════════════ */
 it: {
     nav_download: "Scarica",
-    hero_badge: "Open Source — IA Medica di Emergenza",
-    hero_title_1: "Guida Medica",
+    hero_badge: "Open Source — Assistente IA Offline",
+    hero_title_1: "Assistente IA",
     hero_title_2: "Quando Internet Non Funziona",
     hero_subtitle: "IA offline per emergenze, disastri e zone di guerra. Funziona interamente sul tuo dispositivo. Nessuna raccolta dati. 29 lingue. Open source.",
     hero_cta_download: "Scarica",
@@ -898,7 +898,7 @@ it: {
     checker_result_recommend: "Versione consigliata:",
     download_title: "Scarica",
     download_source_title: "Installa dal codice sorgente (Apache 2.0):",
-    footer_desc: "IA offline open source per assistenza medica d'emergenza.",
+    footer_desc: "IA offline open source per emergenze e sopravvivenza.",
     footer_project: "Progetto",
     footer_source: "Codice Sorgente",
     footer_docs: "Documentazione",
@@ -909,8 +909,8 @@ it: {
 /* ═══════════════════════════ DUTCH ═══════════════════════════ */
 nl: {
     nav_download: "Downloaden",
-    hero_badge: "Open Source — Medische Nood-AI",
-    hero_title_1: "Medische Hulp",
+    hero_badge: "Open Source — Offline AI-assistent",
+    hero_title_1: "AI-assistent",
     hero_title_2: "Als Internet Uitvalt",
     hero_subtitle: "Offline AI voor noodsituaties, rampen en oorlogsgebieden. Draait volledig op uw apparaat. Geen gegevensverzameling. 29 talen. Open source.",
     hero_cta_download: "Downloaden",
@@ -958,7 +958,7 @@ nl: {
     checker_result_recommend: "Aanbevolen versie:",
     download_title: "Downloaden",
     download_source_title: "Installeer vanuit broncode (Apache 2.0):",
-    footer_desc: "Open source offline AI voor medische noodhulp.",
+    footer_desc: "Open source offline AI voor noodsituaties en overleving.",
     footer_project: "Project",
     footer_source: "Broncode",
     footer_docs: "Documentatie",
@@ -969,8 +969,8 @@ nl: {
 /* ═══════════════════════════ POLISH ═══════════════════════════ */
 pl: {
     nav_download: "Pobierz",
-    hero_badge: "Open Source — Medyczny AI Ratunkowy",
-    hero_title_1: "Pomoc Medyczna",
+    hero_badge: "Open Source — Asystent AI Offline",
+    hero_title_1: "Asystent AI",
     hero_title_2: "Gdy Internet Zawodzi",
     hero_subtitle: "Offline AI na wypadek sytuacji kryzysowych, katastrof i stref wojennych. Działa całkowicie na Twoim urządzeniu. Bez zbierania danych. 29 języków. Open source.",
     hero_cta_download: "Pobierz",
@@ -1018,7 +1018,7 @@ pl: {
     checker_result_recommend: "Zalecana wersja:",
     download_title: "Pobierz",
     download_source_title: "Zainstaluj ze źródła (Apache 2.0):",
-    footer_desc: "Open source offline AI do pomocy medycznej w nagłych wypadkach.",
+    footer_desc: "Open source offline AI do sytuacji kryzysowych i przetrwania.",
     footer_project: "Projekt",
     footer_source: "Kod Źródłowy",
     footer_docs: "Dokumentacja",
@@ -1029,8 +1029,8 @@ pl: {
 /* ═══════════════════════════ UKRAINIAN ═══════════════════════════ */
 uk: {
     nav_download: "Завантажити",
-    hero_badge: "Відкритий код — Екстрена медична ШІ",
-    hero_title_1: "Медична допомога",
+    hero_badge: "Відкритий код — Офлайн ШІ-асистент",
+    hero_title_1: "ШІ-асистент",
     hero_title_2: "Коли інтернет недоступний",
     hero_subtitle: "Офлайн ШІ для надзвичайних ситуацій, катастроф і зон бойових дій. Повністю працює на вашому пристрої. Без збору даних. 29 мов. Відкритий код.",
     hero_cta_download: "Завантажити",
@@ -1078,7 +1078,7 @@ uk: {
     checker_result_recommend: "Рекомендована версія:",
     download_title: "Завантажити",
     download_source_title: "Встановити з вихідного коду (Apache 2.0):",
-    footer_desc: "Офлайн ШІ з відкритим кодом для екстреної медичної допомоги.",
+    footer_desc: "Офлайн ШІ з відкритим кодом для надзвичайних ситуацій та виживання.",
     footer_project: "Проєкт",
     footer_source: "Вихідний код",
     footer_docs: "Документація",
@@ -1089,8 +1089,8 @@ uk: {
 /* ═══════════════════════════ MALAY ═══════════════════════════ */
 ms: {
     nav_download: "Muat Turun",
-    hero_badge: "Sumber Terbuka — AI Perubatan Kecemasan",
-    hero_title_1: "Panduan Perubatan",
+    hero_badge: "Sumber Terbuka — Pembantu AI Luar Talian",
+    hero_title_1: "Pembantu AI",
     hero_title_2: "Ketika Internet Terputus",
     hero_subtitle: "AI luar talian untuk kecemasan, bencana dan zon perang. Berjalan sepenuhnya pada peranti anda. Tiada pengumpulan data. 29 bahasa. Sumber terbuka.",
     hero_cta_download: "Muat Turun",
@@ -1138,7 +1138,7 @@ ms: {
     checker_result_recommend: "Versi disyorkan:",
     download_title: "Muat Turun",
     download_source_title: "Pasang dari sumber (Apache 2.0):",
-    footer_desc: "AI luar talian sumber terbuka untuk panduan perubatan kecemasan.",
+    footer_desc: "AI luar talian sumber terbuka untuk kecemasan dan kelangsungan hidup.",
     footer_project: "Projek",
     footer_source: "Kod Sumber",
     footer_docs: "Dokumentasi",
@@ -1149,8 +1149,8 @@ ms: {
 /* ═══════════════════════════ INDONESIAN ═══════════════════════════ */
 id: {
     nav_download: "Unduh",
-    hero_badge: "Sumber Terbuka — AI Medis Darurat",
-    hero_title_1: "Panduan Medis",
+    hero_badge: "Sumber Terbuka — Asisten AI Offline",
+    hero_title_1: "Asisten AI",
     hero_title_2: "Saat Internet Terputus",
     hero_subtitle: "AI offline untuk keadaan darurat, bencana, dan zona perang. Berjalan sepenuhnya di perangkat Anda. Tanpa pengumpulan data. 29 bahasa. Sumber terbuka.",
     hero_cta_download: "Unduh",
@@ -1198,7 +1198,7 @@ id: {
     checker_result_recommend: "Versi direkomendasikan:",
     download_title: "Unduh",
     download_source_title: "Instal dari sumber (Apache 2.0):",
-    footer_desc: "AI offline sumber terbuka untuk panduan medis darurat.",
+    footer_desc: "AI offline sumber terbuka untuk darurat dan kelangsungan hidup.",
     footer_project: "Proyek",
     footer_source: "Kode Sumber",
     footer_docs: "Dokumentasi",
@@ -1209,8 +1209,8 @@ id: {
 /* ═══════════════════════════ THAI ═══════════════════════════ */
 th: {
     nav_download: "ดาวน์โหลด",
-    hero_badge: "โอเพนซอร์ส — AI การแพทย์ฉุกเฉิน",
-    hero_title_1: "คำแนะนำทางการแพทย์",
+    hero_badge: "โอเพนซอร์ส — ผู้ช่วย AI ออฟไลน์",
+    hero_title_1: "ผู้ช่วย AI",
     hero_title_2: "เมื่ออินเทอร์เน็ตใช้ไม่ได้",
     hero_subtitle: "AI ออฟไลน์สำหรับสถานการณ์ฉุกเฉิน ภัยพิบัติ และเขตสงคราม ทำงานบนอุปกรณ์ของคุณทั้งหมด ไม่มีการเก็บข้อมูล 29 ภาษา โอเพนซอร์ส",
     hero_cta_download: "ดาวน์โหลด",
@@ -1258,7 +1258,7 @@ th: {
     checker_result_recommend: "เวอร์ชันแนะนำ:",
     download_title: "ดาวน์โหลด",
     download_source_title: "ติดตั้งจากซอร์สโค้ด (Apache 2.0):",
-    footer_desc: "AI ออฟไลน์โอเพนซอร์สสำหรับคำแนะนำทางการแพทย์ฉุกเฉิน",
+    footer_desc: "AI ออฟไลน์โอเพนซอร์สสำหรับเหตุฉุกเฉินและการเอาตัวรอด",
     footer_project: "โครงการ",
     footer_source: "ซอร์สโค้ด",
     footer_docs: "เอกสาร",
@@ -1269,8 +1269,8 @@ th: {
 /* ═══════════════════════════ VIETNAMESE ═══════════════════════════ */
 vi: {
     nav_download: "Tải Về",
-    hero_badge: "Mã Nguồn Mở — AI Y Tế Khẩn Cấp",
-    hero_title_1: "Hướng Dẫn Y Tế",
+    hero_badge: "Mã Nguồn Mở — Trợ Lý AI Ngoại Tuyến",
+    hero_title_1: "Trợ Lý AI",
     hero_title_2: "Khi Internet Không Hoạt Động",
     hero_subtitle: "AI ngoại tuyến cho tình huống khẩn cấp, thảm họa và vùng chiến tranh. Chạy hoàn toàn trên thiết bị của bạn. Không thu thập dữ liệu. 29 ngôn ngữ. Mã nguồn mở.",
     hero_cta_download: "Tải Về",
@@ -1318,7 +1318,7 @@ vi: {
     checker_result_recommend: "Phiên bản khuyên dùng:",
     download_title: "Tải Về",
     download_source_title: "Cài đặt từ mã nguồn (Apache 2.0):",
-    footer_desc: "AI ngoại tuyến mã nguồn mở cho hướng dẫn y tế khẩn cấp.",
+    footer_desc: "AI ngoại tuyến mã nguồn mở cho tình huống khẩn cấp và sinh tồn.",
     footer_project: "Dự Án",
     footer_source: "Mã Nguồn",
     footer_docs: "Tài Liệu",
@@ -1329,8 +1329,8 @@ vi: {
 /* ═══════════════════════════ BENGALI ═══════════════════════════ */
 bn: {
     nav_download: "ডাউনলোড",
-    hero_badge: "ওপেন সোর্স — জরুরি চিকিৎসা AI",
-    hero_title_1: "চিকিৎসা নির্দেশনা",
+    hero_badge: "ওপেন সোর্স — অফলাইন AI সহকারী",
+    hero_title_1: "AI সহকারী",
     hero_title_2: "যখন ইন্টারনেট বন্ধ",
     hero_subtitle: "জরুরি অবস্থা, দুর্যোগ এবং যুদ্ধ অঞ্চলের জন্য অফলাইন AI। সম্পূর্ণভাবে আপনার ডিভাইসে চলে। কোনো ডেটা সংগ্রহ নেই। ২৯ ভাষা। ওপেন সোর্স।",
     hero_cta_download: "ডাউনলোড",
@@ -1378,7 +1378,7 @@ bn: {
     checker_result_recommend: "প্রস্তাবিত সংস্করণ:",
     download_title: "ডাউনলোড",
     download_source_title: "সোর্স থেকে ইনস্টল করুন (Apache 2.0):",
-    footer_desc: "জরুরি চিকিৎসা নির্দেশনার জন্য ওপেন সোর্স অফলাইন AI।",
+    footer_desc: "জরুরি এবং বেঁচে থাকার জন্য ওপেন সোর্স অফলাইন AI।",
     footer_project: "প্রকল্প",
     footer_source: "সোর্স কোড",
     footer_docs: "ডকুমেন্টেশন",
@@ -1389,8 +1389,8 @@ bn: {
 /* ═══════════════════════════ TAMIL ═══════════════════════════ */
 ta: {
     nav_download: "பதிவிறக்கம்",
-    hero_badge: "திறந்த மூலம் — அவசர மருத்துவ AI",
-    hero_title_1: "மருத்துவ வழிகாட்டுதல்",
+    hero_badge: "திறந்த மூலம் — ஆஃப்லைன் AI உதவியாளர்",
+    hero_title_1: "AI உதவியாளர்",
     hero_title_2: "இணையம் இல்லாதபோது",
     hero_subtitle: "அவசரகாலம், பேரிடர்கள் மற்றும் போர் பகுதிகளுக்கான ஆஃப்லைன் AI. முழுமையாக உங்கள் சாதனத்தில் இயங்குகிறது. தரவு சேகரிப்பு இல்லை. 29 மொழிகள். திறந்த மூலம்.",
     hero_cta_download: "பதிவிறக்கம்",
@@ -1438,7 +1438,7 @@ ta: {
     checker_result_recommend: "பரிந்துரைக்கப்பட்ட பதிப்பு:",
     download_title: "பதிவிறக்கம்",
     download_source_title: "மூலத்திலிருந்து நிறுவுக (Apache 2.0):",
-    footer_desc: "அவசர மருத்துவ வழிகாட்டுதலுக்கான திறந்த மூல ஆஃப்லைன் AI.",
+    footer_desc: "அவசரநிலை மற்றும் உயிர்வாழ்வுக்கான திறந்த மூல ஆஃப்லைன் AI.",
     footer_project: "திட்டம்",
     footer_source: "மூலக் குறியீடு",
     footer_docs: "ஆவணங்கள்",
@@ -1449,8 +1449,8 @@ ta: {
 /* ═══════════════════════════ SWAHILI ═══════════════════════════ */
 sw: {
     nav_download: "Pakua",
-    hero_badge: "Chanzo Huria — AI ya Matibabu ya Dharura",
-    hero_title_1: "Mwongozo wa Kimatibabu",
+    hero_badge: "Chanzo Huria — Msaidizi wa AI Nje ya Mtandao",
+    hero_title_1: "Msaidizi wa AI",
     hero_title_2: "Mtandao Unaposhindwa",
     hero_subtitle: "AI ya nje ya mtandao kwa dharura, majanga na maeneo ya vita. Inafanya kazi kabisa kwenye kifaa chako. Hakuna ukusanyaji wa data. Lugha 29. Chanzo huria.",
     hero_cta_download: "Pakua",
@@ -1498,7 +1498,7 @@ sw: {
     checker_result_recommend: "Toleo linaloshauriwa:",
     download_title: "Pakua",
     download_source_title: "Sakinisha kutoka chanzo (Apache 2.0):",
-    footer_desc: "AI ya nje ya mtandao ya chanzo huria kwa mwongozo wa matibabu ya dharura.",
+    footer_desc: "AI ya nje ya mtandao ya chanzo huria kwa dharura na kuishi.",
     footer_project: "Mradi",
     footer_source: "Msimbo wa Chanzo",
     footer_docs: "Nyaraka",
@@ -1509,8 +1509,8 @@ sw: {
 /* ═══════════════════════════ HEBREW ═══════════════════════════ */
 he: {
     nav_download: "הורדה",
-    hero_badge: "קוד פתוח — בינה מלאכותית רפואית חירום",
-    hero_title_1: "הנחיות רפואיות",
+    hero_badge: "קוד פתוח — עוזר בינה מלאכותית אופליין",
+    hero_title_1: "עוזר בינה מלאכותית",
     hero_title_2: "כשהאינטרנט נופל",
     hero_subtitle: "בינה מלאכותית אופליין למצבי חירום, אסונות ואזורי מלחמה. רץ לחלוטין על המכשיר שלך. ללא איסוף נתונים. 29 שפות. קוד פתוח.",
     hero_cta_download: "הורדה",
@@ -1558,7 +1558,7 @@ he: {
     checker_result_recommend: "גרסה מומלצת:",
     download_title: "הורדה",
     download_source_title: "התקן מקוד מקור (Apache 2.0):",
-    footer_desc: "בינה מלאכותית אופליין בקוד פתוח להנחיות רפואיות חירום.",
+    footer_desc: "בינה מלאכותית אופליין בקוד פתוח למצבי חירום והישרדות.",
     footer_project: "פרויקט",
     footer_source: "קוד מקור",
     footer_docs: "תיעוד",
@@ -1569,8 +1569,8 @@ he: {
 /* ═══════════════════════════ KURDISH (KURMANJI) ═══════════════════════════ */
 ku: {
     nav_download: "Daxistin",
-    hero_badge: "Çavkaniya Vekirî — AI-ya Bijîjkî ya Acîl",
-    hero_title_1: "Rêberiya Bijîjkî",
+    hero_badge: "Çavkaniya Vekirî — Arîkarê AI-yê Offline",
+    hero_title_1: "Arîkarê AI",
     hero_title_2: "Dema Înternetê Têk Diçe",
     hero_subtitle: "AI-ya offline ji bo rewşên acîl, karesatan û deverên şer. Bi tevahî li ser amûra te dixebite. Daneyên nehatine berhevkirin. 29 ziman. Çavkaniya vekirî.",
     hero_cta_download: "Daxistin",
@@ -1618,7 +1618,7 @@ ku: {
     checker_result_recommend: "Guhertoya pêşniyarkirî:",
     download_title: "Daxistin",
     download_source_title: "Ji çavkaniyê saz bike (Apache 2.0):",
-    footer_desc: "AI-ya offline ya çavkaniya vekirî ji bo rêberiya bijîjkî ya acîl.",
+    footer_desc: "AI-ya offline ya çavkaniya vekirî ji bo acîl û jiyanê.",
     footer_project: "Proje",
     footer_source: "Koda Çavkaniyê",
     footer_docs: "Belge",
@@ -1629,8 +1629,8 @@ ku: {
 /* ═══════════════════════════ PASHTO ═══════════════════════════ */
 ps: {
     nav_download: "ډاونلوډ",
-    hero_badge: "خلاص سرچینه — بیړنی طبي AI",
-    hero_title_1: "طبي لارښوونه",
+    hero_badge: "خلاص سرچینه — آفلاین AI مرستیال",
+    hero_title_1: "AI مرستیال",
     hero_title_2: "کله چې انټرنېټ بند شي",
     hero_subtitle: "د بیړني حالت، ناورین او جګړو سیمو لپاره آفلاین AI. په بشپړ ډول ستاسو په وسیله روانیږي. هیڅ معلومات نه راټولیږي. ۲۹ ژبې. خلاص سرچینه.",
     hero_cta_download: "ډاونلوډ",
@@ -1678,7 +1678,7 @@ ps: {
     checker_result_recommend: "وړاندیز شوی نسخه:",
     download_title: "ډاونلوډ",
     download_source_title: "د سرچینې څخه نصب کړئ (Apache 2.0):",
-    footer_desc: "د بیړنی طبي لارښوونې لپاره خلاص سرچینې آفلاین AI.",
+    footer_desc: "د بیړنیو حالاتو او ژوند لپاره خلاص سرچینې آفلاین AI.",
     footer_project: "پروژه",
     footer_source: "سرچینه کوډ",
     footer_docs: "لاسوند",

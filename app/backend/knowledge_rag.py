@@ -1,10 +1,10 @@
 """
-Knowledge RAG — Offline semantic search over medical/survival knowledge files.
+Knowledge RAG — Offline semantic search over knowledge files.
 
 Uses ONNX Runtime + Tokenizers (lightweight, no PyTorch) for embeddings.
 Model: all-MiniLM-L6-v2 (384-dim, ~80 MB ONNX)
 
-Includes Arabic→English medical keyword mapping so Arabic queries
+Includes multilingual → English keyword mapping so non-English queries
 find the correct English knowledge chunks.
 """
 
@@ -15,10 +15,12 @@ from pathlib import Path
 
 import numpy as np
 
-# ── Arabic → English Medical Keyword Map ────────────────────────────
-# Maps Arabic medical/emergency terms to English search queries.
-# This bridges the gap between Arabic user input and English knowledge base.
-ARABIC_MEDICAL_MAP: dict[str, list[str]] = {
+# ── Multilingual → English Keyword Bridge ───────────────────────────
+# Maps non-English terms to English search queries so the embedding model
+# (trained primarily on English) can find relevant knowledge chunks.
+# Currently: Arabic (primary), with expansion hooks for other languages.
+KEYWORD_BRIDGE: dict[str, list[str]] = {
+    # ── Medical / Emergency ──────────────────────────────────────
     # Burns
     "حرق": [
         "burn treatment first aid cool water",
@@ -108,16 +110,68 @@ ARABIC_MEDICAL_MAP: dict[str, list[str]] = {
     "طفل": ["infant", "child", "pediatric emergency"],
     "أطفال": ["infant", "child", "pediatric emergency"],
     "حامل": ["pregnancy emergency", "pregnant woman"],
+    # ── Survival / Engineering (Arabic) ──────────────────────────
+    "ماكينة": ["engine repair", "motor maintenance", "mechanical"],
+    "محرك": ["engine repair", "motor maintenance", "diesel engine"],
+    "كهرباء": ["electricity", "wiring", "solar power", "battery"],
+    "بطارية": ["battery", "battery maintenance", "power supply"],
+    "طاقة شمسية": ["solar panel", "solar power", "photovoltaic"],
+    "لاسلكي": ["radio communication", "antenna", "HF radio"],
+    "راديو": ["radio communication", "HF radio", "emergency broadcast"],
+    "هوائي": ["antenna design", "antenna building"],
+    "لحام": ["welding", "arc welding", "metal joining"],
+    "حداد": ["blacksmithing", "forge", "metalworking"],
+    "نجار": ["carpentry", "woodworking", "building"],
+    "اسمنت": ["concrete", "cement mixing", "mortar"],
+    "بناء": ["construction", "building", "shelter construction"],
+    "ملاحة": ["navigation", "compass", "map reading", "celestial navigation"],
+    "بوصلة": ["compass", "navigation", "direction finding"],
+    "إشعال": ["fire starting", "friction fire", "ignition"],
+    "ولاعة": ["fire starting", "ignition", "fire methods"],
+    "تشفير": ["encryption", "cipher", "one-time pad", "security"],
+    "حجر صحي": ["quarantine", "isolation", "disease containment"],
+    "وباء": ["epidemic", "pandemic", "disease outbreak", "quarantine"],
+    "زراعة": ["agriculture", "farming", "gardening", "food production"],
+    "تقنين": ["rationing", "resource distribution", "supply management"],
+    # ── French bridge ────────────────────────────────────────────
+    "brûlure": ["burn treatment first aid cool water"],
+    "saignement": ["bleeding", "stop bleeding", "hemorrhage"],
+    "fracture": ["fracture", "broken bone", "splint"],
+    "eau potable": ["water purification", "clean water", "water filter"],
+    "abri": ["shelter", "emergency shelter", "shelter building"],
+    "moteur": ["engine repair", "motor maintenance"],
+    "soudure": ["welding", "arc welding"],
+    "électricité": ["electricity", "wiring", "solar power"],
+    "premiers secours": ["first aid", "emergency treatment"],
+    # ── Spanish bridge ───────────────────────────────────────────
+    "quemadura": ["burn treatment first aid cool water"],
+    "sangrado": ["bleeding", "stop bleeding", "hemorrhage"],
+    "hueso roto": ["fracture", "broken bone", "splint"],
+    "agua potable": ["water purification", "clean water"],
+    "refugio": ["shelter", "emergency shelter"],
+    "primeros auxilios": ["first aid", "emergency treatment"],
+    # ── Turkish bridge ───────────────────────────────────────────
+    "yanık": ["burn treatment first aid cool water"],
+    "kanama": ["bleeding", "stop bleeding", "hemorrhage"],
+    "kırık": ["fracture", "broken bone", "splint"],
+    "su arıtma": ["water purification", "clean water"],
+    "ilk yardım": ["first aid", "emergency treatment"],
+    # ── Hindi bridge ─────────────────────────────────────────────
+    "जलना": ["burn treatment first aid cool water"],
+    "खून": ["bleeding", "stop bleeding", "hemorrhage"],
+    "हड्डी": ["fracture", "broken bone", "splint"],
+    "पानी": ["water purification", "clean water", "dehydration"],
+    "प्राथमिक चिकित्सा": ["first aid", "emergency treatment"],
 }
 
 
-def _extract_arabic_keywords(text: str) -> list[str]:
-    """Extract English search queries from Arabic text using keyword mapping."""
+def _extract_bridge_keywords(text: str) -> list[str]:
+    """Extract English search queries from non-English text using the keyword bridge."""
     english_queries = []
     text_lower = text.strip()
 
-    for arabic_term, english_terms in ARABIC_MEDICAL_MAP.items():
-        if arabic_term in text_lower:
+    for term, english_terms in KEYWORD_BRIDGE.items():
+        if term in text_lower:
             english_queries.extend(english_terms)
 
     # Deduplicate while preserving order
@@ -145,6 +199,14 @@ def _is_arabic(text: str) -> bool:
         or "\ufe70" <= c <= "\ufeff"
     )
     return arabic_chars > 3
+
+
+def _is_non_english(text: str) -> bool:
+    """Check if text contains significant non-English (non-ASCII) content."""
+    if not text:
+        return False
+    non_ascii = sum(1 for c in text if ord(c) > 127)
+    return non_ascii > 3
 
 
 class EmbeddingModel:
@@ -215,10 +277,11 @@ class EmbeddingModel:
 
 class KnowledgeRAG:
     """
-    Offline RAG engine for medical/survival knowledge.
+    Offline RAG engine for emergency and survival knowledge.
 
     Loads markdown files → splits into semantic chunks → embeds at startup.
     On each user query, finds the most relevant chunks via cosine similarity.
+    Supports multilingual queries via keyword bridge (Arabic, French, Spanish, Turkish, Hindi).
     """
 
     def __init__(
@@ -367,9 +430,9 @@ class KnowledgeRAG:
         # 1) Always search with original query
         self._semantic_search(query, top_k * 2, min_score, all_results)
 
-        # 2) If Arabic, also search with translated English keywords
-        if _is_arabic(query):
-            english_queries = _extract_arabic_keywords(query)
+        # 2) If non-English, also search with translated English keywords
+        if _is_non_english(query):
+            english_queries = _extract_bridge_keywords(query)
             for eq in english_queries[:8]:  # Search more keywords for better coverage
                 self._semantic_search(eq, top_k, min_score, all_results)
 

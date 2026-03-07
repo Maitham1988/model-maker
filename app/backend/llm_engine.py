@@ -1,6 +1,7 @@
 """
 LLM Engine — Wraps llama-cpp-python for local inference.
 Handles model loading, chat completion with streaming, and context management.
+Supports multiple model families (Qwen, Llama, Mistral, Phi, Gemma, etc.).
 """
 
 from __future__ import annotations
@@ -11,6 +12,24 @@ from collections.abc import Generator
 from pathlib import Path
 
 from llama_cpp import Llama
+
+# Map model filename patterns → llama-cpp chat_format values
+CHAT_FORMAT_PATTERNS: dict[str, str] = {
+    "qwen": "chatml",
+    "phi-3": "chatml",
+    "phi-4": "chatml",
+    "llama-3": "llama-3",
+    "llama-2": "llama-2",
+    "mistral": "mistral-instruct",
+    "gemma": "gemma",
+    "deepseek": "chatml",
+    "yi-": "chatml",
+    "internlm": "chatml",
+    "codestral": "mistral-instruct",
+    "vicuna": "vicuna",
+    "openchat": "openchat",
+    "zephyr": "zephyr",
+}
 
 
 class LLMEngine:
@@ -29,6 +48,23 @@ class LLMEngine:
             )
         with open(path, encoding="utf-8") as f:
             return json.load(f)
+
+    @staticmethod
+    def _detect_chat_format(model_path: str, config_format: str = "") -> str:
+        """Auto-detect the chat format from model filename or config override.
+
+        Priority: config explicit value > filename pattern match > fallback 'chatml'
+        """
+        if config_format and config_format not in ("", "auto"):
+            return config_format
+
+        name = Path(model_path).stem.lower()
+        for pattern, fmt in CHAT_FORMAT_PATTERNS.items():
+            if pattern in name:
+                return fmt
+
+        # Default fallback — ChatML is the most common GGUF format
+        return "chatml"
 
     def _load_model(self) -> None:
         model_path = self.config.get("model_path", "")
@@ -49,8 +85,13 @@ class LLMEngine:
         except Exception:
             pass
 
+        # Auto-detect chat format from model filename or config
+        chat_format = self._detect_chat_format(
+            model_path, self.config.get("chat_format", "auto")
+        )
+
         print(f"🔄 Loading model: {Path(model_path).name}")
-        print(f"   Context: {n_ctx} tokens | GPU layers: {n_gpu_layers}")
+        print(f"   Context: {n_ctx} tokens | GPU layers: {n_gpu_layers} | Format: {chat_format}")
 
         self.model = Llama(
             model_path=model_path,
@@ -58,7 +99,7 @@ class LLMEngine:
             n_gpu_layers=n_gpu_layers,
             n_threads=os.cpu_count() or 4,
             verbose=False,
-            chat_format="chatml",  # Qwen2.5 uses ChatML format
+            chat_format=chat_format,
         )
         print("✅ Model loaded successfully")
 
@@ -116,13 +157,13 @@ class LLMEngine:
         system_content = self.system_prompt
         if knowledge_context:
             system_content += (
-                "\n\n=== VERIFIED MEDICAL/SURVIVAL KNOWLEDGE ===\n"
-                "CRITICAL: The information below is from a VERIFIED medical knowledge base.\n"
+                "\n\n=== VERIFIED KNOWLEDGE BASE ===\n"
+                "CRITICAL: The information below is from a VERIFIED knowledge base.\n"
                 "RULES FOR USING THIS KNOWLEDGE:\n"
                 "1. You MUST base your answer on this knowledge. Follow the steps EXACTLY as written.\n"
                 "2. Do NOT contradict or change any instruction. If it says COOL water, say COOL water — not warm water.\n"
-                "3. Do NOT invent treatments or remedies not listed here. If only water and honey are listed as safe, say ONLY water and honey.\n"
-                "4. Copy the DO NOT / NEVER / DANGER warnings exactly — these prevent the user from harming themselves.\n"
+                "3. Do NOT invent procedures or remedies not listed here.\n"
+                "4. Copy the DO NOT / NEVER / DANGER warnings exactly — these prevent harm.\n"
                 "5. If the knowledge says 'NEVER apply X', you MUST tell the user to NEVER apply X.\n\n"
                 + knowledge_context
                 + "\n\n=== END OF VERIFIED KNOWLEDGE ==="

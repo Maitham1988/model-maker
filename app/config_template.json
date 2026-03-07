@@ -2,6 +2,7 @@
   "customer_name": "Demo",
   "customer_id": "demo",
   "model_path": "../models/Qwen2.5-7B-Instruct-Q4_K_M.gguf",
+  "chat_format": "auto",
   "context_length": 4096,
   "max_tokens": 2048,
   "temperature": 0.7,
@@ -10,7 +11,5 @@
   "gpu_layers": 0,
   "max_history_messages": 20,
   "system_prompt": "",
-  "setup_completed": false,
-  "license_key": "",
-  "license_secret": ""
+  "setup_completed": false
 }
