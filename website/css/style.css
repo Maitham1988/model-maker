@@ -93,7 +93,8 @@ a:hover { color: var(--text-primary); }
 .lang-switcher {
     background: var(--white); color: var(--text-primary);
     border: 1px solid var(--border); border-radius: 5px;
-    padding: 4px 8px; font-size: 0.78rem; cursor: pointer; outline: none;
+    padding: 4px 8px; font-size: 0.82rem; cursor: pointer; outline: none;
+    min-width: 130px;
 }
 
 .nav-toggle {
