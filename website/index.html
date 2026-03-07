@@ -191,14 +191,33 @@
         <div class="section-header">
             <h2 data-i18n="download_title">Download</h2>
         </div>
-        <div class="download-source">
-            <h3 data-i18n="download_source_title">Install from source (Apache 2.0):</h3>
+
+        <!-- One-Click Installers -->
+        <div class="download-platforms">
+            <div class="download-platform-card">
+                <div class="platform-icon">&#63743;</div>
+                <h3>macOS</h3>
+                <p data-i18n="download_mac_desc">One command. Installs everything. Auto-detects your Mac and picks the best model.</p>
+                <p class="download-step-label" data-i18n="download_step_open">Open <strong>Terminal</strong> and paste:</p>
+                <pre class="download-oneliner"><code>curl -fsSL https://raw.githubusercontent.com/Maitham1988/model-maker/main/scripts/install-mac.sh | bash</code></pre>
+                <p class="download-step-note" data-i18n="download_mac_note">Downloads the app + AI model (~5 GB). Creates a launcher on your Desktop.</p>
+            </div>
+            <div class="download-platform-card download-platform-soon">
+                <div class="platform-icon">&#128187;</div>
+                <h3>Windows</h3>
+                <p data-i18n="download_win_desc">Coming soon. One-click installer for Windows 10/11.</p>
+            </div>
+        </div>
+
+        <!-- Advanced / Source -->
+        <details class="download-advanced">
+            <summary data-i18n="download_advanced_title">Advanced: Install from source</summary>
             <pre class="download-source-code"><code>git clone https://github.com/Maitham1988/model-maker.git
 cd model-maker
 pip install -r requirements.txt
-python models/download.py
+python tools/download_model.py
 python app/run.py</code></pre>
-        </div>
+        </details>
     </div>
 </section>
 
@@ -211,7 +230,7 @@ python app/run.py</code></pre>
                     <span class="logo-icon">+</span>
                     <span class="logo-text">Model Maker</span>
                 </div>
-                <p data-i18n="footer_desc">Open source offline AI for emergency medical guidance.</p>
+                <p data-i18n="footer_desc">Open source offline AI assistant. Works without internet.</p>
                 <p class="footer-org">
                     <a href="https://flexsell.com" target="_blank" rel="noopener">FlexSell International W.L.L</a>
                     &mdash; Bahrain
