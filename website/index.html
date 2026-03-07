@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Model Maker — Free offline AI assistant for emergency, medical, and survival situations. Works without internet. 29 languages. Runs on your device.">
-    <meta name="keywords" content="offline AI, emergency AI, medical AI, survival, no internet, local LLM, free AI, Arabic AI">
+    <meta name="description" content="Model Maker — Offline AI for emergency medical guidance. Works without internet. 29 languages. Runs entirely on your device. No data collection.">
+    <meta name="keywords" content="offline AI, emergency medical AI, survival AI, local LLM, no internet AI, Arabic AI, humanitarian AI">
     <meta name="author" content="FlexSell International W.L.L">
-    <meta property="og:title" content="Model Maker — Offline AI for Everyone">
-    <meta property="og:description" content="Free offline AI assistant for emergency and survival. No internet required.">
+    <meta property="og:title" content="Model Maker — Emergency Medical AI, Offline">
+    <meta property="og:description" content="AI medical guidance that works when the internet doesn't. 100% offline. 29 languages. $1.">
     <meta property="og:type" content="website">
     <meta property="og:image" content="assets/og-image.png">
     <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-    <title>Model Maker — Offline AI for Everyone</title>
+    <title>Model Maker — Emergency Medical AI, Offline</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<!-- ─── Navigation ─────────────────────────────────────────────── -->
+<!-- ─── Navigation ─────────────────────────────────────────── -->
 <nav class="navbar" id="navbar">
     <div class="nav-container">
         <a href="#" class="nav-logo">
-            <span class="logo-icon">🏥</span>
+            <span class="logo-icon">+</span>
             <span class="logo-text">Model Maker</span>
         </a>
         <div class="nav-links" id="navLinks">
@@ -30,40 +30,40 @@
             <a href="#download" data-i18n="nav_download">Download</a>
             <a href="#community" data-i18n="nav_community">Community</a>
             <a href="https://github.com/Maitham1988/model-maker" class="nav-github" target="_blank" rel="noopener">
-                <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-                GitHub
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                Source
             </a>
         </div>
         <div class="nav-right">
             <select id="langSwitcher" class="lang-switcher" aria-label="Language">
-                <option value="en">English</option>
-                <option value="ar">العربية</option>
-                <option value="fr">Français</option>
-                <option value="es">Español</option>
-                <option value="de">Deutsch</option>
-                <option value="zh">中文</option>
-                <option value="ja">日本語</option>
-                <option value="ko">한국어</option>
-                <option value="hi">हिन्दी</option>
-                <option value="ur">اردو</option>
-                <option value="fa">فارسی</option>
-                <option value="tr">Türkçe</option>
-                <option value="ru">Русский</option>
-                <option value="pt">Português</option>
-                <option value="it">Italiano</option>
-                <option value="nl">Nederlands</option>
-                <option value="pl">Polski</option>
-                <option value="uk">Українська</option>
-                <option value="ms">Bahasa Melayu</option>
-                <option value="id">Indonesia</option>
-                <option value="th">ไทย</option>
-                <option value="vi">Tiếng Việt</option>
-                <option value="bn">বাংলা</option>
-                <option value="ta">தமிழ்</option>
-                <option value="sw">Kiswahili</option>
-                <option value="he">עברית</option>
-                <option value="ku">Kurdî</option>
-                <option value="ps">پښتو</option>
+                <option value="en">EN</option>
+                <option value="ar">AR</option>
+                <option value="fr">FR</option>
+                <option value="es">ES</option>
+                <option value="de">DE</option>
+                <option value="zh">ZH</option>
+                <option value="ja">JA</option>
+                <option value="ko">KO</option>
+                <option value="hi">HI</option>
+                <option value="ur">UR</option>
+                <option value="fa">FA</option>
+                <option value="tr">TR</option>
+                <option value="ru">RU</option>
+                <option value="pt">PT</option>
+                <option value="it">IT</option>
+                <option value="nl">NL</option>
+                <option value="pl">PL</option>
+                <option value="uk">UK</option>
+                <option value="ms">MS</option>
+                <option value="id">ID</option>
+                <option value="th">TH</option>
+                <option value="vi">VI</option>
+                <option value="bn">BN</option>
+                <option value="ta">TA</option>
+                <option value="sw">SW</option>
+                <option value="he">HE</option>
+                <option value="ku">KU</option>
+                <option value="ps">PS</option>
             </select>
             <button class="nav-toggle" id="navToggle" aria-label="Menu">
                 <span></span><span></span><span></span>
@@ -72,26 +72,24 @@
     </div>
 </nav>
 
-<!-- ─── Hero Section ───────────────────────────────────────────── -->
+<!-- ─── Hero ───────────────────────────────────────────────── -->
 <section class="hero" id="hero">
-    <div class="hero-bg">
-        <div class="hero-particles" id="particles"></div>
-    </div>
+    <div class="hero-bg"><div class="hero-particles" id="particles"></div></div>
     <div class="container hero-content">
-        <div class="hero-badge" data-i18n="hero_badge">100% Free & Open Source</div>
+        <div class="hero-badge" data-i18n="hero_badge">Emergency Medical AI</div>
         <h1 class="hero-title">
-            <span data-i18n="hero_title_1">Offline AI</span>
-            <span class="hero-title-highlight" data-i18n="hero_title_2">That Saves Lives</span>
+            <span data-i18n="hero_title_1">Medical Guidance</span>
+            <span class="hero-title-highlight" data-i18n="hero_title_2">When the Internet Fails</span>
         </h1>
         <p class="hero-subtitle" data-i18n="hero_subtitle">
-            Medical guidance, survival knowledge, and emergency help — powered by AI that runs entirely on your device. No internet. No cloud. No tracking. Free forever.
+            AI-powered emergency medical and survival guidance that runs entirely on your device. No internet. No cloud. No data collection. Works in 29 languages.
         </p>
         <div class="hero-cta">
             <a href="#download" class="btn btn-primary btn-lg" data-i18n="hero_cta_download">
-                Download Free
+                Download<span class="btn-price">— $1</span>
             </a>
             <a href="#checker" class="btn btn-secondary btn-lg" data-i18n="hero_cta_check">
-                Check My Device
+                Check Compatibility
             </a>
         </div>
         <div class="hero-stats">
@@ -105,199 +103,190 @@
             </div>
             <div class="stat">
                 <span class="stat-number">0</span>
-                <span class="stat-label" data-i18n="hero_stat_tracking">Tracking</span>
+                <span class="stat-label" data-i18n="hero_stat_tracking">Data Collected</span>
             </div>
             <div class="stat">
-                <span class="stat-number" data-i18n="hero_stat_free_num">Free</span>
-                <span class="stat-label" data-i18n="hero_stat_free">Forever</span>
+                <span class="stat-number" data-i18n="hero_stat_free_num">$1</span>
+                <span class="stat-label" data-i18n="hero_stat_free">One Time</span>
             </div>
         </div>
     </div>
     <div class="hero-scroll">
-        <a href="#features" aria-label="Scroll down">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        <a href="#why" aria-label="Scroll down">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
         </a>
     </div>
 </section>
 
-<!-- ─── Why Section ────────────────────────────────────────────── -->
+<!-- ─── Why Section ────────────────────────────────────────── -->
 <section class="section why-section" id="why">
     <div class="container">
         <div class="section-header">
-            <h2 data-i18n="why_title">Why Model Maker?</h2>
-            <p data-i18n="why_subtitle">When the internet goes down, when servers are unreachable, when you need help the most — Model Maker is there.</p>
+            <h2 data-i18n="why_title">Why This Exists</h2>
+            <p data-i18n="why_subtitle">When infrastructure collapses, people die from treatable conditions. Model Maker puts medical knowledge in their hands.</p>
         </div>
         <div class="why-grid">
             <div class="why-card">
-                <div class="why-icon">🔌</div>
-                <h3 data-i18n="why_nonet_title">No Internet Needed</h3>
-                <p data-i18n="why_nonet_desc">Works completely offline. During wars, disasters, or in remote areas — your AI assistant never goes down.</p>
+                <div class="why-icon">&#x26A0;</div>
+                <h3 data-i18n="why_nonet_title">No Internet Required</h3>
+                <p data-i18n="why_nonet_desc">Runs entirely on the user's device. During wars, natural disasters, or in remote areas — the AI is always available.</p>
             </div>
             <div class="why-card">
-                <div class="why-icon">🔒</div>
+                <div class="why-icon">&#x1F512;</div>
                 <h3 data-i18n="why_privacy_title">Zero Data Collection</h3>
-                <p data-i18n="why_privacy_desc">Everything stays on your device. No telemetry, no analytics, no cloud sync. Your conversations are yours alone.</p>
+                <p data-i18n="why_privacy_desc">No telemetry. No analytics. No cloud sync. All conversations remain on the device. Full patient confidentiality.</p>
             </div>
             <div class="why-card">
-                <div class="why-icon">🌍</div>
+                <div class="why-icon">&#x1F310;</div>
                 <h3 data-i18n="why_lang_title">29 Languages</h3>
-                <p data-i18n="why_lang_desc">Arabic, English, French, Chinese, Hindi, and 24 more. Including right-to-left languages with full support.</p>
+                <p data-i18n="why_lang_desc">Arabic, English, French, Chinese, Hindi, and 24 more. Full right-to-left support. Built for global humanitarian deployment.</p>
             </div>
             <div class="why-card">
-                <div class="why-icon">🏥</div>
-                <h3 data-i18n="why_medical_title">Medical Knowledge</h3>
-                <p data-i18n="why_medical_desc">Trained on verified emergency medical and survival knowledge. First aid, wound care, medication, water purification.</p>
+                <div class="why-icon">&#x2695;</div>
+                <h3 data-i18n="why_medical_title">Verified Medical Knowledge</h3>
+                <p data-i18n="why_medical_desc">Retrieval-augmented generation (RAG) searches verified emergency medical documents. First aid, wound care, medication dosing.</p>
             </div>
             <div class="why-card">
-                <div class="why-icon">⚡</div>
-                <h3 data-i18n="why_fast_title">Fast on Any Device</h3>
-                <p data-i18n="why_fast_desc">From 4GB phones to powerful desktops. Choose the model that fits your device. GPU acceleration on Mac and NVIDIA.</p>
+                <div class="why-icon">&#x26A1;</div>
+                <h3 data-i18n="why_fast_title">Runs on Any Hardware</h3>
+                <p data-i18n="why_fast_desc">From 4 GB smartphones to powerful desktops. Three model tiers. GPU acceleration on Apple Silicon and NVIDIA.</p>
             </div>
             <div class="why-card">
-                <div class="why-icon">💚</div>
-                <h3 data-i18n="why_free_title">Free & Open Source</h3>
-                <p data-i18n="why_free_desc">Apache 2.0 license. Free to use, modify, and distribute. Built by the community, for humanity.</p>
+                <div class="why-icon">&#x2696;</div>
+                <h3 data-i18n="why_free_title">Open Source</h3>
+                <p data-i18n="why_free_desc">Apache 2.0 license. Full source code on GitHub. Auditable, modifiable, distributable. Built for trust.</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ─── Features Section ───────────────────────────────────────── -->
+<!-- ─── Features Section ───────────────────────────────────── -->
 <section class="section features-section" id="features">
     <div class="container">
         <div class="section-header">
-            <h2 data-i18n="features_title">Powerful Features</h2>
+            <h2 data-i18n="features_title">Capabilities</h2>
         </div>
         <div class="features-grid">
             <div class="feature-card">
-                <div class="feature-icon">💬</div>
-                <h3 data-i18n="feat_chat_title">Smart Chat</h3>
-                <p data-i18n="feat_chat_desc">ChatGPT-like conversation with streaming responses. Ask anything about medical emergencies, survival, or daily life.</p>
+                <div class="feature-icon"></div>
+                <h3 data-i18n="feat_chat_title">Conversational Interface</h3>
+                <p data-i18n="feat_chat_desc">Natural language conversation with streaming responses. Users describe symptoms and receive structured guidance.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">📚</div>
-                <h3 data-i18n="feat_rag_title">Knowledge System</h3>
-                <p data-i18n="feat_rag_desc">Built-in RAG (Retrieval-Augmented Generation) searches verified medical documents to give accurate answers.</p>
+                <div class="feature-icon"></div>
+                <h3 data-i18n="feat_rag_title">Knowledge Retrieval</h3>
+                <p data-i18n="feat_rag_desc">RAG system with ONNX embeddings searches verified medical documents before generating responses. Reduces hallucination.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">🧠</div>
+                <div class="feature-icon"></div>
                 <h3 data-i18n="feat_memory_title">Persistent Memory</h3>
-                <p data-i18n="feat_memory_desc">Remembers important facts about you — allergies, conditions, medications — for personalized guidance.</p>
+                <p data-i18n="feat_memory_desc">Stores patient-reported allergies, conditions, and medications. Provides personalized guidance across sessions.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">🌙</div>
-                <h3 data-i18n="feat_theme_title">Beautiful Dark UI</h3>
-                <p data-i18n="feat_theme_desc">Professional dark theme designed for readability in any lighting condition. Easy on the eyes during long sessions.</p>
+                <div class="feature-icon"></div>
+                <h3 data-i18n="feat_theme_title">Readability</h3>
+                <p data-i18n="feat_theme_desc">Dark interface designed for low-light and field conditions. High contrast. Large touch targets. Screen-reader compatible.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">📱</div>
-                <h3 data-i18n="feat_responsive_title">Any Screen Size</h3>
-                <p data-i18n="feat_responsive_desc">Works perfectly on phones, tablets, and desktops. Responsive design adapts to your screen.</p>
+                <div class="feature-icon"></div>
+                <h3 data-i18n="feat_responsive_title">Any Device</h3>
+                <p data-i18n="feat_responsive_desc">Responsive interface works on phones, tablets, laptops, and desktops. No installation beyond Python.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">🔄</div>
+                <div class="feature-icon"></div>
                 <h3 data-i18n="feat_stream_title">Real-Time Streaming</h3>
-                <p data-i18n="feat_stream_desc">See AI responses appear word by word, just like ChatGPT. Powered by Server-Sent Events for smooth streaming.</p>
+                <p data-i18n="feat_stream_desc">Server-Sent Events deliver token-by-token responses. Users see output immediately without waiting for full generation.</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ─── Models Section ─────────────────────────────────────────── -->
+<!-- ─── Models Section ─────────────────────────────────────── -->
 <section class="section models-section" id="models">
     <div class="container">
         <div class="section-header">
-            <h2 data-i18n="models_title">Choose Your Model</h2>
-            <p data-i18n="models_subtitle">Three tiers to match any device. Powered by Qwen2.5 — one of the world's best multilingual AI models.</p>
+            <h2 data-i18n="models_title">Model Tiers</h2>
+            <p data-i18n="models_subtitle">Three configurations to match available hardware. Powered by Qwen2.5 — multilingual, instruction-tuned, GGUF quantized.</p>
         </div>
         <div class="models-grid">
             <div class="model-card">
-                <div class="model-tier lite">
-                    <span data-i18n="model_lite">Lite</span>
-                </div>
+                <div class="model-tier lite"><span data-i18n="model_lite">Lite</span></div>
                 <h3>Qwen2.5-3B</h3>
                 <div class="model-size">2.0 GB</div>
-                <div class="model-stars">⭐⭐⭐</div>
+                <div class="model-stars">&#9733;&#9733;&#9733;</div>
                 <ul class="model-specs">
                     <li data-i18n="model_ram_4">4 GB RAM minimum</li>
                     <li data-i18n="model_storage_4">4 GB storage</li>
-                    <li data-i18n="model_quality_good">Good quality</li>
-                    <li data-i18n="model_speed_fast">Fast responses</li>
+                    <li data-i18n="model_quality_good">Adequate quality</li>
+                    <li data-i18n="model_speed_fast">Fast inference</li>
                 </ul>
-                <div class="model-best" data-i18n="model_lite_best">Best for: Older phones & basic laptops</div>
+                <div class="model-best" data-i18n="model_lite_best">Older phones, basic laptops</div>
             </div>
 
             <div class="model-card model-card-featured">
-                <div class="model-badge" data-i18n="model_recommended">★ Recommended</div>
-                <div class="model-tier standard">
-                    <span data-i18n="model_standard">Standard</span>
-                </div>
+                <div class="model-badge" data-i18n="model_recommended">Recommended</div>
+                <div class="model-tier standard"><span data-i18n="model_standard">Standard</span></div>
                 <h3>Qwen2.5-7B</h3>
                 <div class="model-size">4.4 GB</div>
-                <div class="model-stars">⭐⭐⭐⭐</div>
+                <div class="model-stars">&#9733;&#9733;&#9733;&#9733;</div>
                 <ul class="model-specs">
                     <li data-i18n="model_ram_8">8 GB RAM minimum</li>
                     <li data-i18n="model_storage_6">6 GB storage</li>
-                    <li data-i18n="model_quality_great">Great quality</li>
+                    <li data-i18n="model_quality_great">High quality</li>
                     <li data-i18n="model_speed_balanced">Balanced speed</li>
                 </ul>
-                <div class="model-best" data-i18n="model_standard_best">Best for: Modern phones & most computers</div>
+                <div class="model-best" data-i18n="model_standard_best">Most modern devices</div>
             </div>
 
             <div class="model-card">
-                <div class="model-tier premium">
-                    <span data-i18n="model_premium">Premium</span>
-                </div>
+                <div class="model-tier premium"><span data-i18n="model_premium">Premium</span></div>
                 <h3>Qwen2.5-14B</h3>
                 <div class="model-size">8.5 GB</div>
-                <div class="model-stars">⭐⭐⭐⭐⭐</div>
+                <div class="model-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
                 <ul class="model-specs">
                     <li data-i18n="model_ram_16">16 GB RAM minimum</li>
                     <li data-i18n="model_storage_12">12 GB storage</li>
-                    <li data-i18n="model_quality_best">Best quality</li>
-                    <li data-i18n="model_speed_slower">Thoughtful responses</li>
+                    <li data-i18n="model_quality_best">Highest accuracy</li>
+                    <li data-i18n="model_speed_slower">Detailed responses</li>
                 </ul>
-                <div class="model-best" data-i18n="model_premium_best">Best for: Powerful laptops & desktops</div>
+                <div class="model-best" data-i18n="model_premium_best">Workstations, high-end laptops</div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ─── Hardware Checker ───────────────────────────────────────── -->
+<!-- ─── Hardware Checker ───────────────────────────────────── -->
 <section class="section checker-section" id="checker">
     <div class="container">
         <div class="section-header">
-            <h2 data-i18n="checker_title">Check Your Device</h2>
-            <p data-i18n="checker_subtitle">Not sure which model fits? Tell us about your device and we'll recommend the perfect one.</p>
+            <h2 data-i18n="checker_title">Device Compatibility</h2>
+            <p data-i18n="checker_subtitle">Select your device to determine the recommended model tier.</p>
         </div>
         <div class="checker-card">
             <div class="checker-form">
-                <!-- Step 1: Device Type -->
                 <div class="checker-step" id="checkerStep1">
-                    <label data-i18n="checker_device_type">What type of device?</label>
+                    <label data-i18n="checker_device_type">Device type</label>
                     <div class="checker-options">
                         <button class="checker-option" data-type="computer" onclick="checkerSelectType('computer')">
-                            <span class="option-icon">💻</span>
-                            <span data-i18n="checker_computer">Computer / Laptop</span>
+                            <span class="option-icon">&#128187;</span>
+                            <span data-i18n="checker_computer">Computer</span>
                         </button>
                         <button class="checker-option" data-type="phone" onclick="checkerSelectType('phone')">
-                            <span class="option-icon">📱</span>
+                            <span class="option-icon">&#128241;</span>
                             <span data-i18n="checker_phone">Phone / Tablet</span>
                         </button>
                     </div>
                 </div>
-
-                <!-- Step 2: Device Selection -->
                 <div class="checker-step hidden" id="checkerStep2">
-                    <label data-i18n="checker_select_device">Select your device (or closest match):</label>
+                    <label data-i18n="checker_select_device">Select device or closest match:</label>
                     <select class="checker-select" id="checkerDevice">
-                        <option value="" data-i18n="checker_choose">-- Choose --</option>
+                        <option value="" data-i18n="checker_choose">-- Select --</option>
                     </select>
                     <div class="checker-manual">
-                        <p data-i18n="checker_dont_know">Don't know? No problem!</p>
-                        <label data-i18n="checker_how_much_ram">How much RAM does your device have?</label>
+                        <p data-i18n="checker_dont_know">Unknown device?</p>
+                        <label data-i18n="checker_how_much_ram">Available RAM:</label>
                         <select class="checker-select" id="checkerRam">
-                            <option value="" data-i18n="checker_select_ram">-- Select RAM --</option>
+                            <option value="" data-i18n="checker_select_ram">-- RAM --</option>
                             <option value="4">4 GB</option>
                             <option value="6">6 GB</option>
                             <option value="8">8 GB</option>
@@ -305,68 +294,61 @@
                             <option value="16">16 GB</option>
                             <option value="32">32 GB+</option>
                         </select>
-                        <p class="checker-tip" data-i18n="checker_ram_tip">
-                            💡 Tip: On Mac → Apple menu → About This Mac. On Windows → Settings → System → About.
-                        </p>
                     </div>
-                    <button class="btn btn-primary" onclick="checkerAnalyze()" data-i18n="checker_analyze">Check Compatibility</button>
+                    <button class="btn btn-primary" onclick="checkerAnalyze()" data-i18n="checker_analyze">Check</button>
                 </div>
-
-                <!-- Result -->
                 <div class="checker-step hidden" id="checkerResult">
-                    <div class="checker-result-card" id="checkerResultCard">
-                        <!-- Filled dynamically -->
-                    </div>
-                    <button class="btn btn-secondary" onclick="checkerReset()" data-i18n="checker_try_again">Try Again</button>
+                    <div class="checker-result-card" id="checkerResultCard"></div>
+                    <button class="btn btn-secondary" onclick="checkerReset()" data-i18n="checker_try_again">Reset</button>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ─── Download Section ───────────────────────────────────────── -->
+<!-- ─── Download Section ───────────────────────────────────── -->
 <section class="section download-section" id="download">
     <div class="container">
         <div class="section-header">
-            <h2 data-i18n="download_title">Download Model Maker</h2>
-            <p data-i18n="download_subtitle">Get started in 3 simple steps. No account needed.</p>
+            <h2 data-i18n="download_title">Installation</h2>
+            <p data-i18n="download_subtitle">Three steps. No account required. Works offline after initial download.</p>
         </div>
         <div class="download-steps">
             <div class="download-step">
                 <div class="step-number">1</div>
-                <h3 data-i18n="download_step1_title">Download the App</h3>
-                <p data-i18n="download_step1_desc">Choose your platform and download Model Maker.</p>
+                <h3 data-i18n="download_step1_title">Get the Application</h3>
+                <p data-i18n="download_step1_desc">Download for your platform — $1, one-time payment.</p>
                 <div class="platform-buttons">
                     <a href="#" class="platform-btn" data-platform="mac">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-                        <span>macOS</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                        macOS
                     </a>
                     <a href="#" class="platform-btn" data-platform="windows">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
-                        <span>Windows</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
+                        Windows
                     </a>
                     <a href="#" class="platform-btn" data-platform="linux">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.504 0c-.155 0-.315.008-.48.021-4.226.333-3.105 4.807-3.17 6.298-.076 1.092-.3 1.953-1.05 3.02-.885 1.051-2.127 2.75-2.716 4.521-.278.832-.41 1.684-.287 2.489a.424.424 0 00-.11.135c-.26.268-.45.6-.663.839-.199.199-.485.267-.797.4-.313.136-.658.269-.864.68-.09.189-.136.394-.132.602 0 .199.027.4.055.536.058.399.116.728.04.97-.249.68-.28 1.145-.106 1.484.174.334.535.47.94.601.81.2 1.91.135 2.774.6.926.466 1.866.67 2.616.47.526-.116.97-.464 1.208-.946.587-.003 1.23-.269 2.26-.334.699-.058 1.574.267 2.577.2.025.134.063.198.114.333l.003.003c.391.778 1.113 1.368 1.884 1.368.39 0 .739-.134 1.107-.534.117-.134.2-.27.293-.4.32-.533.515-.866 1.308-1.133.423-.134.698-.2 1.066-.267.39-.06.783-.136 1.197-.49.67-.599.39-1.266.016-1.932-.132-.2-.436-.6-.282-.933.03-.066.09-.133.151-.2.234-.27.483-.533.567-.934.06-.4-.078-.73-.238-1.073-.36-.8-1.024-1.484-1.436-2.35-.174-.4-.267-.734-.267-1-.011-.4.078-.667.211-1.067.099-.2.178-.467.178-.867 0-1.934-.867-3.668-2.2-5.201-1.063-1.2-2.3-2.073-3.307-2.2C13.087.032 12.7 0 12.504 0"/></svg>
-                        <span>Linux</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.504 0c-.155 0-.315.008-.48.021-4.226.333-3.105 4.807-3.17 6.298-.076 1.092-.3 1.953-1.05 3.02-.885 1.051-2.127 2.75-2.716 4.521-.278.832-.41 1.684-.287 2.489a.424.424 0 00-.11.135c-.26.268-.45.6-.663.839-.199.199-.485.267-.797.4-.313.136-.658.269-.864.68-.09.189-.136.394-.132.602 0 .199.027.4.055.536.058.399.116.728.04.97-.249.68-.28 1.145-.106 1.484.174.334.535.47.94.601.81.2 1.91.135 2.774.6.926.466 1.866.67 2.616.47.526-.116.97-.464 1.208-.946.587-.003 1.23-.269 2.26-.334.699-.058 1.574.267 2.577.2.025.134.063.198.114.333l.003.003c.391.778 1.113 1.368 1.884 1.368.39 0 .739-.134 1.107-.534.117-.134.2-.27.293-.4.32-.533.515-.866 1.308-1.133.423-.134.698-.2 1.066-.267.39-.06.783-.136 1.197-.49.67-.599.39-1.266.016-1.932-.132-.2-.436-.6-.282-.933.03-.066.09-.133.151-.2.234-.27.483-.533.567-.934.06-.4-.078-.73-.238-1.073-.36-.8-1.024-1.484-1.436-2.35-.174-.4-.267-.734-.267-1-.011-.4.078-.667.211-1.067.099-.2.178-.467.178-.867 0-1.934-.867-3.668-2.2-5.201-1.063-1.2-2.3-2.073-3.307-2.2C13.087.032 12.7 0 12.504 0"/></svg>
+                        Linux
                     </a>
                 </div>
             </div>
             <div class="download-step">
                 <div class="step-number">2</div>
-                <h3 data-i18n="download_step2_title">Download a Model</h3>
-                <p data-i18n="download_step2_desc">Run the built-in downloader to get the AI model that fits your device.</p>
+                <h3 data-i18n="download_step2_title">Download AI Model</h3>
+                <p data-i18n="download_step2_desc">The built-in downloader detects your hardware and recommends the right model.</p>
                 <code class="download-cmd">python models/download.py</code>
             </div>
             <div class="download-step">
                 <div class="step-number">3</div>
-                <h3 data-i18n="download_step3_title">Start Using</h3>
-                <p data-i18n="download_step3_desc">Launch the app and start chatting. No account, no setup, no internet.</p>
+                <h3 data-i18n="download_step3_title">Launch</h3>
+                <p data-i18n="download_step3_desc">Opens in your browser. No account needed. Works offline from this point forward.</p>
                 <code class="download-cmd">python app/run.py</code>
             </div>
         </div>
 
         <div class="download-source">
-            <h3 data-i18n="download_source_title">Or build from source:</h3>
+            <h3 data-i18n="download_source_title">Build from source (free, Apache 2.0):</h3>
             <pre class="download-source-code"><code>git clone https://github.com/Maitham1988/model-maker.git
 cd model-maker
 pip install -r requirements.txt
@@ -376,50 +358,49 @@ python app/run.py</code></pre>
     </div>
 </section>
 
-<!-- ─── Community Section ──────────────────────────────────────── -->
+<!-- ─── Community Section ──────────────────────────────────── -->
 <section class="section community-section" id="community">
     <div class="container">
         <div class="section-header">
-            <h2 data-i18n="community_title">Join the Community</h2>
-            <p data-i18n="community_subtitle">Model Maker is built by people who believe AI should be accessible to everyone — especially when it matters most.</p>
+            <h2 data-i18n="community_title">Contribute</h2>
+            <p data-i18n="community_subtitle">Model Maker is open source. Medical professionals, developers, and translators are welcome.</p>
         </div>
         <div class="community-grid">
             <div class="community-card">
-                <div class="community-icon">🤝</div>
-                <h3 data-i18n="community_contribute_title">Contribute</h3>
-                <p data-i18n="community_contribute_desc">Add medical knowledge, translate to your language, improve the code. Every contribution saves lives.</p>
-                <a href="https://github.com/Maitham1988/model-maker" class="btn btn-secondary" data-i18n="community_contribute_btn">View on GitHub</a>
+                <div class="community-icon"></div>
+                <h3 data-i18n="community_contribute_title">Development</h3>
+                <p data-i18n="community_contribute_desc">Report issues, submit pull requests, review code. The full codebase is on GitHub under Apache 2.0.</p>
+                <a href="https://github.com/Maitham1988/model-maker" class="btn btn-secondary" data-i18n="community_contribute_btn">GitHub Repository</a>
             </div>
             <div class="community-card">
-                <div class="community-icon">📖</div>
-                <h3 data-i18n="community_knowledge_title">Add Knowledge</h3>
-                <p data-i18n="community_knowledge_desc">Are you a doctor, nurse, or paramedic? Help us build the most comprehensive offline medical guide.</p>
-                <a href="https://github.com/Maitham1988/model-maker/blob/main/CONTRIBUTING.md" class="btn btn-secondary" data-i18n="community_knowledge_btn">Knowledge Guide</a>
+                <div class="community-icon"></div>
+                <h3 data-i18n="community_knowledge_title">Medical Knowledge</h3>
+                <p data-i18n="community_knowledge_desc">Doctors, nurses, and paramedics can contribute verified medical protocols to the knowledge base.</p>
+                <a href="https://github.com/Maitham1988/model-maker/blob/main/CONTRIBUTING.md" class="btn btn-secondary" data-i18n="community_knowledge_btn">Contributing Guide</a>
             </div>
             <div class="community-card">
-                <div class="community-icon">🌐</div>
-                <h3 data-i18n="community_translate_title">Translate</h3>
-                <p data-i18n="community_translate_desc">Help us reach more people. Translate the interface and knowledge base into your native language.</p>
+                <div class="community-icon"></div>
+                <h3 data-i18n="community_translate_title">Translation</h3>
+                <p data-i18n="community_translate_desc">Help reach more communities. Translate the interface and medical knowledge into your language.</p>
                 <a href="https://github.com/Maitham1988/model-maker/blob/main/CONTRIBUTING.md#translations" class="btn btn-secondary" data-i18n="community_translate_btn">Translation Guide</a>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ─── Footer ─────────────────────────────────────────────────── -->
+<!-- ─── Footer ─────────────────────────────────────────────── -->
 <footer class="footer">
     <div class="container">
         <div class="footer-grid">
             <div class="footer-brand">
                 <div class="footer-logo">
-                    <span class="logo-icon">🏥</span>
+                    <span class="logo-icon">+</span>
                     <span class="logo-text">Model Maker</span>
                 </div>
-                <p data-i18n="footer_desc">Offline AI for emergency, medical, and survival situations. Free forever.</p>
+                <p data-i18n="footer_desc">Offline AI for emergency medical and survival guidance. Apache 2.0 open source.</p>
                 <p class="footer-org">
-                    <span data-i18n="footer_by">Built by</span>
                     <a href="https://flexsell.com" target="_blank" rel="noopener">FlexSell International W.L.L</a>
-                    — Bahrain 🇧🇭
+                    &mdash; Bahrain
                 </p>
             </div>
             <div class="footer-links">
@@ -434,17 +415,18 @@ python app/run.py</code></pre>
                 <a href="https://github.com/Maitham1988/model-maker/blob/main/docs/getting-started.md" data-i18n="footer_getting_started">Getting Started</a>
                 <a href="https://github.com/Maitham1988/model-maker/blob/main/docs/architecture.md" data-i18n="footer_architecture">Architecture</a>
                 <a href="https://github.com/Maitham1988/model-maker/blob/main/CONTRIBUTING.md" data-i18n="footer_contributing">Contributing</a>
-                <a href="https://github.com/Maitham1988/model-maker/blob/main/SECURITY.md" data-i18n="footer_security">Security</a>
+                <a href="https://github.com/Maitham1988/model-maker/blob/main/SECURITY.md" data-i18n="footer_security">Security Policy</a>
             </div>
             <div class="footer-links">
                 <h4 data-i18n="footer_community">Community</h4>
                 <a href="https://github.com/Maitham1988/model-maker/discussions" data-i18n="footer_discussions">Discussions</a>
                 <a href="https://github.com/Maitham1988/model-maker/issues" data-i18n="footer_issues">Report Issues</a>
-                <a href="https://github.com/Maitham1988" data-i18n="footer_author">Author</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2026 <a href="https://flexsell.com" target="_blank" rel="noopener">FlexSell International W.L.L</a>. <span data-i18n="footer_rights">Apache 2.0 — Free for everyone.</span></p>
+            <p>&copy; 2026 <a href="https://flexsell.com" target="_blank" rel="noopener">FlexSell International W.L.L</a>. <span data-i18n="footer_rights">Apache 2.0 &mdash; Source code is free. Pre-built downloads are $1.</span></p>
         </div>
     </div>
 </footer>

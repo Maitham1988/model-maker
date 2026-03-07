@@ -114,8 +114,8 @@ function detectPlatform() {
   // Highlight user's platform button
   document.querySelectorAll(".platform-btn").forEach((btn) => {
     if (btn.dataset.platform === platform) {
-      btn.style.borderColor = "var(--accent-primary)";
-      btn.style.background = "rgba(108, 92, 231, 0.1)";
+      btn.style.borderColor = "var(--emergency-red)";
+      btn.style.background = "rgba(198, 40, 40, 0.06)";
     }
   });
 }

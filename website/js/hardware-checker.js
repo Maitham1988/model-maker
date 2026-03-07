@@ -38,9 +38,9 @@ const DEVICE_PRESETS = {
 };
 
 const MODEL_INFO = {
-  lite: { name: "Lite (Qwen2.5-3B)", size: "2.0 GB", ram: "4GB", color: "#fdcb6e" },
-  standard: { name: "Standard (Qwen2.5-7B)", size: "4.4 GB", ram: "8GB", color: "#00b894" },
-  premium: { name: "Premium (Qwen2.5-14B)", size: "8.5 GB", ram: "16GB", color: "#a29bfe" },
+  lite: { name: "Lite (Qwen2.5-3B)", size: "2.0 GB", ram: "4GB", color: "#757575" },
+  standard: { name: "Standard (Qwen2.5-7B)", size: "4.4 GB", ram: "8GB", color: "#c62828" },
+  premium: { name: "Premium (Qwen2.5-14B)", size: "8.5 GB", ram: "16GB", color: "#1565c0" },
 };
 
 let selectedDeviceType = null;
