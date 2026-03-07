@@ -1,0 +1,127 @@
+{
+  "version": "1.0.0",
+  "updated": "2026-03-07",
+  "models": [
+    {
+      "id": "qwen2.5-3b-medical",
+      "name": "Model Maker Lite",
+      "tier": "lite",
+      "base_model": "Qwen2.5-3B-Instruct",
+      "quantization": "Q4_K_M",
+      "file": "Qwen2.5-3B-Instruct-Q4_K_M.gguf",
+      "size_bytes": 2100000000,
+      "size_display": "2.0 GB",
+      "sha256": "",
+      "download_urls": [
+        "https://huggingface.co/bartowski/Qwen2.5-3B-Instruct-GGUF/resolve/main/Qwen2.5-3B-Instruct-Q4_K_M.gguf"
+      ],
+      "requirements": {
+        "min_ram_gb": 4,
+        "min_storage_gb": 4,
+        "recommended_ram_gb": 8
+      },
+      "languages": 29,
+      "quality_stars": 3,
+      "description": {
+        "en": "Good for basic devices. Fast responses, decent quality.",
+        "ar": "مناسب للأجهزة البسيطة. ردود سريعة وجودة مقبولة."
+      },
+      "compatible_devices": ["desktop_4gb", "desktop_8gb", "desktop_16gb", "desktop_32gb", "phone_6gb", "phone_8gb", "phone_12gb"],
+      "chat_format": "chatml"
+    },
+    {
+      "id": "qwen2.5-7b-medical",
+      "name": "Model Maker Standard",
+      "tier": "standard",
+      "base_model": "Qwen2.5-7B-Instruct",
+      "quantization": "Q4_K_M",
+      "file": "Qwen2.5-7B-Instruct-Q4_K_M.gguf",
+      "size_bytes": 4680000000,
+      "size_display": "4.4 GB",
+      "sha256": "",
+      "download_urls": [
+        "https://huggingface.co/bartowski/Qwen2.5-7B-Instruct-GGUF/resolve/main/Qwen2.5-7B-Instruct-Q4_K_M.gguf"
+      ],
+      "requirements": {
+        "min_ram_gb": 8,
+        "min_storage_gb": 6,
+        "recommended_ram_gb": 16
+      },
+      "languages": 29,
+      "quality_stars": 4,
+      "description": {
+        "en": "Best balance of quality and speed. Recommended for most users.",
+        "ar": "أفضل توازن بين الجودة والسرعة. موصى به لمعظم المستخدمين."
+      },
+      "compatible_devices": ["desktop_8gb", "desktop_16gb", "desktop_32gb", "phone_8gb", "phone_12gb"],
+      "chat_format": "chatml"
+    },
+    {
+      "id": "qwen2.5-14b-medical",
+      "name": "Model Maker Premium",
+      "tier": "premium",
+      "base_model": "Qwen2.5-14B-Instruct",
+      "quantization": "Q4_K_M",
+      "file": "Qwen2.5-14B-Instruct-Q4_K_M.gguf",
+      "size_bytes": 9100000000,
+      "size_display": "8.5 GB",
+      "sha256": "",
+      "download_urls": [
+        "https://huggingface.co/bartowski/Qwen2.5-14B-Instruct-GGUF/resolve/main/Qwen2.5-14B-Instruct-Q4_K_M.gguf"
+      ],
+      "requirements": {
+        "min_ram_gb": 16,
+        "min_storage_gb": 12,
+        "recommended_ram_gb": 32
+      },
+      "languages": 29,
+      "quality_stars": 5,
+      "description": {
+        "en": "Highest quality. Best for detailed medical guidance. Needs powerful device.",
+        "ar": "أعلى جودة. الأفضل للإرشاد الطبي المفصل. يحتاج جهاز قوي."
+      },
+      "compatible_devices": ["desktop_16gb", "desktop_32gb", "phone_12gb"],
+      "chat_format": "chatml"
+    }
+  ],
+  "embeddings": {
+    "id": "all-MiniLM-L6-v2",
+    "name": "Embedding Model (Required)",
+    "file": "all-MiniLM-L6-v2.tar.gz",
+    "size_bytes": 91000000,
+    "size_display": "87 MB",
+    "download_url": "https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2"
+  },
+  "device_presets": {
+    "phones": [
+      {"name": "iPhone 15 Pro / Pro Max", "ram_gb": 8, "tier": "standard"},
+      {"name": "iPhone 15 / 14 Pro", "ram_gb": 6, "tier": "lite"},
+      {"name": "iPhone 14 / 13", "ram_gb": 6, "tier": "lite"},
+      {"name": "Samsung Galaxy S24 Ultra", "ram_gb": 12, "tier": "standard"},
+      {"name": "Samsung Galaxy S24 / S23", "ram_gb": 8, "tier": "standard"},
+      {"name": "Samsung Galaxy A54 / A34", "ram_gb": 6, "tier": "lite"},
+      {"name": "Google Pixel 8 Pro", "ram_gb": 12, "tier": "standard"},
+      {"name": "Google Pixel 8 / 7", "ram_gb": 8, "tier": "standard"},
+      {"name": "Huawei Mate 60 Pro", "ram_gb": 12, "tier": "standard"},
+      {"name": "Huawei P60 Pro", "ram_gb": 8, "tier": "standard"},
+      {"name": "Huawei Nova 12 / 11", "ram_gb": 8, "tier": "standard"},
+      {"name": "Xiaomi 14 / 13", "ram_gb": 12, "tier": "standard"},
+      {"name": "OnePlus 12", "ram_gb": 16, "tier": "premium"},
+      {"name": "iPad Pro M2/M4", "ram_gb": 16, "tier": "premium"},
+      {"name": "iPad Air M2", "ram_gb": 8, "tier": "standard"}
+    ],
+    "computers": [
+      {"name": "MacBook Air M1/M2 (8GB)", "ram_gb": 8, "tier": "standard"},
+      {"name": "MacBook Air M2/M3 (16GB)", "ram_gb": 16, "tier": "premium"},
+      {"name": "MacBook Pro M1/M2/M3 (16GB)", "ram_gb": 16, "tier": "premium"},
+      {"name": "MacBook Pro M2/M3 (32GB+)", "ram_gb": 32, "tier": "premium"},
+      {"name": "Windows Laptop (4GB RAM)", "ram_gb": 4, "tier": "lite"},
+      {"name": "Windows Laptop (8GB RAM)", "ram_gb": 8, "tier": "standard"},
+      {"name": "Windows Laptop (16GB RAM)", "ram_gb": 16, "tier": "premium"},
+      {"name": "Windows Desktop (8GB RAM)", "ram_gb": 8, "tier": "standard"},
+      {"name": "Windows Desktop (16GB+ RAM)", "ram_gb": 16, "tier": "premium"},
+      {"name": "Linux Desktop/Laptop", "ram_gb": 8, "tier": "standard"},
+      {"name": "Chromebook (4GB)", "ram_gb": 4, "tier": "lite"}
+    ]
+  }
+}

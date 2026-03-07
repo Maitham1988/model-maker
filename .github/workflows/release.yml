@@ -1,0 +1,240 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  # ── Build for macOS ───────────────────────────────────────────
+  build-mac:
+    name: Build macOS
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: Build macOS package
+        run: |
+          mkdir -p dist/model-maker-mac
+          cp -r app/ dist/model-maker-mac/app/
+          cp -r models/registry.json dist/model-maker-mac/
+          cp models/download.py dist/model-maker-mac/
+          cp requirements.txt dist/model-maker-mac/
+          cp LICENSE dist/model-maker-mac/
+          cp README.md dist/model-maker-mac/
+
+          # Create launcher script
+          cat > dist/model-maker-mac/start.sh << 'EOF'
+          #!/bin/bash
+          cd "$(dirname "$0")"
+          echo "🏥 Model Maker — Starting..."
+          
+          # Check Python
+          if ! command -v python3 &> /dev/null; then
+            echo "❌ Python 3 is required. Install from python.org"
+            exit 1
+          fi
+
+          # Install deps if needed
+          if [ ! -d ".venv" ]; then
+            echo "📦 Setting up environment..."
+            python3 -m venv .venv
+            .venv/bin/pip install -r requirements.txt
+          fi
+
+          # Check model
+          if ! ls models/*.gguf 2>/dev/null; then
+            echo "📥 No AI model found. Running model downloader..."
+            .venv/bin/python models/download.py
+          fi
+
+          # Start
+          cd app && ../.venv/bin/python run.py
+          EOF
+          chmod +x dist/model-maker-mac/start.sh
+
+      - name: Create archive
+        run: |
+          cd dist
+          tar -czf model-maker-${{ github.ref_name }}-mac.tar.gz model-maker-mac/
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: model-maker-mac
+          path: dist/model-maker-${{ github.ref_name }}-mac.tar.gz
+
+  # ── Build for Windows ─────────────────────────────────────────
+  build-windows:
+    name: Build Windows
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: Build Windows package
+        shell: powershell
+        run: |
+          New-Item -ItemType Directory -Force -Path dist/model-maker-win
+          Copy-Item -Recurse app/ dist/model-maker-win/app/
+          Copy-Item models/registry.json dist/model-maker-win/
+          Copy-Item models/download.py dist/model-maker-win/
+          Copy-Item requirements.txt dist/model-maker-win/
+          Copy-Item LICENSE dist/model-maker-win/
+          Copy-Item README.md dist/model-maker-win/
+
+          # Create launcher script
+          @"
+          @echo off
+          echo Model Maker — Starting...
+          cd /d "%~dp0"
+          
+          if not exist ".venv" (
+            echo Setting up environment...
+            python -m venv .venv
+            .venv\Scripts\pip install -r requirements.txt
+          )
+          
+          if not exist "models\*.gguf" (
+            echo No AI model found. Running downloader...
+            .venv\Scripts\python models\download.py
+          )
+          
+          cd app
+          ..\.venv\Scripts\python run.py
+          pause
+          "@ | Out-File -FilePath dist/model-maker-win/start.bat -Encoding ASCII
+
+      - name: Create archive
+        run: Compress-Archive -Path dist/model-maker-win/* -DestinationPath dist/model-maker-${{ github.ref_name }}-windows.zip
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: model-maker-windows
+          path: dist/model-maker-${{ github.ref_name }}-windows.zip
+
+  # ── Build for Linux ───────────────────────────────────────────
+  build-linux:
+    name: Build Linux
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Linux package
+        run: |
+          mkdir -p dist/model-maker-linux
+          cp -r app/ dist/model-maker-linux/app/
+          cp -r models/registry.json dist/model-maker-linux/
+          cp models/download.py dist/model-maker-linux/
+          cp requirements.txt dist/model-maker-linux/
+          cp LICENSE dist/model-maker-linux/
+          cp README.md dist/model-maker-linux/
+
+          cat > dist/model-maker-linux/start.sh << 'SCRIPT'
+          #!/bin/bash
+          cd "$(dirname "$0")"
+          echo "🏥 Model Maker — Starting..."
+          
+          if ! command -v python3 &> /dev/null; then
+            echo "❌ Python 3 required. Install: sudo apt install python3 python3-venv"
+            exit 1
+          fi
+
+          if [ ! -d ".venv" ]; then
+            echo "📦 Setting up..."
+            python3 -m venv .venv
+            .venv/bin/pip install -r requirements.txt
+          fi
+
+          if ! ls models/*.gguf 2>/dev/null; then
+            echo "📥 Downloading AI model..."
+            .venv/bin/python models/download.py
+          fi
+
+          cd app && ../.venv/bin/python run.py
+          SCRIPT
+          chmod +x dist/model-maker-linux/start.sh
+
+      - name: Create archive
+        run: |
+          cd dist
+          tar -czf model-maker-${{ github.ref_name }}-linux.tar.gz model-maker-linux/
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: model-maker-linux
+          path: dist/model-maker-${{ github.ref_name }}-linux.tar.gz
+
+  # ── Create GitHub Release ─────────────────────────────────────
+  release:
+    name: Create Release
+    needs: [build-mac, build-windows, build-linux]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist/
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Model Maker ${{ github.ref_name }}
+          body: |
+            ## 🏥 Model Maker ${{ github.ref_name }}
+
+            Offline AI assistant for emergency, medical, and survival situations.
+
+            ### Downloads
+            | Platform | File |
+            |----------|------|
+            | macOS | `model-maker-${{ github.ref_name }}-mac.tar.gz` |
+            | Windows | `model-maker-${{ github.ref_name }}-windows.zip` |
+            | Linux | `model-maker-${{ github.ref_name }}-linux.tar.gz` |
+
+            ### Quick Start
+            1. Download for your platform
+            2. Extract the archive
+            3. Run `start.sh` (Mac/Linux) or `start.bat` (Windows)
+            4. The app will guide you through model download and setup
+
+            ### Requirements
+            - Python 3.11+
+            - 4-16 GB RAM (depending on model choice)
+            - 4-12 GB storage for AI model
+
+            See [README](https://github.com/Maitham1988/model-maker) for full documentation.
+          files: |
+            dist/model-maker-mac/model-maker-${{ github.ref_name }}-mac.tar.gz
+            dist/model-maker-windows/model-maker-${{ github.ref_name }}-windows.zip
+            dist/model-maker-linux/model-maker-${{ github.ref_name }}-linux.tar.gz
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

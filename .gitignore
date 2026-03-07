@@ -1,0 +1,55 @@
+# Byte-compiled
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Model files (too large for git)
+*.gguf
+*.bin
+models/mlx/
+models/adapters/
+models/embedding/
+
+# App runtime data
+app/config.json
+app/data/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build
+dist/
+build/
+builds/
+*.egg-info/
+
+# Logs
+*.log
+
+# License secrets
+.license_secret
+
+# Pytest cache
+.pytest_cache/
+
+# Coverage
+htmlcov/
+.coverage
+
+# Website deploy
+website/.deploy/
+*.db
+*.sqlite
