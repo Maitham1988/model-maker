@@ -74,6 +74,12 @@
 
         <!-- Input Bar -->
         <div class="input-bar">
+          <div class="voice-status" id="voiceStatus">
+            <div class="voice-indicator"></div>
+            <span class="voice-label" id="voiceLabel">Listening...</span>
+            <span class="voice-timer" id="voiceTimer">0:00</span>
+            <button class="voice-cancel" onclick="cancelVoice()">✕</button>
+          </div>
           <div class="input-container">
             <textarea
               id="messageInput"
@@ -92,6 +98,13 @@
                   stroke-linecap="round"
                   stroke-linejoin="round"
                 />
+              </svg>
+            </button>
+            <button class="btn-voice" id="voiceBtn" onclick="toggleVoice()" title="Voice chat (hold to talk)">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M12 1C10.34 1 9 2.34 9 4V12C9 13.66 10.34 15 12 15C13.66 15 15 13.66 15 12V4C15 2.34 13.66 1 12 1Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M19 10V12C19 15.87 15.87 19 12 19C8.13 19 5 15.87 5 12V10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 19V23M8 23H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </button>
           </div>

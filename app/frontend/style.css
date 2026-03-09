@@ -458,6 +458,92 @@ body {
   cursor: not-allowed;
 }
 
+/* ─── Voice Button ─────────────────────────────────────────────── */
+.btn-voice {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 50%;
+  border: 2px solid var(--border-color);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  margin-left: 4px;
+}
+.btn-voice:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.btn-voice.recording {
+  border-color: #ef4444;
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  animation: pulse-recording 1.5s infinite;
+}
+.btn-voice.processing {
+  border-color: var(--accent);
+  background: rgba(16, 163, 127, 0.15);
+  color: var(--accent);
+  animation: pulse-processing 1s infinite;
+}
+.btn-voice.hidden {
+  display: none;
+}
+@keyframes pulse-recording {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
+}
+@keyframes pulse-processing {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Voice status bar */
+.voice-status {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--bg-tertiary);
+  border-radius: 8px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.voice-status.active {
+  display: flex;
+}
+.voice-status .voice-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ef4444;
+  animation: pulse-recording 1.5s infinite;
+}
+.voice-status.processing .voice-indicator {
+  background: var(--accent);
+  animation: pulse-processing 1s infinite;
+}
+.voice-status .voice-timer {
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.voice-status .voice-cancel {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 16px;
+}
+.voice-status .voice-cancel:hover {
+  color: var(--danger);
+}
+
 .disclaimer {
   font-size: 12px;
   color: var(--text-muted);

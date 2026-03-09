@@ -507,3 +507,253 @@ function showToast(message) {
     }, 2500);
   });
 }
+
+// ─── Voice Chat ─────────────────────────────────────────────────────
+
+let voiceAvailable = false;
+let isRecording = false;
+let isProcessingVoice = false;
+let mediaRecorder = null;
+let audioChunks = [];
+let recordingStartTime = null;
+let voiceTimerInterval = null;
+
+// Check if voice is available on page load
+async function checkVoiceStatus() {
+  try {
+    const res = await fetch("/api/voice/status");
+    const data = await res.json();
+    voiceAvailable = data.available;
+    const btn = document.getElementById("voiceBtn");
+    if (btn) {
+      btn.classList.toggle("hidden", !voiceAvailable);
+    }
+  } catch (e) {
+    voiceAvailable = false;
+  }
+}
+
+function toggleVoice() {
+  if (isProcessingVoice) return;
+  if (isRecording) {
+    stopRecording();
+  } else {
+    startRecording();
+  }
+}
+
+async function startRecording() {
+  if (isRecording || isProcessingVoice) return;
+
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({
+      audio: {
+        channelCount: 1,
+        sampleRate: 16000,
+        echoCancellation: true,
+        noiseSuppression: true,
+      },
+    });
+
+    audioChunks = [];
+    mediaRecorder = new MediaRecorder(stream, {
+      mimeType: MediaRecorder.isTypeSupported("audio/webm;codecs=opus")
+        ? "audio/webm;codecs=opus"
+        : "audio/webm",
+    });
+
+    mediaRecorder.ondataavailable = (e) => {
+      if (e.data.size > 0) audioChunks.push(e.data);
+    };
+
+    mediaRecorder.onstop = () => {
+      // Stop all tracks
+      stream.getTracks().forEach((t) => t.stop());
+      // Process the recorded audio
+      processVoiceChat();
+    };
+
+    mediaRecorder.start(100); // Collect data every 100ms
+    isRecording = true;
+    recordingStartTime = Date.now();
+
+    // Update UI
+    const btn = document.getElementById("voiceBtn");
+    btn.classList.add("recording");
+    const status = document.getElementById("voiceStatus");
+    status.classList.add("active");
+    status.classList.remove("processing");
+    document.getElementById("voiceLabel").textContent = "Listening...";
+    document.getElementById("voiceTimer").textContent = "0:00";
+
+    // Start timer
+    voiceTimerInterval = setInterval(updateVoiceTimer, 1000);
+  } catch (err) {
+    console.error("Microphone access denied:", err);
+    showToast("Microphone access denied. Please allow microphone in browser settings.");
+  }
+}
+
+function stopRecording() {
+  if (!isRecording || !mediaRecorder) return;
+  isRecording = false;
+  clearInterval(voiceTimerInterval);
+  mediaRecorder.stop();
+
+  // Update button
+  const btn = document.getElementById("voiceBtn");
+  btn.classList.remove("recording");
+  btn.classList.add("processing");
+
+  // Update status
+  const status = document.getElementById("voiceStatus");
+  status.classList.add("processing");
+  document.getElementById("voiceLabel").textContent = "Processing...";
+}
+
+function cancelVoice() {
+  if (mediaRecorder && isRecording) {
+    isRecording = false;
+    clearInterval(voiceTimerInterval);
+    mediaRecorder.stream.getTracks().forEach((t) => t.stop());
+    mediaRecorder = null;
+    audioChunks = [];
+  }
+  isProcessingVoice = false;
+
+  // Reset UI
+  const btn = document.getElementById("voiceBtn");
+  btn.classList.remove("recording", "processing");
+  const status = document.getElementById("voiceStatus");
+  status.classList.remove("active", "processing");
+}
+
+function updateVoiceTimer() {
+  if (!recordingStartTime) return;
+  const elapsed = Math.floor((Date.now() - recordingStartTime) / 1000);
+  const min = Math.floor(elapsed / 60);
+  const sec = elapsed % 60;
+  document.getElementById("voiceTimer").textContent =
+    `${min}:${sec.toString().padStart(2, "0")}`;
+}
+
+async function processVoiceChat() {
+  if (audioChunks.length === 0) {
+    cancelVoice();
+    return;
+  }
+
+  isProcessingVoice = true;
+  const status = document.getElementById("voiceStatus");
+  document.getElementById("voiceLabel").textContent = "Transcribing...";
+
+  // Create audio blob
+  const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
+  audioChunks = [];
+
+  // Ensure we have a conversation
+  if (!currentConversation) {
+    await createNewConversation();
+  }
+
+  const formData = new FormData();
+  formData.append("audio", audioBlob, "recording.webm");
+  formData.append("conversation_id", currentConversation || "");
+
+  try {
+    document.getElementById("voiceLabel").textContent = "Thinking...";
+
+    const res = await fetch("/api/voice/chat", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ detail: "Voice processing failed" }));
+      throw new Error(err.detail || "Voice processing failed");
+    }
+
+    // Get metadata from headers
+    const userText = res.headers.get("X-User-Text") || "";
+    const responseText = res.headers.get("X-Response-Text") || "";
+    const convId = res.headers.get("X-Conversation-Id");
+    const sttMs = res.headers.get("X-STT-Ms") || "?";
+    const llmMs = res.headers.get("X-LLM-Ms") || "?";
+    const ttsMs = res.headers.get("X-TTS-Ms") || "?";
+    const totalMs = res.headers.get("X-Total-Ms") || "?";
+
+    if (convId) currentConversation = convId;
+
+    // Show user message in chat
+    if (userText) {
+      addMessageToChat("user", "🎤 " + userText);
+    }
+
+    // Show assistant message in chat
+    if (responseText) {
+      addMessageToChat("assistant", responseText);
+    }
+
+    // Play audio response
+    document.getElementById("voiceLabel").textContent = "Speaking...";
+    const audioBytes = await res.arrayBuffer();
+    await playAudioResponse(audioBytes);
+
+    console.log(`Voice: STT=${sttMs}ms LLM=${llmMs}ms TTS=${ttsMs}ms Total=${totalMs}ms`);
+
+    // Refresh conversation list
+    loadConversations();
+  } catch (err) {
+    console.error("Voice chat error:", err);
+    showToast(err.message || "Voice chat failed");
+  } finally {
+    isProcessingVoice = false;
+    // Reset UI
+    const btn = document.getElementById("voiceBtn");
+    btn.classList.remove("recording", "processing");
+    status.classList.remove("active", "processing");
+  }
+}
+
+function addMessageToChat(role, content) {
+  const messagesDiv = document.getElementById("messages");
+  const emptyState = document.getElementById("emptyState");
+  if (emptyState) emptyState.style.display = "none";
+
+  const msgDiv = document.createElement("div");
+  msgDiv.className = `message ${role}`;
+
+  const bubble = document.createElement("div");
+  bubble.className = "message-content";
+  bubble.textContent = content;
+
+  msgDiv.appendChild(bubble);
+  messagesDiv.appendChild(msgDiv);
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+async function playAudioResponse(arrayBuffer) {
+  return new Promise((resolve, reject) => {
+    try {
+      const blob = new Blob([arrayBuffer], { type: "audio/wav" });
+      const url = URL.createObjectURL(blob);
+      const audio = new Audio(url);
+      audio.onended = () => {
+        URL.revokeObjectURL(url);
+        resolve();
+      };
+      audio.onerror = (e) => {
+        URL.revokeObjectURL(url);
+        reject(e);
+      };
+      audio.play().catch(reject);
+    } catch (e) {
+      reject(e);
+    }
+  });
+}
+
+// Check voice on startup
+document.addEventListener("DOMContentLoaded", () => {
+  checkVoiceStatus();
+});

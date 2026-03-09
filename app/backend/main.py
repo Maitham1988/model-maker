@@ -98,6 +98,23 @@ except Exception as e:
     print(f"⚠️  Knowledge RAG not available: {e}")
     rag = None
 
+# ── Voice Engine (offline STT + TTS) ───────────────────────────────
+VOICE_MODEL_DIR = BASE_DIR.parent / "models" / "voice"
+PIPER_VOICE = VOICE_MODEL_DIR / "en_US-lessac-medium.onnx"
+
+voice_engine = None
+try:
+    from backend.voice_engine import VoiceEngine  # noqa: E402
+
+    voice_engine = VoiceEngine(
+        whisper_model="base",
+        piper_voice_path=str(PIPER_VOICE) if PIPER_VOICE.exists() else None,
+    )
+    voice_engine.load()
+except Exception as e:
+    print(f"⚠️  Voice engine not available: {e}")
+    voice_engine = None
+
 # ── FastAPI App ─────────────────────────────────────────────────────
 app = FastAPI(
     title="Model Maker — Local AI",
@@ -140,13 +157,14 @@ async def security_middleware(request: Request, call_next):
     response.headers["X-Frame-Options"] = "DENY"
     response.headers["X-XSS-Protection"] = "1; mode=block"
     response.headers["Referrer-Policy"] = "no-referrer"
-    response.headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=(), payment=()"
+    response.headers["Permissions-Policy"] = "camera=(), microphone=(self), geolocation=(), payment=()"
     response.headers["Content-Security-Policy"] = (
         "default-src 'self'; "
         "script-src 'self' 'unsafe-inline'; "
         "style-src 'self' 'unsafe-inline'; "
         "img-src 'self' data:; "
         "connect-src 'self'; "
+        "media-src 'self' blob:; "
         "font-src 'self'; "
         "frame-ancestors 'none'"
     )
@@ -164,6 +182,12 @@ from backend.routes import router  # noqa: E402
 
 routes_init(database=db, llm_engine=engine, cfg_path=str(CONFIG_PATH), knowledge_rag=rag)
 app.include_router(router)
+
+# ── Voice Router ────────────────────────────────────────────────────
+from backend.voice_routes import init_voice, voice_router  # noqa: E402
+
+init_voice(database=db, llm_engine=engine, voice_engine=voice_engine)
+app.include_router(voice_router)
 
 # ── Static Frontend ─────────────────────────────────────────────────
 app.mount("/static", StaticFiles(directory=str(FRONTEND_DIR)), name="static")
