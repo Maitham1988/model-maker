@@ -36,6 +36,9 @@ build/
 builds/
 *.egg-info/
 
+# llama.cpp build (cloned repo)
+tools/llama.cpp/
+
 # Logs
 *.log
 

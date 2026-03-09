@@ -79,18 +79,21 @@ pick_model() {
         MODEL_FILE="$MODEL_14B_FILE"
         MODEL_SIZE="8.5 GB"
         MODEL_NAME="Qwen2.5-14B (Premium)"
+        MIN_MODEL_SIZE=7500000000   # 7.5 GB minimum for 14B
     elif [ "$ram_gb" -ge 8 ]; then
         MODEL_TIER="standard"
         MODEL_URL="$MODEL_7B_URL"
         MODEL_FILE="$MODEL_7B_FILE"
         MODEL_SIZE="4.4 GB"
         MODEL_NAME="Qwen2.5-7B (Standard — Recommended)"
+        MIN_MODEL_SIZE=3500000000   # 3.5 GB minimum for 7B
     else
         MODEL_TIER="lite"
         MODEL_URL="$MODEL_3B_URL"
         MODEL_FILE="$MODEL_3B_FILE"
         MODEL_SIZE="2.0 GB"
         MODEL_NAME="Qwen2.5-3B (Lite)"
+        MIN_MODEL_SIZE=1500000000   # 1.5 GB minimum for 3B
     fi
 }
 
@@ -177,15 +180,15 @@ MODEL_PATH="$INSTALL_DIR/models/$MODEL_FILE"
 
 if [ -f "$MODEL_PATH" ]; then
     EXISTING_SIZE=$(stat -f%z "$MODEL_PATH" 2>/dev/null || echo "0")
-    if [ "$EXISTING_SIZE" -gt 1000000000 ]; then
+    if [ "$EXISTING_SIZE" -gt "$MIN_MODEL_SIZE" ]; then
         print_ok "Model already downloaded: $MODEL_NAME"
     else
-        print_warn "Incomplete download detected. Re-downloading..."
+        print_warn "Incomplete download detected ($(echo "scale=1; $EXISTING_SIZE/1073741824" | bc) GB). Re-downloading..."
         rm -f "$MODEL_PATH"
     fi
 fi
 
-if [ ! -f "$MODEL_PATH" ] || [ "$(stat -f%z "$MODEL_PATH" 2>/dev/null || echo 0)" -lt 1000000000 ]; then
+if [ ! -f "$MODEL_PATH" ] || [ "$(stat -f%z "$MODEL_PATH" 2>/dev/null || echo 0)" -lt "$MIN_MODEL_SIZE" ]; then
     mkdir -p "$INSTALL_DIR/models"
     echo ""
     echo -e "  ${BOLD}Downloading: $MODEL_NAME${NC}"
@@ -193,13 +196,32 @@ if [ ! -f "$MODEL_PATH" ] || [ "$(stat -f%z "$MODEL_PATH" 2>/dev/null || echo 0)
     echo -e "  This is a one-time download. It may take 10-30 minutes."
     echo ""
     
-    # Use curl with progress bar
-    curl -L --progress-bar -o "$MODEL_PATH" "$MODEL_URL"
+    # Download with resume support + retry (up to 3 attempts)
+    MAX_RETRIES=3
+    ATTEMPT=0
+    DOWNLOAD_OK=false
     
-    # Verify download
-    DOWNLOADED_SIZE=$(stat -f%z "$MODEL_PATH" 2>/dev/null || echo "0")
-    if [ "$DOWNLOADED_SIZE" -lt 1000000000 ]; then
-        print_fail "Download failed or incomplete. Please check your internet and try again."
+    while [ "$ATTEMPT" -lt "$MAX_RETRIES" ]; do
+        ATTEMPT=$((ATTEMPT + 1))
+        if [ "$ATTEMPT" -gt 1 ]; then
+            echo ""
+            print_warn "Retry $ATTEMPT/$MAX_RETRIES..."
+        fi
+        
+        # -C - enables resume for interrupted downloads
+        curl -L -C - --progress-bar --retry 3 --retry-delay 5 -o "$MODEL_PATH" "$MODEL_URL"
+        
+        # Verify download
+        DOWNLOADED_SIZE=$(stat -f%z "$MODEL_PATH" 2>/dev/null || echo "0")
+        if [ "$DOWNLOADED_SIZE" -gt "$MIN_MODEL_SIZE" ]; then
+            DOWNLOAD_OK=true
+            break
+        fi
+    done
+    
+    if [ "$DOWNLOAD_OK" = false ]; then
+        echo ""
+        print_fail "Download failed after $MAX_RETRIES attempts ($( echo "scale=1; $DOWNLOADED_SIZE/1073741824" | bc) GB / $MODEL_SIZE). Check your internet and try again."
     fi
     
     echo ""
@@ -222,7 +244,7 @@ if [ ! -f "$CONFIG_FILE" ]; then
   "temperature": 0.7,
   "top_p": 0.9,
   "repeat_penalty": 1.1,
-  "gpu_layers": 0,
+  "gpu_layers": -1,
   "max_history_messages": 20,
   "system_prompt": "",
   "setup_completed": false
