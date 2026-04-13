@@ -32,7 +32,7 @@ classifiers = [
 
 dependencies = [
     "fastapi>=0.100.0",
-    "uvicorn[standard]>=0.23.0",
+    "uvicorn[standard]>=0.44.0",
     "llama-cpp-python>=0.2.0",
     "pydantic>=2.0.0",
     "onnxruntime>=1.16.0",
